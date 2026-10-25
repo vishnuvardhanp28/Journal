@@ -1,0 +1,48 @@
+{
+  "scope": "AEAD reference baselines only; no supplied chaos-based cipher was implemented or attacked.",
+  "dataset_assets": 22,
+  "grayscale_assets": 12,
+  "rgb_assets": 10,
+  "image_cipher_cases": 44,
+  "algorithms": [
+    "AES-256-GCM",
+    "ChaCha20-Poly1305"
+  ],
+  "all_roundtrips_pass": true,
+  "integrity_attack_cases": 572,
+  "all_integrity_and_wrong_key_attacks_rejected": true,
+  "nominal_key_bits": 256,
+  "fresh_nonce_differential_repeats_per_image_cipher": 5,
+  "runtime_repeats_per_image_cipher": 9,
+  "runtime_scaling_fits": [
+    {
+      "algorithm": "AES-256-GCM",
+      "intercept_ms": -0.05199377358490556,
+      "slope_ms_per_byte": 7.678107495577831e-07,
+      "r_squared": 0.9703949279111136,
+      "n_images": 22,
+      "interpretation": "Descriptive linear fit over this corpus; not a formal algorithmic complexity proof."
+    },
+    {
+      "algorithm": "ChaCha20-Poly1305",
+      "intercept_ms": -0.038648584905660324,
+      "slope_ms_per_byte": 1.035109705894998e-06,
+      "r_squared": 0.8875712404711532,
+      "n_images": 22,
+      "interpretation": "Descriptive linear fit over this corpus; not a formal algorithmic complexity proof."
+    }
+  ],
+  "environment": {
+    "python": "3.14.5",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "machine": "AMD64",
+    "processor": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD"
+  },
+  "warnings": [
+    "NPCR/UACI on fresh-nonce AEAD outputs are dominated by nonce randomization; do not interpret as intrinsic plaintext diffusion.",
+    "Chi-square, entropy, histograms, local entropy, correlation, MSE, and PSNR are descriptive image statistics, not security proofs.",
+    "Chaos-specific Lyapunov/bifurcation/fractal/NIST tests are inapplicable to these standard AEAD primitives.",
+    "Noise/crop tests for AEAD measure fail-closed integrity, not graceful image recovery.",
+    "Timing cannot be ranked against the six articles unless hardware, software, image sizes, and timing boundaries are matched."
+  ]
+}

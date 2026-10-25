@@ -1,0 +1,2 @@
+# Ignore only transient Office lock files; retain research artifacts and generated results.
+~$*

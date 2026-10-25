@@ -1,0 +1,171 @@
+{
+  "paper": "Zhang, Zhou, and Luo (2024), Nonequal-length image encryption based on bitplane chaotic mapping",
+  "source": "supplied PDF s41598-024-58612-8.pdf, journal pp. 6-7, Eqs. (11)-(16), (17), (20)-(29)",
+  "scope": "Equation-level chosen-plaintext collision audit of the binary diffusion stage; not a complete Qiskit/chaotic-cipher implementation.",
+  "assumptions": [
+    "fixed secret keys and deterministic key streams, as described in the published steps",
+    "A1 is the concatenation of four higher bitplanes and A2 of four lower bitplanes; complementing all A1 bits corresponds to XORing each 8-bit pixel with 240",
+    "the subsequent confusion and Arnold stages are deterministic functions of the diffusion outputs and the fixed key/shape"
+  ],
+  "identity": "For cyclic binary difference D(x)[0]=x[0] XOR x[L-1], D(x)[i]=x[i] XOR x[i-1], complementing every bit leaves D(x) unchanged. Thus A1 and NOT(A1) produce identical B1; A2, sum(B1), B2, and downstream deterministic ciphertext remain identical.",
+  "probe_seed": 20261025,
+  "trials_per_size": 100,
+  "sizes": [
+    {
+      "height": 2,
+      "width": 2,
+      "trials": 100,
+      "ciphertext_diffusion_collisions": 100,
+      "all_trials_collide": true
+    },
+    {
+      "height": 4,
+      "width": 4,
+      "trials": 100,
+      "ciphertext_diffusion_collisions": 100,
+      "all_trials_collide": true
+    },
+    {
+      "height": 8,
+      "width": 8,
+      "trials": 100,
+      "ciphertext_diffusion_collisions": 100,
+      "all_trials_collide": true
+    },
+    {
+      "height": 16,
+      "width": 12,
+      "trials": 100,
+      "ciphertext_diffusion_collisions": 100,
+      "all_trials_collide": true
+    },
+    {
+      "height": 32,
+      "width": 32,
+      "trials": 100,
+      "ciphertext_diffusion_collisions": 100,
+      "all_trials_collide": true
+    }
+  ],
+  "total_collisions": 500,
+  "total_trials": 500,
+  "exhaustive_small_sequence_check": {
+    "sequence_length": 4,
+    "cases_over_all_A1_A2_b1_b2": 65536,
+    "collisions": 65536,
+    "all_cases_collide": true
+  },
+  "usc_sipi_grayscale_assets_checked": 12,
+  "usc_sipi_asset_records": [
+    {
+      "file": "4.2.03_gray.tiff",
+      "sha256": "ea974f472124bebb3029ce0956fef66bafb96eeeeb5458f2775dc5431bd73c57",
+      "paired_plaintext_sha256": "0d67b2e58a1dc01d7e116153353da5563882ca52c9043e047072c15fa6a6ff1e",
+      "height": 512,
+      "width": 512,
+      "plaintext_pair": "P and P XOR 240 at every pixel",
+      "same_post_diffusion_sequences": true
+    },
+    {
+      "file": "4.2.07_gray.tiff",
+      "sha256": "481a55111c0b34ba5569a0684b27b68bf20bf783eb9cba1cb0d88b5df60f0bb1",
+      "paired_plaintext_sha256": "09142375c89e45a4d24825d4bd843c7b7e67a895fc044bf8e645dc1b280fb11a",
+      "height": 512,
+      "width": 512,
+      "plaintext_pair": "P and P XOR 240 at every pixel",
+      "same_post_diffusion_sequences": true
+    },
+    {
+      "file": "5.1.09.tiff",
+      "sha256": "64210a233aeaf4c8d76232daa2b8e9dabd251c89e00771b5b316b60e4844d2e4",
+      "paired_plaintext_sha256": "f2352b146312f6d5efaf96dffd3c0cf8eb80a50086d6c368f717929915b99bb9",
+      "height": 256,
+      "width": 256,
+      "plaintext_pair": "P and P XOR 240 at every pixel",
+      "same_post_diffusion_sequences": true
+    },
+    {
+      "file": "5.1.10.tiff",
+      "sha256": "046ade1c2ee9a92117a0373b54db79d27e2fdc724649c7c15ae3fdb95fca0522",
+      "paired_plaintext_sha256": "8630334e20814ed97598c6f5079455a7d3d51fbd42d5023ffbf25e4faee26702",
+      "height": 256,
+      "width": 256,
+      "plaintext_pair": "P and P XOR 240 at every pixel",
+      "same_post_diffusion_sequences": true
+    },
+    {
+      "file": "5.1.11.tiff",
+      "sha256": "475b9329d3def5f97c2e73c82d2d532accbcdd50de2999e72e47cfcdeb6a7c13",
+      "paired_plaintext_sha256": "417363b09b8d0afd8a581ec71dc9c7d2d5db7d9deccad37ae9347083213938ed",
+      "height": 256,
+      "width": 256,
+      "plaintext_pair": "P and P XOR 240 at every pixel",
+      "same_post_diffusion_sequences": true
+    },
+    {
+      "file": "5.1.12.tiff",
+      "sha256": "ec07e39dd5a342e91d56852a971d45bd3ec31ccca778ade7ebcfe47a2fc215ac",
+      "paired_plaintext_sha256": "2ab718b9297022330f703531f154fa7d24952c0d5f2272519f9f555bbb980dbc",
+      "height": 256,
+      "width": 256,
+      "plaintext_pair": "P and P XOR 240 at every pixel",
+      "same_post_diffusion_sequences": true
+    },
+    {
+      "file": "5.2.08.tiff",
+      "sha256": "000a3e36a04b954cefd86d8ab2ac61676034e6cc9e3c0bbab8aaa95bcff03b93",
+      "paired_plaintext_sha256": "370c440e0d2d63f4cee28d2f0680f60d2815e5212db2373f12e2b97333d7dcbd",
+      "height": 512,
+      "width": 512,
+      "plaintext_pair": "P and P XOR 240 at every pixel",
+      "same_post_diffusion_sequences": true
+    },
+    {
+      "file": "5.2.09.tiff",
+      "sha256": "b12edcb11e8a816ce431b0bbbb02f91bc8614f5f67d3fa1ffd1067d8dd2ff5f8",
+      "paired_plaintext_sha256": "69111176efc324dcc9e9df3147dd2c7a78edcb94e87a0a4ab166fb67477ee3f4",
+      "height": 512,
+      "width": 512,
+      "plaintext_pair": "P and P XOR 240 at every pixel",
+      "same_post_diffusion_sequences": true
+    },
+    {
+      "file": "5.2.10.tiff",
+      "sha256": "044ed17593bc94a5c0fff638f2c4d068f563d415980e1f61b423c778bb61c181",
+      "paired_plaintext_sha256": "7fbac8ae8afab5788a37f0e0697fd690d3a3625d35acc1fdb5ebca4772bb66ca",
+      "height": 512,
+      "width": 512,
+      "plaintext_pair": "P and P XOR 240 at every pixel",
+      "same_post_diffusion_sequences": true
+    },
+    {
+      "file": "7.1.01.tiff",
+      "sha256": "8ce9bb9ac39ffa0b630cd7245e90833867997631789c35c1625cbda4386a2305",
+      "paired_plaintext_sha256": "92b49e2a9da5c66f315d0fbffa23ae3ff4778b0cdfd1f9f82ebae6882c969063",
+      "height": 512,
+      "width": 512,
+      "plaintext_pair": "P and P XOR 240 at every pixel",
+      "same_post_diffusion_sequences": true
+    },
+    {
+      "file": "7.1.03.tiff",
+      "sha256": "77c09b46652b93d0ebe1ee4441ca0703848bd8af518dad12e1c137e402a61d25",
+      "paired_plaintext_sha256": "4808d0ac3898fb36f2d0cc31afa427c75c8d7add1fdd25b2610a9a19bfdab58b",
+      "height": 512,
+      "width": 512,
+      "plaintext_pair": "P and P XOR 240 at every pixel",
+      "same_post_diffusion_sequences": true
+    },
+    {
+      "file": "boat.512.tiff",
+      "sha256": "6bc7319b1e3b44ce0b2a571ac39a28bac94437d812057d1afb2cf78ea3a9a35f",
+      "paired_plaintext_sha256": "e521f42c3365ba9ce29a137d4615fed96d2f9ec88325842306057ee2fe5cfd92",
+      "height": 512,
+      "width": 512,
+      "plaintext_pair": "P and P XOR 240 at every pixel",
+      "same_post_diffusion_sequences": true
+    }
+  ],
+  "usc_sipi_pair_collisions": 12,
+  "interpretation": "The published deterministic mapping is non-injective under the stated assumptions. A correct decryptor cannot recover both distinct plaintexts from the same ciphertext. This is an equation-derived collision, not key recovery, and would be avoided if the paper's implemented algorithm contains an unreported input-dependent operation or randomization."
+}

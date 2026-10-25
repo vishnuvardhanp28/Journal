@@ -1,0 +1,794 @@
+DNA color image encryption based 
+on conservative chaotic system
+Minxiu Yan, Minghui Liu & Chong Li
+Simple formal chaotic systems that exhibit complex behaviors continue to garner significant 
+attention. This paper introduces a three-dimensional (3D) conservative chaotic system rooted in 
+generalized Hamiltonian forms. The system’s dynamics are comprehensively analyzed employing 
+Lyapunov exponents, phase diagrams, and Poincaré map, demonstrating its capability to transition 
+between periodic and chaotic states. Through alterations in system parameters and initial values, 
+the coexistence of multiple stable states within the system is corroborated. Amplitude modulation 
+control over state variables is achieved by integrating proportionality constants into these variables. 
+Furthermore, the system is applied to a DNA color image encryption algorithm, and its robustness 
+is substantiated through performance analysis and resistance to cropping attacks. This validation 
+underscores the encryption algorithm’s excellent confidentiality performance based on the proposed 
+system.
+Keywords Conservative chaotic system, Steady-state coexistence, Amplitude modulation control, DNA color 
+image encryption
+Since chaos theory was proposed by the United States meteorologist Lorenz 1 in the 1960s, it has gradually 
+evolved into an important branch of science, as evidenced by studies such as 2–5. With the rapid progress of 
+information technology, the transmission and storage of image data have become increasingly convenient, but 
+this convenience has simultaneously raised serious information security issues. Given the sensitivity of image 
+data and the need for confidentiality, effective protection measures must be implemented during transmission 
+and storage.
+Chaotic systems exhibit strong pseudo-randomness and an extreme sensitivity to initial conditions, 
+enabling their integration with various permutation methods for image encryption. Consequently, with the 
+rapid development of the Internet and information technology, image encryption techniques have emerged 
+as a critical focus in information security research 6,7. For instance, Gao et al. 8 proposed a chaos-based image 
+encryption algorithm, while Xu et al. 9 introduced a novel image encryption scheme based on discrete chaotic 
+systems to enhance data security.
+Unlike dissipative chaotic systems, conservative systems lack the typical chaotic attractors observed in 
+dissipative systems, despite sharing the same sensitivity to initial conditions. This distinct feature renders time-
+delay embedding reconstruction methods ineffective for conservative systems, as their dynamic behaviors 
+become highly unpredictable, thereby significantly enhancing system security 10. In 2020, Qi Guoyuan et al. 11 
+proposed a four-dimensional(4D) Euler equation and demonstrated that conservative chaotic systems exhibit 
+superior ergodicity, making them more suitable for applications such as image encryption. Owing to their 
+advantages of ultra-low power consumption, high information storage density, high algorithmic feasibility, and 
+efficient parallelism, DNA coding has been widely adopted in image encryption, particularly in combination 
+with chaotic systems12,13. For example, Zhang et al. 14 developed a color image encryption scheme based on a 
+fractional-order 4D hyperchaotic system and DNA sequence operations, incorporating DNA coding rules into 
+the key set and utilizing dual DNA operation principles.
+Currently, most chaotic image encryption algorithms rely on dissipative systems15,16. To explore the potential 
+of conservative chaotic systems in image encryption, this paper successfully constructs a 3D conservative chaotic 
+system by introducing a generalized Hamiltonian equation. This system not only enables flexible switching 
+between chaotic and periodic states through parameter modulation but also demonstrates multistability 
+coexistence and rich dynamical behaviors. The proposed conservative chaotic system is applied to a DNA-based 
+color image encryption algorithm, significantly improving encryption performance and security. Compared 
+to existing chaotic encryption methods, this algorithm exhibits superior performance in key space size, key 
+sensitivity, and resistance to cropping attacks. Experimental results confirm that the algorithm achieves higher 
+security levels, offering a novel solution in the field of image encryption.
+School of Information Engineering, Shenyang University of Chemical Technology, Shenyang 110142, China. 
+email: lichong@syuct.edu.cn
+OPEN
+Scientific Reports |         (2025) 15:9278 1| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports
+
+
+The main contributions of this paper are as follows:
+Theoretical innovation: A 3D conservative chaotic system with multistability coexistence is proposed, 
+expanding the research scope of chaotic dynamics.
+Technical breakthrough: A hybrid chaotic image encryption framework is developed. Unlike traditional 
+single-system approaches, this work innovatively integrates conservative chaotic systems, Logistic chaotic 
+systems, and DNA encoding/decoding operations, leveraging their complementary advantages to advance 
+chaos-based encryption.
+Reference value: Simulation experiments and performance evaluations provide critical insights for optimizing 
+chaos-driven encryption algorithms.
+Application value: The study offers new methodologies for applying chaotic systems to information security 
+and communication encryption.
+System construction
+The differential equations for the classical conservative chaotic Sprott-A system are as follows:
+ 
+{ ˙x = y
+˙y = −x + yz
+˙z = −y2 +2
+ (1)
+In a broad sense, the Hamiltonian system is divided into four parts: energy distribution type, energy consumption, 
+energy generation, and energy exchange. The use of matrix differential equations is expressed as:
+ ˙X = J(X )∇H (X )− Λ(X )∇H (X )+ U (2)
+In this equation X =( x ,y ,z)T is a state variable. J(X) is an antisymmetric matrix, satisfying J(X )= J(X )T. 
+Λ(X ) is an indefinite matrix. ∇H(X) denotes the gradient vector of the Hamiltonian energy H(X). U represents 
+the external torque applied to the system.
+According to the generalized Hamiltonian form ˙X = J(X )∇H (X )− Λ(X )∇H (X )+ U, the governing 
+equation of the classical conservative chaotic Sprott-A system is:
+ 
+[
+˙x
+˙y
+˙z
+]
+=
+[
+0 10
+−10 y
+0 −y 0
+][
+x
+y
+z
+]
++
+[
+0
+0
+1
+]
+ (3)
+From Eq. (3), we can get the following:
+ 
+J(X )=
+[
+0 10
+−10 y
+0 −y 0
+]
+,∇H (X )=
+[
+x
+y
+z
+]
+,U =
+[
+0
+0
+1
+]
+ (4)
+It can be seen that the Sprott-A system contains an undissipative vector field associated with energy storage, 
+whereas the vector field represented with energy consumption or generated is 0, it is different from the generalized 
+Hamiltonian form, and the external force parameters of this system can influence the energy conservation state 
+of the system, which can be mathematically described as:
+ ˙X = J(X )∇H (X )+ U (5)
+Based on the generalized Hamiltonian system framework of the Sprott-A system, we have formulated a system 
+as presented in Eq. (6). This system’s structural matrix exhibits distinctive features, notably the presence of zeros 
+along the main diagonal, while the remaining elements exhibit a mirrored pattern across this diagonal, effectively 
+reversing their positions with respect to the main axis.
+ 
+[
+˙x
+˙y
+˙z
+]
+=
+[ 0 a cx
+−a 0 b(x + y)
+−cx −b(x + y)0
+][
+x
+y
+z
+]
++
+[
+0
+0
+1
+]
+ (6)
+From Eq. (6), the system equation can be obtained:
+ 
+{ ˙x = ay − cxz
+˙y = −ax − bz(x + y)
+˙z = cx2 − by(x + y)+1
+ (7)
+Where x, y, and z are state variables, and a, b and c are the parameters of the new system. When the parameters 
+a =1 , b =1 .9, c =1 , and the initial values of the system are (x0,y0,z0) = (0, 1,1), the phase trajectories of 
+the system are shown in the Fig. 1.
+Scientific Reports |         (2025) 15:9278 2| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+Analysis of dynamic characteristics
+Initial values sensitivity
+Chaotic systems are highly sensitive to initial conditions and are analyzed for the sensitivity of the new 
+system to these initial values. The system parameters are selected as a =1 , b =1 .9, and c =1 . With initial 
+conditions of (x0,y0,z0) = (0, 1,1) and (x0,y 0,z0) = (0.001,1,1), respectively, a comparison of the time 
+series diagrams for the state variables x and z under different initial conditions is presented in Fig. 2. The 
+red time series represents the initial values (x0,y0,z0) = (0, 1,1), the blue time series represents the initial 
+values (x0,y 0,z0) = (0.001,1,1). Fig. 2a shows that the trajectory of the x time series completely separates 
+at approximately 49s and undergoes significant changes. As demonstrated in Fig. 2b, the z time series further 
+separates into distinct trajectories around this time point (49s). These results indicate that the new system 
+exhibits high sensitivity to initial values.
+Dissipation
+The dissipation degree of system (7) is:
+ 
+∇V = ∂ ˙x
+∂x + ∂ ˙y
+∂y + ∂ ˙z
+∂z
+The divergence calculation shows that ∇V =( b − c)z. When b = c, the system volume is conserved. However, 
+this paper selects volume as a system parameter under the condition a ̸=b. Therefore, even when z =0  and 
+the system dissipation vanishes ( ∇V =0 ), system ( 7) cannot be guaranteed to exhibit chaotic behavior with 
+volume conservation.
+Lyapunov exponents and fractal dimensions
+Lyapunov exponents are the critical tool for analyzing the dynamics of chaotic systems. They allow us to 
+determine the system’s state. For parameters a =1 , b =1 .9, c =1  and initial conditions (x0,y0,z0) = (0, 1,1), 
+the Lyapunov exponents of the proposed chaotic system are shown in Fig. 3, where LE 1 =0 .20, LE2 =0 , and 
+LE 3 = −0.20. The positive value of LE1 confirms that the system exhibits chaotic behavior. At the same time, 
+the sum of these three Lyapunov exponents is obtained as LEs =0 , which indicates that a chaotic system can 
+exhibit conservative properties.
+Lyapunov fractal dimensionality DL is also an important indicator to measure whether a system is chaotic 
+or not. Fractal dimensionality DL can be calculated according to the Lyapunov exponents, as shown in Eq. (8):
+Fig. 2. Time series diagrams with the initial values (x0,y0,z0) = (0, 1,1) represented by red and 
+(x0,y 0,z0) = (0.001,1,1) represented by blue. (a) Comparison of x time series diagrams. (b) Comparison of 
+z time series diagrams.
+ 
+Fig. 1. Phase trajectories with fixed parameters a =1 , b =1 .9, c =1  and initial conditions of 
+(x0,y0,z0) = (0, 1,1). (a) x − y − z 3D space. (b) x − y plane..
+ 
+Scientific Reports |         (2025) 15:9278 3| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+ 
+D L = j+ 1
+|LEj+1|
+j∑
+i=1
+LEi (8)
+where j denotes the maximum integer satisfying both conditions 
+∑j
+i=1 LEi ≥ 0 and 
+∑j+1
+i=1 LEi ≤ 0. For 
+j =2 , the Lyapunov dimension is expressed as: DL =2+ 1
+|LE3| |LE1 + LE2| Substituting the specific 
+numerical values: D L =2+ 1
+|−0.20||0.2 0+0 | =2+1=3 . This result demonstrates that the Lyapunov 
+dimension of the system is an integer equal to the system’s dimensionality, thereby confirming that the system 
+belongs to a chaotic system.
+Effect of parameter changes on the system
+The system ( 7) contains three variable parameters with unknown specific values, namely the linear term 
+parameter a, and the nonlinear term parameters b and c. To investigate the influence of these parameters on the 
+system’s conservatism and chaotic behavior, this section employs multiple research methods to quantitatively 
+analyze the dynamic characteristics of the system under varying parametric conditions.
+Effect of parameter a on the system
+The first is the analysis of the linear term parameter a. The initial values of the system are (0,  1,  1), with 
+parameters b =1 .9 and c =1 . For a in the range [0,  3], the Lyapunov exponents are plotted as a function 
+of a. An in-depth analysis of Fig. 4a reveals that as a varies from 0 to 3, the system’s state undergoes 
+significant transformations in complexity. Notably, the maximum Lyapunov exponent exhibits considerable 
+fluctuations, indicating the dynamic nature and potential transitions in the system’s behavior. When 
+a ∈ [0,0.73]∪ [0.94,1.14]∪ [1.55,1.62]∪ [2.12,2.15], the maximum Lyapunov exponent is greater than 
+0, and the system is in a chaotic state; when a ∈ [0.73,0.94]∪ [1.14,1.55]∪ [1.62,2.12]∪ [2.15,3], the 
+maximum Lyapunov exponent is not greater than 0, and the system is in a periodic state. This demonstrates that 
+the system transitions between chaotic and periodic states as a varies, despite fixed initial conditions. From Fig. 
+4b, the Lyapunov exponents diagram oscillates near zero with fluctuating magnitudes, suggesting the system 
+does not always maintain a conservative chaotic state.
+For quantitative evaluation, several representative systems with distinct values of the parameter a 
+are meticulously selected. As an initial step, the specific value of a =0 .5 is chosen, and the corresponding 
+x − y − z phase trajectories are presented in Fig. 5a. This spatial phase diagram vividly depicts the chaotic 
+topology inherent in the system. Furthermore, Fig. 5b displays the Poincaré map with z as the cross-sectional 
+Fig. 4. Lyapunov exponents analysis with variable parameter a. (a) Lyapunov exponents diagram with 
+parameter a. (b) Sum of the Lyapunov exponents.
+ 
+Fig. 3. Lyapunov exponents analysis under fixed parameters. (a) Lyapunov exponents. (b) Sum of the 
+Lyapunov exponents.
+ 
+Scientific Reports |         (2025) 15:9278 4| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+plane, revealing an irregular ensemble of points characterized by dense clustering. At this parameter setting, the 
+system exhibits a mix of positive, zero, and negative Lyapunov exponents, conclusively indicating chaotic state 
+dynamics. The sum of the Lyapunov exponents equals zero, affirming the conservative nature of the system.
+When a =1 .5, the phase diagram in the x − y plane is shown in Fig. 6a, where the spatial topology exhibits 
+periodicity. The Poincaré map with z as the cross-section (Fig. 6b) displays a closed curve formed by densely 
+distributed points, indicating a periodic state of the system. The sum of the Lyapunov exponents equals zero, 
+which is consistent with the conservative nature of the system.
+From the above conclusions, it can be concluded that the change of the linear term parameter a can affect the 
+state of the system, so that the system changes between conservative chaos and conservative periods.
+Effect of parameter b on the system
+Subsequently, we delve into analyzing parameter b associated with the nonlinear term. For this investigation, the 
+initial values of the system are set to (0, 1, 1), while parameters a and c are fixed at -1 and 1, respectively. Within 
+the range b ∈ [1,3], we plot the Lyapunov exponents as a function of b to explore its variation with respect to 
+this crucial parameter.
+Analysis of Fig. 7a reveals a continuous interval of system states as parameter b varies from 1 to 3. Notably, 
+except at b =1 , the system consistently exhibits positive Lyapunov exponents, confirming its chaotic nature 
+within this range. In Fig. 7b, we observe that both the Lyapunov exponents and its corresponding curve 
+approximate zero, despite fluctuations in specific values. This observation indicates that the system does not 
+maintain a conservative chaotic state uniformly, suggesting potential variations in its dynamical behavior.
+Several typical systems with different values of parameter b are selected for quantitative analysis. First, we 
+consider the case of b =1 . The x − y − z phase trajectories are shown in Fig. 8a, and the corresponding Poincaré 
+map with z as the cross-section is presented in Fig. 8b, revealing independent points. The system exhibits two 
+Lyapunov exponents equal to zero, indicating a quasi-periodic state. Furthermore, the sum of all Lyapunov 
+exponents is zero, confirming the conservative nature of the system.
+The parameter b =2  is selected. The x − y − z phase trajectories are shown in Fig. 9a, while the spatial 
+phase trajectories present a chaotic topology. The Poincaré map with z as the cross-section is illustrated in 
+Fig. 9b, represented by a dense set of points. Under this parameter, the system exhibits a positive Lyapunov 
+exponent, indicating a chaotic state. Additionally, the sum of the Lyapunov exponents is 0, confirming the 
+system’s conservative nature.
+Fig. 6. Phase diagram and Poincaré map of the system with variable parameter a =1 .5. (a) x − y plane. (b) 
+Poincaré map at z =0 .
+ 
+Fig. 5. Phase trajectories and Poincaré map of the system with variable parameter a =0 .5. (a) x − y − z 3D 
+space. (b) Poincaré map at z =0 .
+ 
+Scientific Reports |         (2025) 15:9278 5| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+Effect of parameter c on the system
+We then analyze the nonlinear parameter c, with the system initialized at (0, 1, 1) and fixed parameters a =1  
+and b =1 .9. For c ∈ [−1.5, 1.5], the Lyapunov exponents are plotted as a function of c.
+Fig. 10a reveals that as c varies within this range, the system undergoes complex dynamical 
+transitions, accompanied by significant fluctuations in the maximum Lyapunov exponent. When 
+c ∈ [−1.5, 0.15] ∪ [0.47, 0.76] ∪ [0.95, 1.1]∪ [1.19, 1.5], the maximum Lyapunov exponent is positive, 
+indicating a chaotic state. Conversely, for c ∈ [0.15, 0.47] ∪ [0.76, 0.95] ∪ [1.1, 1.19], the maximum Lyapunov 
+exponent is non-positive, corresponding to periodic dynamics. These results demonstrate that the system 
+alternates between chaos and periodicity as parameter c varies, given a fixed initial state. As shown in Fig. 10b, 
+the Lyapunov exponents curve oscillates near zero with fluctuating amplitudes. This behavior further confirms 
+that the system does not always maintain a conservative chaotic state.
+Several typical systems with different values of parameter c are selected for quantitative analysis. First, the 
+value c = −1 is chosen. The corresponding x − y phase diagram is shown in Fig. 11a, exhibiting a chaotic 
+topology. The Poincaré map with z as the cross-sectional plane is presented in Fig. 11b, revealing an irregular set 
+Fig. 9. Phase trajectories and Poincaré map of the system with variable parameter b =2 . (a) x − y − z 3D 
+space. (b) Poincaré map at z =0 .
+ 
+Fig. 8. Phase trajectories and Poincaré map of the system with variable parameter b =1 . (a) x − y − z 3D 
+space.(b) Poincaré map at z =0 .
+ 
+Fig. 7. Lyapunov exponents analysis with variable parameter b. (a) Lyapunov exponents diagram with 
+parameter b. (b) Sum of the Lyapunov exponents.
+ 
+Scientific Reports |         (2025) 15:9278 6| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+of points composed of dense clusters. In this case, the system possesses a positive largest Lyapunov exponent, 
+indicating chaotic behavior.
+When parameter c is set to 0.3, the x − y phase diagram is shown in Fig. 12a, while the Poincaré map with 
+z as the cross-sectional plane is illustrated in Fig. 12b, revealing a closed figure formed by dense points. Under 
+this condition, the system exhibits no positive Lyapunov exponents and remains in a periodic state. Notably, the 
+sum of Lyapunov exponents equals zero, indicating that the system neither expands nor contracts exponentially, 
+consistent with its periodic behavior characteristic of conservative dynamics. Furthermore, the system is 
+conservative, as no net energy dissipation or gain occurs over time.
+These observations demonstrate that variations in parameters a (linear term), b (nonlinear term), and c 
+significantly alter the system’s state, inducing transitions between periodic and chaotic regimes. Such rich 
+dynamical behavior may enhance image encryption algorithms by leveraging chaotic states for higher security.
+Amplitude modulation control of chaotic systems
+When simulating chaotic circuits, it is necessary to implement linear compression of the dynamic range of the 
+system state variables to ensure that the operational amplifiers (op amps) and components operate within the 
+Fig. 12. Phase diagram and Poincaré map of the system with variable parameter c =0 .3. (a) x − y plane. (b) 
+Poincaré map at z =0 .
+ 
+Fig. 11. Phase diagram and Poincaré map of the system with variable parameter c = −1. (a) x − y plane. (b) 
+Poincaré map at z =0 .
+ 
+Fig. 10. Lyapunov exponents analysis with variable parameter c. (a) Lyapunov exponents diagram with 
+parameter c. (b) Sum of the Lyapunov exponents.
+ 
+Scientific Reports |         (2025) 15:9278 7| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+safe voltage domain. For chaotic system applications, the signal amplitude needs to be flexible. Therefore, it is 
+essential to develop a technique that can adjust the amplitude of chaotic signals without disrupting the state and 
+performance of the system.
+To control the amplitude of the state variables in system ( 7) and thereby modulate the amplitude of the 
+generated chaotic signal, the state variables can be scaled by introducing proportionality constants k1x, k2y, and 
+k3z. Specifically, the original state variables x, y, and z are replaced with k1x, k2y, and k3z, where k1, k2, and k3 
+are amplitude control constants. Consequently, system (7) can be expressed as:
+ 
+
+
+
+˙x =( ak2y − ck1k3xz)/k1
+˙y =[ −ak1x + bk3z(k1x + k2y)]/k2
+˙z =[ ck2
+1 x2 − bk2y(k1x + k2y)+1 ] /k3
+ (9)
+The initial values of system (9) are set to (1, 1, 1), with parameters a =1 , b =1 .9 and c =1 . When the amplitude 
+modulation parameters are set to k1 =1 , k2 =1 , k3 =1 , Fig. 13a shows the x − z phase diagram of the system, 
+Fig. 13b presents the Lyapunov exponents diagram, and Fig. 13c and d illustrate the x and z time series diagrams, 
+providing a time-domain view of the dynamic behavior. The Hamiltonian energy of the system is:
+H (X )= 1
+2 (x2 + y2 + z2)= 3
+2 .
+Amplitude modulation of single-state variables
+The amplitude control of a single signal amplifies the signal strength of x by a factor of 100, with the initial 
+conditions set to (100, 1, 1). Consequently, the amplitude modulation parameters are configured as k 1 =0 .01, 
+k2 =1 , and k3 =1 . The system’ s x − z phase portrait is depicted in Fig. 14a, while the corresponding Lyapunov 
+exponents diagram, x-time series, and z-time series are presented in Fig. 14b–d respectively.
+Its Hamiltonian energy is H (X )= 1
+2 (x2 + y2 + z2)= 3
+2 .
+After amplitude modulation of a single signal, the x-component amplitude increases by a factor of 100. This 
+scaling is visualized in both the x − z phase diagram and x time series diagram. Calculation of the Lyapunov 
+exponents (Fig. 14b) confirms the system maintains chaotic behavior. Notably, the Hamiltonian energy remains 
+unchanged throughout the modulation process, demonstrating system property conservation.
+Amplitude modulation of multi-state variables
+For multiple signal control, simultaneous scaling of x (×100) and z (×0.1) amplitudes yields initial conditions 
+(100, 1, 0.1), with modulation parameters set as k 1 =0 .01, k2 =1 , and k3 = 10. The resulting dynamics are 
+characterized by: (a) x − z phase diagram, (b) Lyapunov exponents diagram, (c) x time series, and (d) z time 
+series diagrams (Fig. 15).
+Its Hamiltonian energy is H (X )= 1
+2 (x2 + y2 + z2)= 3
+2 .
+After multi-signal amplitude modulation of the system, the x-signal amplitude exhibits a 100-fold increase, 
+while the z-signal amplitude decreases by a factor of 10. These changes are evident in both the phase diagram 
+Fig. 13. Phase diagram, Lyapunov exponents diagram and time series diagrams before amplitude modulation. 
+(a) x − z phase diagram. (b) Lyapunov exponents diagram. (c) x time series diagram. (d) z time series 
+diagram.
+ 
+Scientific Reports |         (2025) 15:9278 8| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+and the x and z time series diagrams. Calculation of the Lyapunov exponents confirms that the system remains 
+in a chaotic state. Notably, no variation is observed in the Hamiltonian energy, demonstrating that the system’s 
+fundamental properties are conserved.
+Fig. 15. Phase diagram, Lyapunov exponents diagram and time series diagrams of the system after amplitude 
+modulation of multiple signals. (a) x − z phase diagram. (b) Lyapunov exponents diagram. (c) x time series 
+diagram. (d) z time series diagram.
+ 
+Fig. 14. Phase diagram, Lyapunov exponents diagram and time series diagrams of the system after single 
+signal amplitude modulation. (a) x − z phase diagram. (b) Lyapunov exponents diagram. (c) x time series 
+diagram. (d) z time series diagram.
+ 
+Scientific Reports |         (2025) 15:9278 9| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+Steady-state coexistence of chaotic systems
+Unlike dissipative chaotic systems, conservative chaotic systems do not possess attractors. However, their chaotic 
+trajectories exhibit topological structures resembling attractors, known as steady-state chaotic flow clusters. A 
+special coexistence phenomenon observed in some dissipative systems involves multiple attractors emerging 
+from different initial values under identical parameters. In conservative systems, this multistability phenomenon 
+is termed homeostatic coexistence.
+When the parameters are set to a =1 , b =1 .9, c =1 , with initial values (0,  1,  1) and (0, −1, −1), the 
+corresponding x − y phase diagrams and ( p, s) motion trajectories are plotted in Fig. 16. In this figure, red 
+curves represent trajectories from the initial values (0, 1, 1), while blue curves correspond to (0, −1, −1). The 
+Lyapunov exponents calculated for Fig. 16a are LE 1 =0 .20, LE2 =0 , LE 3 = −0.20, confirming chaotic 
+behavior for the red initial conditions. Similarly, the exponents in Fig. 16b LE 1 =0 .22, LE2 =0 , LE 3 = −0.22 
+indicate chaos for the blue initial values. The irregular trajectories shown in Fig. 16c and d exhibit characteristics 
+consistent with chaotic systems, further evidencing the multistable coexistence within this dynamical system.
+When the parameters are set to a =1 , b =1 .9, c =0 .3 with initial values (0, 1, 1) and (0, −1, −1), the x − y 
+phase diagrams and (p, s) motion trajectory diagrams are presented in Fig. 17. The red trajectory corresponds 
+to initial values (0, 1, 1), while the blue trajectory represents (0, −1, −1). The Lyapunov exponents calculated 
+for Fig. 17a are LE1 =0 , LE2 =0 , LE3 =0 , indicating a quasi-periodic state for the red initial conditions, 
+as shown in Fig. 17c. In contrast, the exponents for Fig. 17b are LE 1 =0 .17, LE2 =0 , LE 3 = −0.17, 
+demonstrating chaotic behavior for the blue initial conditions. This chaotic state is consistent with the irregular 
+motion observed in Fig. 17d. These results collectively suggest multistable coexistence in the system.
+DNA color image encryption based on chaotic systems
+The proposed encryption algorithm comprises three main phases. First, the color image is decomposed into 
+three 2D matrices corresponding to the R, G, and B channels, each of which is subsequently partitioned into 
+sub-blocks. Second, pseudo-random sequences are generated through a novel 3D conservative chaotic system 
+combined with a 1D Logistic chaotic mapping. These sequences govern both the DNA encoding and algebraic 
+operations performed on the partitioned sub-blocks. Finally, the encoded DNA matrices are decoded using the 
+pseudo-random sequences, followed by row-column permutation. The ciphertext image is then reconstructed 
+by merging the processed matrices. The complete encryption workflow is illustrated in Fig. 18.
+Encryption algorithm steps
+Step 1: For an M × N image to be encrypted, separate the R, G, and B channels into three 2D matrices C1, C2, 
+C3. Each matrix is divided into blocks, with any missing portions padded with zeros.
+Step 2: Set the system parameters µ and initial values x, x1, x2 of the logistic mapping; generate pseudorandom 
+sequences {Qi}, {Si}, {Ti}. Derive x, x1, x2 from the following equation:
+Fig. 16. Phase diagrams and 0−1 test diagrams. (a) Initial values (0, 1, 1). (b) Initial values (0, −1, −1). (c) 
+(0, 1, 1) (p, s) trajectory diagram. (d) (0, −1, −1) (p, s) trajectory diagram.
+ 
+Scientific Reports |         (2025) 15:9278 10| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+Fig. 18. Encryption flow chart.
+ 
+Fig. 17. Phase diagrams and 0 − 1 test diagrams. (a) Initial values (0, 1, 1). (b) Initial values (0, −1, −1). (c) 
+(0, 1, 1) (p, s) trajectory diagram. (d) (0, −1, −1) (p, s) trajectory diagram.
+ 
+Scientific Reports |         (2025) 15:9278 11| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+ 
+{ x = sum(C1( :)) +sum(C2( :))/255 × M ×N ×2
+x1 = sum(C2( :)) +sum(C2( :))/255× M ×N ×2
+x2 = sum(C3( :)) +sum(C3( :))/255× M ×N ×2
+ (10)
+Step 3: Convert the pseudo-random sequence {Qi} into an M × N matrix with values in the range 0-255 for 
+DNA computation with C i(i=1 ,2,3) .
+ 
+{
+Q =m od(round(k×104),256)
+A =r eshape(Q,N ,M)
+′  (11)
+Step 4: Set the initial values x0, y0, z0 of the new 3D conservative chaotic system. These initial values are 
+calculated by the following equation to generate the pseudo-random sequences {Xi}, {Yi}, {Zi}.
+ 
+{ x0 =s um (sum (bitand(C 1,17)))/(17 × M ×N )
+y0 =s um(sum(bitand(C2,34)))/(34× M ×N )
+z0 =s um(sum(bitand(C3,68)))/(68× M ×N )
+ (12)
+Step 5: Specify the encoding method; the subblocks in the same position within C1, C2, and C3 use the same 
+encoding method determined by {Xi}. Each subblock of matrix A is determined by {Yi}. Since there are 8 
+possible DNA encoding methods, the values of sequences {Xi} and {Yi} must be converted into integers 
+ranging from 1 to 8. This conversion is implemented using the following equation:
+ 
+{
+X =m od(round(X ×104),8 )+1
+Y =m od(round(Y×104),8 )+1  (13)
+Step 6: Specify the operation rules of each sub-block. The same algorithm is used among C1, C2, C3, and the 
+corresponding block of the matrix A, as determined by {Zi}. Subsequently, the current sub-block and the 
+previous sub-block in the calculated matrix are combined with each other, which is also governed by {Z i} . 
+Therefore, the sequence {Zi} needs to be transformed into integers ranging from 0 to 3 according to the 
+following equation:
+ Z =m od(round(Z ×104),4) (14)
+The rule states: if Zi =0 , use addition operation; if Zi =1 , use subtraction operation; if Zi =2 , use XOR 
+operation; if Zi =3 , use XNOR operation.
+Step 7: Generate the pseudo-random sequence {Wi} and define the decoding rules for each sub-block.
+ 
+{ w 0 =s um(sum(bitand(C1,136)))/(136× M ×N )
+W =m od(round(W ×104),8 )+1  (15)
+Step 8: Row and Column Permutation. The pseudo-random sequences {Si} and {Ti} are sorted in descending 
+order to obtain the original position sequences Ui and Vi. These sequences are then utilized to permute the rows 
+and columns of the three-channel matrix, enhancing the scrambling effect. Additionally, this step strengthens 
+the ciphertext image’ s resistance to clipping attacks.
+ 
+{ [∼,U i]=s ort(Si,′descend′)
+[∼,Vi]=s ort(Ti,′descend′)  (16)
+Step 9: Combine the three 2D matrices (used for row and column substitution) into a 3D matrix, thereby 
+generating the ciphertext image.
+Decryption algorithm steps
+The decryption step is the reverse process of the encryption step. First, the ciphertext image is transformed into 
+rows and columns. Next, the DNA sequences are divided into blocks for DNA coding, operation phase, and 
+decoding. This step specifically involves interchanging the DNA addition and subtraction operations to ensure 
+decryption correctness. Finally, the padded zeros are removed, the three separate 2D matrices are merged into a 
+single 3D matrix, and the decrypted image is output.
+Experimental results and performance analysis
+Encryption and decryption
+Three color images (“Longmen” , “Flower” , and “Orange”), each with dimensions of 512×512 pixels, are selected 
+for encryption. The key generation algorithm, image processing functions, and encryption simulation scripts 
+are implemented in MATLAB R2019a. Notably, the encryption key K in this algorithm is dynamically generated 
+based on the pixel characteristics of the input color image, which ensures distinct keys for each of the three test 
+images. Specifically, the following implementation details should be emphasized:
+• K 1 = [3 .9999,0.3794,0.5551,0.5701,0.4430,0.1841,0.4275,0.5242]
+• K 2 = [3 .9999,0.5664,0.5190,0.3827,0.4953,0.3774,0.3718,0.6860]
+Scientific Reports |         (2025) 15:9278 12| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+• K 3 = [3 .9999,0.5867,0.4191,0.1032,0.6005,0.4699,0.1163,0.8235]
+Fig. 19 demonstrates the encryption and decryption effects of the proposed algorithm. From left to right, 
+the subfigures represent the plaintext, ciphertext, and decrypted image, respectively. As shown in Fig. 19, the 
+ciphertext exhibits no visible correlation with the original image after encryption. Moreover, the decrypted 
+image perfectly reconstructs the original content without information loss. These results confirm the excellent 
+encryption performance of the algorithm.
+Histogram
+Histograms are an important tool for analyzing image information, as they display the distribution of pixel 
+values to evaluate encryption effectiveness. The more uniform the pixel distribution, the weaker the statistical 
+correlation between pixel values and their intensity values. When the encrypted image is attacked, adversaries 
+can obtain less meaningful information. In Fig. 20, the left histograms show the RGB channel distributions (blue 
+for R, red for G, yellow for B) of the original images, while the right histograms correspond to the ciphertext 
+images after encryption. The uniform distributions observed in the encrypted image’s channel histograms 
+demonstrate the algorithm’s strong encryption performance.
+Key analysis
+In the algorithm proposed in this paper, the key K comprises eight components: µ, x, x0, y0, z0, w 0, 
+x1 and x2. By adjusting the decimal precision of each key component during image decryption, the 
+key sensitivities for µ, x, x0, y0, z0, w0, x1 and x2 are determined to be 10−15, 10−16, 10−16, 10−16, 
+10−16, 10−16, 10−16 and 10−16 respectively. Consequently, the total secret key space is calculated as: 
+10−15 × 10−16 × 10−16 × 10−16 × 10−16 × 10−16 × 10−16 × 10−16 = 10 127 ≈ 2422 Given that the key 
+space of an ideal image encryption algorithm should exceed 2122, our result demonstrates significant robustness. 
+Furthermore, the key capacity can be extended by configuring distinct µ values in the logistic chaotic system, 
+indicating expandable security margins.
+As shown in Table 1, the comparative analysis with existing encryption algorithms confirms that our key 
+space is sufficiently large to resist exhaustive key search attacks and effectively safeguard encrypted images.
+Key sensitivity refers to the impact of minor key modifications during the encryption and decryption 
+processes on the resulting decrypted image. A slight key alteration can visually demonstrate the algorithm’ s 
+sensitivity to key variations.
+Taking the Longmen image as an example, we first encrypt the image Fig. 21a. When decrypting with a fixed 
+key where µ is perturbed by 10−10, the result is Fig. 21b. In contrast, decryption with the correct key K yields 
+Fig. 19. Image encryption and decryption. (a) Plaintext images of Longmen. (b) Redaction images of 
+Longmen. (c) Decrypt the image of Longmen. (d) Plaintext images of Flower. (e) Redaction images of Flower. 
+(f) Decrypt the image of Flower. (g) Plaintext images of Orange. (h) Redaction images of Orange. (i) Decrypt 
+the image of Orange.
+ 
+Scientific Reports |         (2025) 15:9278 13| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+Fig. 21c. As shown in Fig. 21, even a slight key modification renders the decrypted image entirely unrelated to 
+the original plaintext, demonstrating the algorithm’s high key sensitivity.
+Information entropy
+The greater the information entropy, the higher the degree of disorder in the system, and the less discernible the 
+information becomes. The equation for information entropy is defined as follows:
+ 
+H = −
+L∑
+i=0
+p(i) log2 p(i) (17)
+Algorithm This paper Ref. 17 Ref. 18  Ref. 19
+Key space 10127 ≈ 2422 1079 ≈ 2262 1090 ≈ 2299 1056 ≈ 2168
+Table 1. Key space comparison results.
+ 
+Fig. 20. Histogram. (a) Plaintext histogram of Longmen. (b) Ciphertext histogram of Longmen. (c) Plaintext 
+histogram of Flower. (d) Ciphertext histogram of Flower. (e) Plaintext histogram of Orange. (f) Ciphertext 
+histogram of Orange.
+ 
+Scientific Reports |         (2025) 15:9278 14| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+where L denotes the gray level (256 for each RGB channel in this study) and p(i) represents the occurrence 
+probability of gray value i. The theoretical maximum entropy for 8-bit images is 8, with higher values indicating 
+greater randomness. We evaluate the encryption algorithm using three test images (“Longmen” , “Flower” , 
+and “Orange”). Table 2 presents the entropy measurements for both plaintext and ciphertext images across 
+RGB channels. The ciphertext entropy values approach the theoretical maximum of 8 in all three channels, 
+demonstrating that the encrypted images exhibit near-optimal randomness. This suggests the proposed 
+algorithm effectively resists information entropy-based cryptanalysis.
+As shown in Table 3, the information entropy calculated by our algorithm (7.9993) approaches the theoretical 
+limit more closely than values reported in existing literature, indicating its advantages.
+Anti-cropping performance
+When subjected to cropping attacks, the ciphertext image should maintain minimal information loss in the 
+decrypted version while preserving overall integrity. In this experiment, the Longmen image is selected as 
+the plaintext for encryption. We implement cropping attacks on the ciphertext by removing central regions 
+accounting for 10 %, 20 %, and 30 % of the original image area, with the cropped pixels set to 255. The decryption 
+results of the tampered ciphertext are presented in Fig. 22. Although partial clipping damages the ciphertext 
+image, the proposed algorithm effectively propagates the influence of cropped regions across the entire image, 
+thereby significantly mitigating localized distortion. These results demonstrate the algorithm’s robust resistance 
+to cropping attacks.
+Correlation analysis
+For digital images, the larger the value of their adjacent pixel correlation coefficient, the higher the degree of 
+adjacent pixel correlation, and the easier it is for attackers to compromise. Unencrypted plaintext images typically 
+exhibit strong correlations, whereas encrypted ciphertext images show low neighboring pixel correlations due 
+to resetting the pixel values and positions. By testing horizontal, vertical, and diagonal correlations between the 
+original image and its ciphertext across R, G, and B channels, the encryption efficacy can be evaluated.
+In this section, using the Longmen image as an example, we calculate directional correlations (Table 4) 
+and illustrate pixel distributions in R (blue), G (red), and B (yellow) channels (Fig. 23). Table 4 reveals that 
+Channel This paper Ref. 20 Ref.21  Ref.22
+R-channel 7.9992 7.9980 7.9958 7.9991
+G-channel 7.9993 7.9979 7.9950 7.9993
+B-channel 7.9993 7.9978 7.9949 7.993
+Table 3. Comparison of information entropy.
+ 
+Image Channel  Information entropy (plaintext/ciphertext)
+Longmen
+R-channel 7.1547/7.9992
+G-channel 7.2758/7.9993
+B-channel 7.5325/7.9993
+Flower
+R-channel 7.6231/7.9993
+G-channel 7.7066/7.9993
+B-channel 6.9718/7.9992
+Orange
+R-channel 7.2171/7.9992
+G-channel 7.4920/7.9993
+B-channel 5.8266/7.9993
+Table 2. Comparison of information entropy between raw and ciphertext images.
+ 
+Fig. 21. Key sensitivity. (a) Original image. (b) µ error. (c) Clealing image.
+ 
+Scientific Reports |         (2025) 15:9278 15| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+the plaintext image’s correlations approach 1, whereas the ciphertext image’s values are near 0. Fig. 23 further 
+demonstrates that plaintext pixels cluster along the diagonal, while ciphertext pixels disperse uniformly. These 
+results confirm that the algorithm effectively conceals plaintext information.
+Table 5 provides a comparative analysis between the proposed algorithm and those developed in prior studies. 
+The results demonstrate that our algorithm achieves superior security performance and exhibits a significant 
+competitive advantage over existing encryption methods.
+Noise resistance performance
+During the transmission of information over a channel, it may be interfered with by channel noise, leading to 
+potential distortions in the received information. In this section, the Longmen image is used as an example. 
+The first row in Fig. 24 depicts images corrupted by Gaussian noise with variances of 0.005, 0.01, and 0.015, 
+respectively. It is evident that the visual quality of the image has deteriorated, yet details of the subjects remain 
+discernible. The second row in Fig. 24 demonstrates decrypted images after salt-and-pepper noise (with densities 
+of 0.1, 0.2, and 0.3) is applied to the ciphertext. The results indicate that salt-and-pepper noise has minimal 
+impact on the proposed algorithm, with no significant degradation in image quality. These experiments verify 
+the algorithm’s robustness against noise interference.
+Conclusion
+In this paper, a 3D conservative chaotic system is successfully constructed through the introduction of a 
+generalized Hamiltonian formulation and applied to amplitude modulation control of state variables. The 
+system achieves flexible switching between chaotic and periodic states through parameter variations, while 
+exhibiting a multi-stable coexistence phenomenon with rich dynamic behaviors. These results not only expand 
+the applications of chaotic systems but also provide a new theoretical basis for controlling complex systems. At 
+the application level, the proposed system is implemented in color image encryption algorithms, demonstrating 
+excellent encryption performance and robust resistance against external attacks. Experimental results show that 
+the algorithm exhibits superior performance in key space size, key sensitivity, and resistance against cropping 
+Channel Direction  Correlation (plaintext/ciphertext)
+R-channel
+Horizontal 0.9270/ 0.0054
+Vertical 0.9272/− 0.0176
+Diagonal 0.8739/− 0.0104
+G-channel
+Horizontal 0.9272/0.0036
+Vertical 0.9082/− 0.0061
+B-channel 0.8729/0.0031
+B-channel
+Horizontal 0.9742/− 0.0141
+Vertical 0.9684/− 0.0148
+Diagonal 0.9551/0.0020
+Table 4. Comparison of information entropy between raw and ciphertext images.
+ 
+Fig. 22. Anti-cropping performance. (a) Cutting 0.1 Sipid image. (b) Cutting 0.2 Sipid image. (c) Cutting 0.3 
+Sipid image. (d) Cutting 0.1 decryption image. (e) Cutting 0.2 decryption image. (f) Cutting 0.3 decryption 
+image.
+ 
+Scientific Reports |         (2025) 15:9278 16| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+Fig. 24. Effect of adding Gaussian noise and salt-and-pepper noise on decryption. (a) Variance 0.005. (b) 
+Variance 0.01. (c) Variance 0.015. (d) Noise density 0.1. (e) Noise density 0.2. (f) Noise density 0.3.
+ 
+Channel Direction This paper Ref.23 Ref.24 Ref.25
+R-channel
+Horizontal 0.0158 0.0137 − 0.0209 − 0.0131
+Vertical 0.0139 − 0.0237 0.0489 0.0142
+Diagonal − 0.0001 0.0109 0.0179 − 0.0044
+G-channel
+Horizontal − 0.0071 − 0.0246 0.0081 − 0.0007
+Vertical − 0.0063 − 0.0170 0.0108 − 0.0167
+B-channel 0.0156 − 0.0133 − 0.0125 − 0.0145
+B-channel
+Horizontal − 0.0004 − 0.0137 − 0.0088 0.0036
+Vertical − 0.0252 0.0023 0.0180 0.0083
+Diagonal − 0.0007 − 0.0013 0.0349 − 0.0214
+Average 0.0101 0.0134 0.0201 0.0108
+Table 5. Comparative analysis of correlation coefficients.
+ 
+Fig. 23. Correlation analysis of Longmen image. (a) Horizontal orientation of the plaintext image. (b) Vertical 
+orientation of the plaintext image. (c) Diagonal orientation of the plaintext image. (d) Horizontal orientation of 
+the ciphertext image. (e) Vertical orientation of the ciphertext image. (f) Diagonal orientation of the ciphertext 
+image.
+ 
+Scientific Reports |         (2025) 15:9278 17| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+attacks, effectively resisting common cryptographic attacks. This paper provides a novel solution for image 
+encryption, significantly enhancing the security and reliability of existing techniques. In conclusion, this paper 
+not only advances the understanding of conservative chaotic systems but also opens new avenues for their 
+practical engineering applications. Future work will explore the system’s potential in other domains, such as 
+secure communication and data encryption, to drive technological advancements in related fields.
+Data availibility
+All data generated or analysed during this study are included in this published article.
+Received: 1 October 2024; Accepted: 7 March 2025
+References
+ 1. Rosser, J. B. Jr. Chaos theory before Lorenz. Nonlinear Dyn. Psychol. Life Sci. 13(3), 257 (2009).
+ 2. Wang, J. et al. A three-port switch NMR laser chaotic system with memristor and its circuit implementation. Eur. Phys. J. Plus 
+136(11), 1112 (2021).
+ 3. Xiu, C., Zhou, R. & Liu, Y . New chaotic memristive cellular neural network and its application in secure communication system. 
+Chaos Solitons Fract. 141, 110316 (2020).
+ 4. Lu, B. et al. A concise 4D conservative chaotic system with wide parameter range, offset boosting behavior and high initial 
+sensitivity. Int. J. Bifurcation Chaos 34(07), 2450080 (2024).
+ 5. Kong, X. et al. A class of 2n+1 dimensional simplest Hamiltonian conservative chaotic systems and fast image encryption schemes. 
+Appl. Math. Model. 125(PB), 351–374 (2024).
+ 6. Wang, X. et al. A chaotic image encryption algorithm based on perceptron model. Nonlinear Dyn. 62, 615–621 (2010).
+ 7. Pareek, N. K., Patidar, V . & Sud, K. K. Image encryption using chaotic logistic map. Image Vis. Comput. 24(9), 926–934 (2006).
+ 8. Gao, T. & Chen, Z. A new image encryption algorithm based on hyper-chaos. Phys. Lett. A 372(4), 394–400 (2008).
+ 9. Ji, X., Chen, Z. & Mou, J. A 3D image encryption algorithm based on the chaotic system and the image segmentation. IEEE Access 
+PP(99), 1 (2020).
+ 10. Enayatifar, R., Guimarães, F . G. & Siarry, P . Index-based permutation-diffusion in multiple-image encryption using DNA sequence. 
+Opt. Lasers Eng. 115, 131–140 (2019).
+ 11. Qi, G., Hu, J. & Wang, Z. Modeling of a Hamiltonian conservative chaotic system and its mechanism routes from periodic to 
+quasiperiodic, chaos and strong chaos. Appl. Math. Model. 78, 350–365 (2020).
+ 12. Zhang, L. et al. A novel color image encryption scheme using fractional-order hyperchaotic system and DNA sequence operations. 
+Chin. Phys. B 26(10), 100504–100504 (2017).
+ 13. Nadeem, I. et al. Dynamic 3D scrambled image based RGB image encryption scheme using hyperchaotic system and DNA 
+encoding. J. Inf. Security Appl. 58, 102809 (2021).
+ 14. Wang, Q., Zhang, X. & Zhao, X. Image encryption algorithm based on improved Zigzag transformation and quaternary DNA 
+coding. J. Inf. Security Appl. 70, 103340 (2022).
+ 15. Sun, J. et al. A novel non-equilibrium hyperchaotic system and application on color image steganography with FPGA 
+implementation. Nonlinear Dyn. 111(4), 3851–3868 (2022).
+ 16. Liu, S. et al. Design of a new multi-wing chaotic system and its application in color image encryption. Optik 290, 171334 (2023).
+ 17. Khalil, N., Sarhan, A. & Alshewimy, M. A. An efficient color/grayscale image encryption scheme based on hybrid chaotic maps. 
+Opt. Laser Technol. 143, 107326 (2021).
+ 18. Wu, X., Kan, H. & Kurths, J. A new color image encryption scheme based on DNA sequences and multiple improved 1D chaotic 
+maps. Appl. Soft Comput. 37, 24–39 (2015).
+ 19. Zhang, Y . et al. A new color image encryption scheme based on 2DNLCML system and genetic operations. Opt. Lasers Eng. 128, 
+106040 (2020).
+ 20. Kang, X. & Guo, Z. A new color image encryption scheme based on DNA encoding and spatiotemporal chaotic system. Signal 
+Process. Image Commun. 80, 115670 (2020).
+ 21. Kaur, G., Agarwal, R. & Patidar, V . Color image encryption system using combination of robust chaos and chaotic order fractional 
+Hartley transformation. J. King Saud Univ.-Comput. Inf. Sci. 34(8), 5883–5897 (2022).
+ 22. Khedmati, Y ., Parvaz, R. & Behroo, Y . 2D Hybrid chaos map for image security transform based on framelet and cellular automata. 
+Inf. Sci. 512, 855–879 (2020).
+ 23. Wu, X. et al. Color image DNA encryption using NCA map-based CML and one-time keys. Signal Process. 148, 272–287 (2018).
+ 24. Es-Sabry, M. et al. A new image encryption algorithm using random numbers generation of two matrices and bit-shift operators. 
+Soft Comput. 24, 3829–3848 (2020).
+ 25. Wang, X. & Li, Z. A color image encryption algorithm based on Hopfield chaotic neural network. Opt. Lasers Eng. 115, 107–118 
+(2019).
+Acknowledgements
+This work is supported by Basic Scientific Research Project of Education Department of Liaoning Province 
+(Grant No. LJKMZ20220779); Natural Science Foundation of Liaoning Province (Grant No. 2022-BS-211); Li-
+aoning Provincial Department of Education Basic Scientific Research Project (LJ212410149007).
+Author contributions
+Minxiu Y an: Writing – review & editing, Writing – original draft, Conceptualization. Minghui Liu: Writing – 
+original draft, Software, Formal analysis. Chong Li: Validation, Project administration, Investigation. All authors 
+reviewed the manuscript.
+Declarations
+Competing interests
+The authors declare no competing interests.
+Scientific Reports |         (2025) 15:9278 18| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/
+
+Additional information
+Correspondence and requests for materials should be addressed to C.L.
+Reprints and permissions information is available at www.nature.com/reprints.
+Publisher’s note Springer Nature remains neutral with regard to jurisdictional claims in published maps and 
+institutional affiliations.
+Open Access  This article is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 
+4.0 International License, which permits any non-commercial use, sharing, distribution and reproduction in 
+any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide 
+a link to the Creative Commons licence, and indicate if you modified the licensed material. Y ou do not have 
+permission under this licence to share adapted material derived from this article or parts of it. The images or 
+other third party material in this article are included in the article’s Creative Commons licence, unless indicated 
+otherwise in a credit line to the material. If material is not included in the article’s Creative Commons licence 
+and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to 
+obtain permission directly from the copyright holder. To view a copy of this licence, visit  h t t p : / / c r e a t i v e c o m m o 
+n s . o r g / l i c e n s e s / b y - n c - n d / 4 . 0 /     .  
+© The Author(s) 2025 
+Scientific Reports |         (2025) 15:9278 19| https://doi.org/10.1038/s41598-025-93649-3
+www.nature.com/scientificreports/

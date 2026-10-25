@@ -1,0 +1,9 @@
+# Zhang et al. (2024) cyclic-XOR collision audit
+
+The probe transcribes Eqs. (11)--(16) from the supplied PDF. In the first diffusion stage, each output bit is the cyclic XOR difference of the shifted `A1` bit and its predecessor, XORed with values from `A2` and key stream `b1`. The same cyclic-difference operation appears in the second stage.
+
+For any binary sequence `x`, complementing every bit leaves its cyclic difference unchanged: `(x[i] XOR 1) XOR (x[i-1] XOR 1) = x[i] XOR x[i-1]`, including the wraparound first element. Holding `A2`, keys, and dimensions fixed therefore makes the first-stage output `B1` identical for `A1` and its complement. The later seed `s0 = mod(sum(B1)/L, 1)` is then also identical, so deterministic confusion and the Arnold permutation receive identical inputs and produce identical ciphertexts. With four upper bitplanes assigned to `A1`, the two source images differ by XOR mask `240` at every pixel.
+
+An exhaustive check of every $(A_1,A_2,b_1,b_2)$ tuple at $L=4$ confirmed the identity in 65536/65536 cases. The seeded probe also checked 500 cases over five synthetic image sizes; all 500 paired diffusion outputs collided. A separate check applied the same complement to 12 grayscale USC-SIPI assets and found 12 matching post-diffusion output pairs. Source hashes and dimensions are in `zhang_diffusion_collision_audit.json`.
+
+**Scope:** this is a mathematical chosen-plaintext collision argument plus a direct test of the transcribed diffusion equations. It is not an end-to-end reproduction of the Lorenz sequence generation, quantum circuit, or image cipher, and it does not recover a key. It assumes the later stages are deterministic functions of the listed diffusion outputs and fixed keys. The authors should clarify whether an omitted operation or per-message randomization is used.

@@ -1,0 +1,763 @@
+{
+  "scope": "Two color-image demos and diagnostic attack probes on standard AEAD controls only; none of the six custom ciphers is tested here.",
+  "image_ids": [
+    "4.1.07",
+    "4.1.08"
+  ],
+  "rights_note": "USC-SIPI states 4.1.07 and 4.1.08 were photographs taken at USC and are free to use.",
+  "algorithms": [
+    "AES-256-GCM",
+    "ChaCha20-Poly1305"
+  ],
+  "file_api_round_trips": 4,
+  "file_repetitions_per_case": 30,
+  "mean_file_seal_median_ms": 2.8442875,
+  "mean_file_open_plus_png_median_ms": 20.0342375,
+  "pixel_and_saved_png_match": "exact for all examples and timed repetitions",
+  "test_counts": {
+    "CPA_trials_per_algorithm": 500,
+    "KPA_transfer_targets_per_case": 100,
+    "random_wrong_key_trials_per_case": 100,
+    "timing_samples_per_class_per_algorithm": 1500,
+    "fresh_nonce_differential_trials_per_case": 30
+  },
+  "attack_interpretation": "CPA/KPA/COA/timing results are limited diagnostic attacks against the reference AEAD implementation. They do not establish resistance of the six paper ciphers or constitute a formal proof.",
+  "time_complexity": "O(n) AEAD time; O(n) memory in the whole-image API because complete raster/container buffers are held in memory.",
+  "space_complexity": "O(n) peak working memory in the current wrapper; no streaming/chunked implementation is evaluated.",
+  "cases": [
+    {
+      "image_id": "4.1.07",
+      "algorithm": "AES-256-GCM",
+      "key_fingerprint_prefix": "28ec11e32ee07d5b",
+      "pixels": {
+        "width": 256,
+        "height": 256,
+        "channels": 3,
+        "raw_bytes": 196608
+      },
+      "ciphertext_metrics": {
+        "byte_entropy_bits": 7.999120200849847,
+        "channel_entropy_bits": {
+          "R": 7.997248661490537,
+          "G": 7.997470241241141,
+          "B": 7.99744275541426
+        },
+        "channel_histogram_chi_square": {
+          "R": {
+            "chi_square": 250.1171875,
+            "p_value": 0.5745761156097776
+          },
+          "G": {
+            "chi_square": 228.9765625,
+            "p_value": 0.8778416420786331
+          },
+          "B": {
+            "chi_square": 230.96875,
+            "p_value": 0.8576345022819388
+          }
+        },
+        "spatial_correlation": {
+          "R_horizontal": -0.008931724317141489,
+          "R_vertical": -0.0023508850542771384,
+          "R_diagonal": -0.00011385733044172187,
+          "G_horizontal": 0.00356954015999392,
+          "G_vertical": 0.0027502801269486594,
+          "G_diagonal": -0.00597134442663413,
+          "B_horizontal": 0.001590965946931551,
+          "B_vertical": 0.00113918318019435,
+          "B_diagonal": 0.000199947173615957
+        },
+        "mean_absolute_spatial_correlation": 0.0029575253017976575
+      },
+      "differential_diagnostics": {
+        "fresh_nonce_trials": 30,
+        "same_plain_npcr_mean_pct": 99.61181640625,
+        "same_plain_uaci_mean_pct": 33.464568426925894,
+        "one_byte_changed_npcr_mean_pct": 99.61117214626736,
+        "one_byte_changed_uaci_mean_pct": 33.4679349346618
+      },
+      "chosen_plaintext_distinguisher": {
+        "trials": 500,
+        "chosen_messages": "all-zero RGB image vs all-255 RGB image, same length and metadata",
+        "classifier": "ciphertext body mean byte > 127.5 predicts all-255 message",
+        "correct": 265,
+        "accuracy": 0.53,
+        "wilson_95_ci": [
+          0.4861905914242533,
+          0.5733519481480536
+        ],
+        "class_mean_ciphertext_byte": {
+          "0": 127.49045398308729,
+          "1": 127.51205719926284
+        },
+        "interpretation": "one simple distinguisher test only; this is not a complete IND-CPA proof"
+      },
+      "known_plaintext_keystream_transfer_probe": {
+        "known_pairs": 1,
+        "target_pairs": 100,
+        "nonce_policy": "fresh random 96-bit nonce per encryption",
+        "target_first_32_bytes_recovered": 0,
+        "reused_32_byte_keystream_prefixes": 0,
+        "interpretation": "simple cross-nonce XOR/keystream-transfer attempt; not general key recovery"
+      },
+      "integrity_probes": {
+        "all_probes_rejected": true,
+        "rejected": 13,
+        "total": 13,
+        "rows": [
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.001,
+            "rejected": true
+          },
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.01,
+            "rejected": true
+          },
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.05,
+            "rejected": true
+          },
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.1,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.001,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.01,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.05,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.1,
+            "rejected": true
+          },
+          {
+            "attack": "single_bit_ciphertext_tamper",
+            "level": "1 bit",
+            "rejected": true
+          },
+          {
+            "attack": "tag_tamper",
+            "level": "1 bit",
+            "rejected": true
+          },
+          {
+            "attack": "authenticated_metadata_tamper",
+            "level": "1 bit",
+            "rejected": true
+          },
+          {
+            "attack": "truncation",
+            "level": "1 byte",
+            "rejected": true
+          },
+          {
+            "attack": "ciphertext_block_reordering_proxy",
+            "level": "swap 16-byte blocks",
+            "rejected": true
+          }
+        ],
+        "random_wrong_key_rejections": 100,
+        "random_wrong_key_trials": 100,
+        "one_bit_key_change_rejected": true
+      },
+      "ciphertext_only_scope": "Histogram, entropy, correlation, and visual ciphertext-byte inspection are diagnostics; no plaintext recovery is claimed.",
+      "scrambling_only_scope": "Not applicable: this AEAD construction has no separate permutation/scrambling layer. Ciphertext block-reordering is tested as an integrity probe only.",
+      "timing_probe": {
+        "algorithm": "AES-256-GCM",
+        "samples_per_class": 1500,
+        "class_0": "all-zero image bytes",
+        "class_1": "fixed pseudorandom image bytes",
+        "mean_us_class_0": 97.09706666666666,
+        "mean_us_class_1": 99.39446666666667,
+        "median_us_class_0": 88.4,
+        "median_us_class_1": 89.0,
+        "welch_t_statistic": -2.2487300890700475,
+        "welch_p_value": 0.0246067814901852,
+        "interpretation": "timing-leakage screening only; a nonsignificant result is not proof of constant-time behavior"
+      },
+      "time_complexity": "O(n) time and O(n) memory in this whole-image Python wrapper; standard AEAD primitive is linear in message length."
+    },
+    {
+      "image_id": "4.1.07",
+      "algorithm": "ChaCha20-Poly1305",
+      "key_fingerprint_prefix": "c0316e0ec80853b0",
+      "pixels": {
+        "width": 256,
+        "height": 256,
+        "channels": 3,
+        "raw_bytes": 196608
+      },
+      "ciphertext_metrics": {
+        "byte_entropy_bits": 7.999067863633602,
+        "channel_entropy_bits": {
+          "R": 7.997288418967106,
+          "G": 7.997375234202611,
+          "B": 7.997035613170562
+        },
+        "channel_histogram_chi_square": {
+          "R": {
+            "chi_square": 245.4140625,
+            "p_value": 0.6555291181704552
+          },
+          "G": {
+            "chi_square": 237.9140625,
+            "p_value": 0.771705260622907
+          },
+          "B": {
+            "chi_square": 268.1015625,
+            "p_value": 0.2742862774110642
+          }
+        },
+        "spatial_correlation": {
+          "R_horizontal": -0.006917969788456344,
+          "R_vertical": -0.0029577270445252444,
+          "R_diagonal": 0.0003624152479925621,
+          "G_horizontal": -0.0021376378331264775,
+          "G_vertical": 0.002813084167802237,
+          "G_diagonal": 0.006005107325795955,
+          "B_horizontal": 0.005037763792519067,
+          "B_vertical": -0.0012069949773433463,
+          "B_diagonal": -0.006171317747020162
+        },
+        "mean_absolute_spatial_correlation": 0.0037344464360645996
+      },
+      "differential_diagnostics": {
+        "fresh_nonce_trials": 30,
+        "same_plain_npcr_mean_pct": 99.60851033528645,
+        "same_plain_uaci_mean_pct": 33.4521719074457,
+        "one_byte_changed_npcr_mean_pct": 99.61183336046007,
+        "one_byte_changed_uaci_mean_pct": 33.45916861074942
+      },
+      "chosen_plaintext_distinguisher": {
+        "trials": 500,
+        "chosen_messages": "all-zero RGB image vs all-255 RGB image, same length and metadata",
+        "classifier": "ciphertext body mean byte > 127.5 predicts all-255 message",
+        "correct": 259,
+        "accuracy": 0.518,
+        "wilson_95_ci": [
+          0.4742321113679192,
+          0.561493412375465
+        ],
+        "class_mean_ciphertext_byte": {
+          "0": 127.5029650246457,
+          "1": 127.50579809971974
+        },
+        "interpretation": "one simple distinguisher test only; this is not a complete IND-CPA proof"
+      },
+      "known_plaintext_keystream_transfer_probe": {
+        "known_pairs": 1,
+        "target_pairs": 100,
+        "nonce_policy": "fresh random 96-bit nonce per encryption",
+        "target_first_32_bytes_recovered": 0,
+        "reused_32_byte_keystream_prefixes": 0,
+        "interpretation": "simple cross-nonce XOR/keystream-transfer attempt; not general key recovery"
+      },
+      "integrity_probes": {
+        "all_probes_rejected": true,
+        "rejected": 13,
+        "total": 13,
+        "rows": [
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.001,
+            "rejected": true
+          },
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.01,
+            "rejected": true
+          },
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.05,
+            "rejected": true
+          },
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.1,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.001,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.01,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.05,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.1,
+            "rejected": true
+          },
+          {
+            "attack": "single_bit_ciphertext_tamper",
+            "level": "1 bit",
+            "rejected": true
+          },
+          {
+            "attack": "tag_tamper",
+            "level": "1 bit",
+            "rejected": true
+          },
+          {
+            "attack": "authenticated_metadata_tamper",
+            "level": "1 bit",
+            "rejected": true
+          },
+          {
+            "attack": "truncation",
+            "level": "1 byte",
+            "rejected": true
+          },
+          {
+            "attack": "ciphertext_block_reordering_proxy",
+            "level": "swap 16-byte blocks",
+            "rejected": true
+          }
+        ],
+        "random_wrong_key_rejections": 100,
+        "random_wrong_key_trials": 100,
+        "one_bit_key_change_rejected": true
+      },
+      "ciphertext_only_scope": "Histogram, entropy, correlation, and visual ciphertext-byte inspection are diagnostics; no plaintext recovery is claimed.",
+      "scrambling_only_scope": "Not applicable: this AEAD construction has no separate permutation/scrambling layer. Ciphertext block-reordering is tested as an integrity probe only.",
+      "timing_probe": {
+        "algorithm": "ChaCha20-Poly1305",
+        "samples_per_class": 1500,
+        "class_0": "all-zero image bytes",
+        "class_1": "fixed pseudorandom image bytes",
+        "mean_us_class_0": 154.95406666666668,
+        "mean_us_class_1": 154.79173333333333,
+        "median_us_class_0": 149.14999999999998,
+        "median_us_class_1": 147.95,
+        "welch_t_statistic": 0.13262074718972214,
+        "welch_p_value": 0.8945024192160533,
+        "interpretation": "timing-leakage screening only; a nonsignificant result is not proof of constant-time behavior"
+      },
+      "time_complexity": "O(n) time and O(n) memory in this whole-image Python wrapper; standard AEAD primitive is linear in message length."
+    },
+    {
+      "image_id": "4.1.08",
+      "algorithm": "AES-256-GCM",
+      "key_fingerprint_prefix": "6349455fc243536b",
+      "pixels": {
+        "width": 256,
+        "height": 256,
+        "channels": 3,
+        "raw_bytes": 196608
+      },
+      "ciphertext_metrics": {
+        "byte_entropy_bits": 7.999095541218297,
+        "channel_entropy_bits": {
+          "R": 7.997015422437887,
+          "G": 7.997270886261003,
+          "B": 7.997172028273724
+        },
+        "channel_histogram_chi_square": {
+          "R": {
+            "chi_square": 270.4609375,
+            "p_value": 0.24176549000746417
+          },
+          "G": {
+            "chi_square": 247.796875,
+            "p_value": 0.6150162458105808
+          },
+          "B": {
+            "chi_square": 257.3671875,
+            "p_value": 0.4467006886738167
+          }
+        },
+        "spatial_correlation": {
+          "R_horizontal": -0.005068744146808857,
+          "R_vertical": -0.00025371504969290084,
+          "R_diagonal": 0.0060040008694305326,
+          "G_horizontal": -0.0030133439397730336,
+          "G_vertical": 0.0017436760964613534,
+          "G_diagonal": -0.001437590853498198,
+          "B_horizontal": -0.00016633482685401703,
+          "B_vertical": -0.0036259654145328448,
+          "B_diagonal": 0.0032937769722617164
+        },
+        "mean_absolute_spatial_correlation": 0.0027341275743681614
+      },
+      "differential_diagnostics": {
+        "fresh_nonce_trials": 30,
+        "same_plain_npcr_mean_pct": 99.61107042100694,
+        "same_plain_uaci_mean_pct": 33.45488458105682,
+        "one_byte_changed_npcr_mean_pct": 99.6082051595052,
+        "one_byte_changed_uaci_mean_pct": 33.4545662408301
+      },
+      "chosen_plaintext_distinguisher": {
+        "trials": 500,
+        "chosen_messages": "all-zero RGB image vs all-255 RGB image, same length and metadata",
+        "classifier": "ciphertext body mean byte > 127.5 predicts all-255 message",
+        "correct": 251,
+        "accuracy": 0.502,
+        "wilson_95_ci": [
+          0.45832636322986225,
+          0.5456431394082917
+        ],
+        "class_mean_ciphertext_byte": {
+          "0": 127.4913415053443,
+          "1": 127.50282034297705
+        },
+        "interpretation": "one simple distinguisher test only; this is not a complete IND-CPA proof"
+      },
+      "known_plaintext_keystream_transfer_probe": {
+        "known_pairs": 1,
+        "target_pairs": 100,
+        "nonce_policy": "fresh random 96-bit nonce per encryption",
+        "target_first_32_bytes_recovered": 0,
+        "reused_32_byte_keystream_prefixes": 0,
+        "interpretation": "simple cross-nonce XOR/keystream-transfer attempt; not general key recovery"
+      },
+      "integrity_probes": {
+        "all_probes_rejected": true,
+        "rejected": 13,
+        "total": 13,
+        "rows": [
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.001,
+            "rejected": true
+          },
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.01,
+            "rejected": true
+          },
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.05,
+            "rejected": true
+          },
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.1,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.001,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.01,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.05,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.1,
+            "rejected": true
+          },
+          {
+            "attack": "single_bit_ciphertext_tamper",
+            "level": "1 bit",
+            "rejected": true
+          },
+          {
+            "attack": "tag_tamper",
+            "level": "1 bit",
+            "rejected": true
+          },
+          {
+            "attack": "authenticated_metadata_tamper",
+            "level": "1 bit",
+            "rejected": true
+          },
+          {
+            "attack": "truncation",
+            "level": "1 byte",
+            "rejected": true
+          },
+          {
+            "attack": "ciphertext_block_reordering_proxy",
+            "level": "swap 16-byte blocks",
+            "rejected": true
+          }
+        ],
+        "random_wrong_key_rejections": 100,
+        "random_wrong_key_trials": 100,
+        "one_bit_key_change_rejected": true
+      },
+      "ciphertext_only_scope": "Histogram, entropy, correlation, and visual ciphertext-byte inspection are diagnostics; no plaintext recovery is claimed.",
+      "scrambling_only_scope": "Not applicable: this AEAD construction has no separate permutation/scrambling layer. Ciphertext block-reordering is tested as an integrity probe only.",
+      "timing_probe": {
+        "algorithm": "AES-256-GCM",
+        "samples_per_class": 1500,
+        "class_0": "all-zero image bytes",
+        "class_1": "fixed pseudorandom image bytes",
+        "mean_us_class_0": 97.09706666666666,
+        "mean_us_class_1": 99.39446666666667,
+        "median_us_class_0": 88.4,
+        "median_us_class_1": 89.0,
+        "welch_t_statistic": -2.2487300890700475,
+        "welch_p_value": 0.0246067814901852,
+        "interpretation": "timing-leakage screening only; a nonsignificant result is not proof of constant-time behavior"
+      },
+      "time_complexity": "O(n) time and O(n) memory in this whole-image Python wrapper; standard AEAD primitive is linear in message length."
+    },
+    {
+      "image_id": "4.1.08",
+      "algorithm": "ChaCha20-Poly1305",
+      "key_fingerprint_prefix": "a021189eb2def99e",
+      "pixels": {
+        "width": 256,
+        "height": 256,
+        "channels": 3,
+        "raw_bytes": 196608
+      },
+      "ciphertext_metrics": {
+        "byte_entropy_bits": 7.9990670187351185,
+        "channel_entropy_bits": {
+          "R": 7.997315962323635,
+          "G": 7.9971269985295965,
+          "B": 7.997095777607267
+        },
+        "channel_histogram_chi_square": {
+          "R": {
+            "chi_square": 244.3359375,
+            "p_value": 0.6734033525899306
+          },
+          "G": {
+            "chi_square": 260.7265625,
+            "p_value": 0.3892884844396131
+          },
+          "B": {
+            "chi_square": 263.5234375,
+            "p_value": 0.34356833249565366
+          }
+        },
+        "spatial_correlation": {
+          "R_horizontal": 0.0022183772687836517,
+          "R_vertical": 0.002953109495127367,
+          "R_diagonal": -0.002033688307442979,
+          "G_horizontal": -0.00468042902473936,
+          "G_vertical": 0.002384678702338823,
+          "G_diagonal": -0.004332222319273199,
+          "B_horizontal": 0.0045480677063796365,
+          "B_vertical": 0.005517038998623684,
+          "B_diagonal": 0.005158953648764954
+        },
+        "mean_absolute_spatial_correlation": 0.0037585072746081838
+      },
+      "differential_diagnostics": {
+        "fresh_nonce_trials": 30,
+        "same_plain_npcr_mean_pct": 99.61283365885416,
+        "same_plain_uaci_mean_pct": 33.4816423137723,
+        "one_byte_changed_npcr_mean_pct": 99.608154296875,
+        "one_byte_changed_uaci_mean_pct": 33.46378148563028
+      },
+      "chosen_plaintext_distinguisher": {
+        "trials": 500,
+        "chosen_messages": "all-zero RGB image vs all-255 RGB image, same length and metadata",
+        "classifier": "ciphertext body mean byte > 127.5 predicts all-255 message",
+        "correct": 237,
+        "accuracy": 0.474,
+        "wilson_95_ci": [
+          0.43059811407349635,
+          0.5177983516305045
+        ],
+        "class_mean_ciphertext_byte": {
+          "0": 127.51153229178858,
+          "1": 127.48457203266105
+        },
+        "interpretation": "one simple distinguisher test only; this is not a complete IND-CPA proof"
+      },
+      "known_plaintext_keystream_transfer_probe": {
+        "known_pairs": 1,
+        "target_pairs": 100,
+        "nonce_policy": "fresh random 96-bit nonce per encryption",
+        "target_first_32_bytes_recovered": 0,
+        "reused_32_byte_keystream_prefixes": 0,
+        "interpretation": "simple cross-nonce XOR/keystream-transfer attempt; not general key recovery"
+      },
+      "integrity_probes": {
+        "all_probes_rejected": true,
+        "rejected": 13,
+        "total": 13,
+        "rows": [
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.001,
+            "rejected": true
+          },
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.01,
+            "rejected": true
+          },
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.05,
+            "rejected": true
+          },
+          {
+            "attack": "salt_pepper_noise",
+            "level": 0.1,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.001,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.01,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.05,
+            "rejected": true
+          },
+          {
+            "attack": "gaussian_noise",
+            "level": 0.1,
+            "rejected": true
+          },
+          {
+            "attack": "single_bit_ciphertext_tamper",
+            "level": "1 bit",
+            "rejected": true
+          },
+          {
+            "attack": "tag_tamper",
+            "level": "1 bit",
+            "rejected": true
+          },
+          {
+            "attack": "authenticated_metadata_tamper",
+            "level": "1 bit",
+            "rejected": true
+          },
+          {
+            "attack": "truncation",
+            "level": "1 byte",
+            "rejected": true
+          },
+          {
+            "attack": "ciphertext_block_reordering_proxy",
+            "level": "swap 16-byte blocks",
+            "rejected": true
+          }
+        ],
+        "random_wrong_key_rejections": 100,
+        "random_wrong_key_trials": 100,
+        "one_bit_key_change_rejected": true
+      },
+      "ciphertext_only_scope": "Histogram, entropy, correlation, and visual ciphertext-byte inspection are diagnostics; no plaintext recovery is claimed.",
+      "scrambling_only_scope": "Not applicable: this AEAD construction has no separate permutation/scrambling layer. Ciphertext block-reordering is tested as an integrity probe only.",
+      "timing_probe": {
+        "algorithm": "ChaCha20-Poly1305",
+        "samples_per_class": 1500,
+        "class_0": "all-zero image bytes",
+        "class_1": "fixed pseudorandom image bytes",
+        "mean_us_class_0": 154.95406666666668,
+        "mean_us_class_1": 154.79173333333333,
+        "median_us_class_0": 149.14999999999998,
+        "median_us_class_1": 147.95,
+        "welch_t_statistic": 0.13262074718972214,
+        "welch_p_value": 0.8945024192160533,
+        "interpretation": "timing-leakage screening only; a nonsignificant result is not proof of constant-time behavior"
+      },
+      "time_complexity": "O(n) time and O(n) memory in this whole-image Python wrapper; standard AEAD primitive is linear in message length."
+    }
+  ],
+  "visual_manifest": [
+    {
+      "image_id": "4.1.07",
+      "source_file": "4.1.07.tiff",
+      "source_sha256": "ee21b55963d29ed18effeef9a4dc3edc85208d9b79690bf2339c14649dcf41f6",
+      "source_mode": "RGB",
+      "width": 256,
+      "height": 256,
+      "algorithm": "AES-256-GCM",
+      "encrypted_binary": "encrypted\\4.1.07_AES-256-GCM.imgenc",
+      "demo_key_sidecar": "demo_keys\\4.1.07_AES-256-GCM_DEMO_ONLY.key.txt",
+      "encrypted_binary_sha256": "21a1bc43d6291288658aa5e999e6beddf60100ef60f6e90740727d3b96769b7a",
+      "ciphertext_display_png": "ciphertext_views\\4.1.07_aes_gcm_ciphertext_bytes.png",
+      "decrypted_png": "decrypted\\4.1.07_AES-256-GCM_decrypted.png",
+      "decryption_exact_pixel_match": true,
+      "key_fingerprint_sha256_prefix": "3ba9541e0c2e669c",
+      "key_included_in_demo_key_sidecar": true,
+      "warning": "demo key is intentionally included for reproducibility; do not reuse or treat this sample as secure key management"
+    },
+    {
+      "image_id": "4.1.08",
+      "source_file": "4.1.08.tiff",
+      "source_sha256": "8fd360f5cf6d230eff7934599edf0024995b6da69146e9c85bbaaf327d4a2abc",
+      "source_mode": "RGB",
+      "width": 256,
+      "height": 256,
+      "algorithm": "AES-256-GCM",
+      "encrypted_binary": "encrypted\\4.1.08_AES-256-GCM.imgenc",
+      "demo_key_sidecar": "demo_keys\\4.1.08_AES-256-GCM_DEMO_ONLY.key.txt",
+      "encrypted_binary_sha256": "5c3b9ae72590291cfcc42a1e711b5bf9065b3fec054599cb770fdb057358a454",
+      "ciphertext_display_png": "ciphertext_views\\4.1.08_aes_gcm_ciphertext_bytes.png",
+      "decrypted_png": "decrypted\\4.1.08_AES-256-GCM_decrypted.png",
+      "decryption_exact_pixel_match": true,
+      "key_fingerprint_sha256_prefix": "1ca06e020281f72a",
+      "key_included_in_demo_key_sidecar": true,
+      "warning": "demo key is intentionally included for reproducibility; do not reuse or treat this sample as secure key management"
+    }
+  ],
+  "timing_attack_probe": [
+    {
+      "algorithm": "AES-256-GCM",
+      "samples_per_class": 1500,
+      "class_0": "all-zero image bytes",
+      "class_1": "fixed pseudorandom image bytes",
+      "mean_us_class_0": 97.09706666666666,
+      "mean_us_class_1": 99.39446666666667,
+      "median_us_class_0": 88.4,
+      "median_us_class_1": 89.0,
+      "welch_t_statistic": -2.2487300890700475,
+      "welch_p_value": 0.0246067814901852,
+      "interpretation": "timing-leakage screening only; a nonsignificant result is not proof of constant-time behavior"
+    },
+    {
+      "algorithm": "ChaCha20-Poly1305",
+      "samples_per_class": 1500,
+      "class_0": "all-zero image bytes",
+      "class_1": "fixed pseudorandom image bytes",
+      "mean_us_class_0": 154.95406666666668,
+      "mean_us_class_1": 154.79173333333333,
+      "median_us_class_0": 149.14999999999998,
+      "median_us_class_1": 147.95,
+      "welch_t_statistic": 0.13262074718972214,
+      "welch_p_value": 0.8945024192160533,
+      "interpretation": "timing-leakage screening only; a nonsignificant result is not proof of constant-time behavior"
+    }
+  ]
+}

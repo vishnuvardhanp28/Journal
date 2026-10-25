@@ -1,0 +1,19 @@
+{
+  "dataset": "USC-SIPI Volume 3, curated 12 grayscale + 10 RGB images",
+  "image_counts": {
+    "grayscale": 12,
+    "color": 10
+  },
+  "algorithm_rows": 44,
+  "ciphers": [
+    "AES-256-GCM",
+    "ChaCha20-Poly1305"
+  ],
+  "timing_repeats_per_image_cipher": 9,
+  "all_roundtrips_ok": true,
+  "all_tamper_checks_ok": true,
+  "all_unsafe_nonce_xor_controls_reproduced": true,
+  "mean_entropy_bits_per_byte": 7.998946578611161,
+  "mean_encrypt_mib_s": 1368.298189662968,
+  "note": "Exploratory reference-cipher measurements only; no supplied chaos-based cipher is reproduced here. Metrics/throughput are not universal security claims. Rights notes are in the dataset manifest."
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "image_id": "4.1.07",
+    "source_file": "4.1.07.tiff",
+    "source_sha256": "ee21b55963d29ed18effeef9a4dc3edc85208d9b79690bf2339c14649dcf41f6",
+    "source_mode": "RGB",
+    "width": 256,
+    "height": 256,
+    "algorithm": "AES-256-GCM",
+    "encrypted_binary": "encrypted\\4.1.07_AES-256-GCM.imgenc",
+    "demo_key_sidecar": "demo_keys\\4.1.07_AES-256-GCM_DEMO_ONLY.key.txt",
+    "encrypted_binary_sha256": "21a1bc43d6291288658aa5e999e6beddf60100ef60f6e90740727d3b96769b7a",
+    "ciphertext_display_png": "ciphertext_views\\4.1.07_aes_gcm_ciphertext_bytes.png",
+    "decrypted_png": "decrypted\\4.1.07_AES-256-GCM_decrypted.png",
+    "decryption_exact_pixel_match": true,
+    "key_fingerprint_sha256_prefix": "3ba9541e0c2e669c",
+    "key_included_in_demo_key_sidecar": true,
+    "warning": "demo key is intentionally included for reproducibility; do not reuse or treat this sample as secure key management"
+  },
+  {
+    "image_id": "4.1.08",
+    "source_file": "4.1.08.tiff",
+    "source_sha256": "8fd360f5cf6d230eff7934599edf0024995b6da69146e9c85bbaaf327d4a2abc",
+    "source_mode": "RGB",
+    "width": 256,
+    "height": 256,
+    "algorithm": "AES-256-GCM",
+    "encrypted_binary": "encrypted\\4.1.08_AES-256-GCM.imgenc",
+    "demo_key_sidecar": "demo_keys\\4.1.08_AES-256-GCM_DEMO_ONLY.key.txt",
+    "encrypted_binary_sha256": "5c3b9ae72590291cfcc42a1e711b5bf9065b3fec054599cb770fdb057358a454",
+    "ciphertext_display_png": "ciphertext_views\\4.1.08_aes_gcm_ciphertext_bytes.png",
+    "decrypted_png": "decrypted\\4.1.08_AES-256-GCM_decrypted.png",
+    "decryption_exact_pixel_match": true,
+    "key_fingerprint_sha256_prefix": "1ca06e020281f72a",
+    "key_included_in_demo_key_sidecar": true,
+    "warning": "demo key is intentionally included for reproducibility; do not reuse or treat this sample as secure key management"
+  }
+]

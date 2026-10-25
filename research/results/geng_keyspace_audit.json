@@ -1,0 +1,21 @@
+{
+  "paper": "Geng et al., Scientific Reports (2025), DOI 10.1038/s41598-025-95263-9",
+  "scope": "nominal key-space accounting only; not a cipher reproduction or attack",
+  "published_description": {
+    "initial_state_source": "SHA-256 of plaintext image pixels; four states x0,y0,z0,w0 derived from digest",
+    "key_space_count": "(10^15)^9 = 10^135, counting four initial states plus five control parameters"
+  },
+  "conditional_audit": {
+    "assumption": "only five control parameters are independently selectable secret values, each with 10^15 valid choices",
+    "nominal_points": "1000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "nominal_bits": 249.144607,
+    "difference_from_published_count_bits": 199.315686,
+    "factor_by_which_published_count_exceeds_conditional_count": "1000000000000000000000000000000000000000000000000000000000000"
+  },
+  "interpretation": [
+    "A deterministic function of the plaintext is not an independent secret key choice.",
+    "This does not establish that the scheme is brute-forceable: the conditional five-parameter count remains large if those parameters are secret and independently chosen.",
+    "The paper must specify whether the five control parameters are secret, their allowed ranges and quantization, and how sender and receiver establish them.",
+    "The actual effective key entropy cannot be inferred from decimal precision alone or from this arithmetic audit."
+  ]
+}

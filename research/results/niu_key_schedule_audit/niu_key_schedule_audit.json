@@ -1,0 +1,259 @@
+{
+  "scope": "equation-level reproduction of Niu et al. Eqs. (8)-(10), not an end-to-end cipher reproduction",
+  "paper": "Niu et al., Scientific Reports 14, 7033 (2024), DOI 10.1038/s41598-024-57756-x",
+  "source_equations": "publisher article Eqs. (8)-(10); implementation assumption: SHA-256 over row-major grayscale pixel bytes; digest interpreted as 32 byte values K1..K32",
+  "external_base_key": [
+    0.01,
+    0.01,
+    0.01,
+    0.01
+  ],
+  "grayscale_corpus_cases": 12,
+  "nearest_vs_floor_variant_differences": 7,
+  "variant_note": "The paper text calls the bracket a rounding function. Nearest-integer rounding is the primary transcription; floor is included only as a non-authoritative implementation variant, not an equally supported reading.",
+  "corpus_rows": [
+    {
+      "image_id": "5.1.09",
+      "width": 256,
+      "height": 256,
+      "sha256": "c132dd7b0c65409cb3151d344fecae5df4ef95549130bdc61428de5bf8e6e34c",
+      "nearest_initial_values": [
+        0.33767333984375003,
+        0.3951318359375,
+        0.7724267578125,
+        0.34387451171875005
+      ],
+      "floor_initial_values": [
+        0.3376733398437499,
+        0.3951318359375,
+        0.7724267578125,
+        0.34387451171875005
+      ],
+      "interpretations_differ": true
+    },
+    {
+      "image_id": "5.1.10",
+      "width": 256,
+      "height": 256,
+      "sha256": "57e13160a6def4adb076c9e12e9c8730fdf8365c23bae535b176d7cacb6607d5",
+      "nearest_initial_values": [
+        0.50805908203125,
+        0.73562255859375,
+        0.25113769531249996,
+        0.24544921875000003
+      ],
+      "floor_initial_values": [
+        0.50805908203125,
+        0.73562255859375,
+        0.2511376953125,
+        0.24544921875000003
+      ],
+      "interpretations_differ": true
+    },
+    {
+      "image_id": "5.1.11",
+      "width": 256,
+      "height": 256,
+      "sha256": "7de2489f027832516d91dcd4dd28aa2d48f44107533c8b7f616e53018fb4eba9",
+      "nearest_initial_values": [
+        0.3670556640625,
+        0.941640625,
+        0.09952636718749995,
+        0.09056640625
+      ],
+      "floor_initial_values": [
+        0.3670556640625,
+        0.941640625,
+        0.09952636718749995,
+        0.09056640625
+      ],
+      "interpretations_differ": false
+    },
+    {
+      "image_id": "5.1.12",
+      "width": 256,
+      "height": 256,
+      "sha256": "387ee5db9823967215c379decb3b0b8255696921b47a29508bdcc4864b4bcba3",
+      "nearest_initial_values": [
+        0.8999658203125,
+        0.58471923828125,
+        0.17392822265625002,
+        0.5337060546875
+      ],
+      "floor_initial_values": [
+        0.8999658203125,
+        0.58471923828125,
+        0.17392822265625002,
+        0.5337060546875
+      ],
+      "interpretations_differ": false
+    },
+    {
+      "image_id": "5.2.08",
+      "width": 512,
+      "height": 512,
+      "sha256": "c29f0eaee7218ed422ba88ef879f894a1e880853c6364f45c988ccb9373e5432",
+      "nearest_initial_values": [
+        0.13418823242187505,
+        0.40166259765625,
+        0.4414727783203125,
+        0.49665466308593753
+      ],
+      "floor_initial_values": [
+        0.13418823242187505,
+        0.40166259765625,
+        0.4414727783203125,
+        0.4966546630859374
+      ],
+      "interpretations_differ": true
+    },
+    {
+      "image_id": "5.2.09",
+      "width": 512,
+      "height": 512,
+      "sha256": "ff939f4478237c646e94f58eea32e32fc0b4a42f43fa0d22af5ce831a74502c1",
+      "nearest_initial_values": [
+        0.15840087890625,
+        0.09268127441406247,
+        0.22596069335937496,
+        0.30808654785156253
+      ],
+      "floor_initial_values": [
+        0.15840087890625,
+        0.09268127441406247,
+        0.22596069335937502,
+        0.30808654785156253
+      ],
+      "interpretations_differ": true
+    },
+    {
+      "image_id": "5.2.10",
+      "width": 512,
+      "height": 512,
+      "sha256": "5dcb11614ab9734cbe24263b7abadf879df0c54a7b3b950de7f046d905fc4fa5",
+      "nearest_initial_values": [
+        0.3705194091796875,
+        0.763857421875,
+        0.8789422607421875,
+        0.338729248046875
+      ],
+      "floor_initial_values": [
+        0.3705194091796875,
+        0.763857421875,
+        0.8789422607421875,
+        0.3387292480468751
+      ],
+      "interpretations_differ": true
+    },
+    {
+      "image_id": "7.1.01",
+      "width": 512,
+      "height": 512,
+      "sha256": "4f2dace2f4135c693ec965b2dd551b691fe93178e404d7745da8a375e34cedb2",
+      "nearest_initial_values": [
+        0.05872436523437496,
+        0.7532861328125,
+        0.43453308105468746,
+        0.7673150634765625
+      ],
+      "floor_initial_values": [
+        0.05872436523437496,
+        0.7532861328125,
+        0.43453308105468746,
+        0.7673150634765625
+      ],
+      "interpretations_differ": false
+    },
+    {
+      "image_id": "7.1.03",
+      "width": 512,
+      "height": 512,
+      "sha256": "8986d7b2adb6daec35d47ef79d5b4711230efccdf752b90891a00f195a9e96cf",
+      "nearest_initial_values": [
+        0.630574951171875,
+        0.41313720703125,
+        0.7838037109375,
+        0.29889770507812496
+      ],
+      "floor_initial_values": [
+        0.630574951171875,
+        0.41313720703125,
+        0.7838037109375,
+        0.29889770507812496
+      ],
+      "interpretations_differ": false
+    },
+    {
+      "image_id": "boat.512",
+      "width": 512,
+      "height": 512,
+      "sha256": "b292548c463580074f3032fdecf2c1873114b797d0827a1e52e9ef37c99989f7",
+      "nearest_initial_values": [
+        0.730684814453125,
+        0.6237329101562501,
+        0.3391473388671875,
+        0.8070367431640626
+      ],
+      "floor_initial_values": [
+        0.730684814453125,
+        0.62373291015625,
+        0.3391473388671875,
+        0.8070367431640625
+      ],
+      "interpretations_differ": true
+    },
+    {
+      "image_id": "4.2.03_gray",
+      "width": 512,
+      "height": 512,
+      "sha256": "eea16b3cec8a2d7a3e7df16b67323b938687dda708a31c16e25c4845f791aa78",
+      "nearest_initial_values": [
+        0.8152978515625,
+        0.394259033203125,
+        0.9564599609375,
+        0.964998779296875
+      ],
+      "floor_initial_values": [
+        0.8152978515625,
+        0.394259033203125,
+        0.9564599609375,
+        0.964998779296875
+      ],
+      "interpretations_differ": false
+    },
+    {
+      "image_id": "4.2.07_gray",
+      "width": 512,
+      "height": 512,
+      "sha256": "a09849f1d7df7593adddb2ac954e4123572bdc980f306e13f5ede209d4215bd6",
+      "nearest_initial_values": [
+        0.662496337890625,
+        0.1506036376953125,
+        0.39339843750000003,
+        0.7865411376953124
+      ],
+      "floor_initial_values": [
+        0.662496337890625,
+        0.1506036376953126,
+        0.3933984374999999,
+        0.7865411376953125
+      ],
+      "interpretations_differ": true
+    }
+  ],
+  "chosen_input_probe": {
+    "image": "4.2.03",
+    "unique_one_pixel_edits": 1000,
+    "probe_seed": 1313428786,
+    "unique_sha256_outputs": 1000,
+    "derived_initial_values_changed_nearest": 1000,
+    "derived_initial_values_changed_floor": 1000
+  },
+  "reproduction_gates": [
+    "The paper does not specify the byte serialization passed to SHA-256; row-major uint8 bytes are used here as an explicit assumption.",
+    "The article says decryption is the inverse of encryption but does not specify inverse steps.",
+    "The image-cipher ODE solver and integration step size are not stated.",
+    "Initial state depends on plaintext hash and column averages; the article does not specify how a decryptor obtains those plaintext-derived values without the original plaintext or transmitted auxiliary state."
+  ],
+  "interpretation": "The schedule is deterministic and input-dependent. The floor comparison is an implementation variant only. This audit does not implement ODE integration or image encryption and does not establish a confidentiality break."
+}

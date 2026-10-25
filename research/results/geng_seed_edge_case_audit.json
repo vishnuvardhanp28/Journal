@@ -1,0 +1,102 @@
+{
+  "scope": "chosen-input availability/definedness edge-case audit only; not a confidentiality attack",
+  "source_image": "4.2.03_gray.tiff",
+  "source_sha256": "ea974f472124bebb3029ce0956fef66bafb96eeeeb5458f2775dc5431bd73c57",
+  "dimensions": [
+    512,
+    512
+  ],
+  "queries": 10000,
+  "queries_are_unique_single_pixel_changes": true,
+  "prng_seed_for_probe_generation": 1196641863,
+  "observed_zero_denominator_queries": 161,
+  "curated_gray_corpus_checks": [
+    {
+      "image_id": "5.1.09",
+      "seed_derivation_ok": false,
+      "sha256_of_pixel_bytes": "c132dd7b0c65409cb3151d344fecae5df4ef95549130bdc61428de5bf8e6e34c",
+      "xor_aggregates_e2_e4_e6_e8": [
+        224,
+        223,
+        0,
+        8
+      ],
+      "exception": "ValueError: Published Eq. 14 divides by XOR group value 0 for this input."
+    },
+    {
+      "image_id": "5.1.10",
+      "seed_derivation_ok": true
+    },
+    {
+      "image_id": "5.1.11",
+      "seed_derivation_ok": true
+    },
+    {
+      "image_id": "5.1.12",
+      "seed_derivation_ok": true
+    },
+    {
+      "image_id": "5.2.08",
+      "seed_derivation_ok": true
+    },
+    {
+      "image_id": "5.2.09",
+      "seed_derivation_ok": true
+    },
+    {
+      "image_id": "5.2.10",
+      "seed_derivation_ok": true
+    },
+    {
+      "image_id": "7.1.01",
+      "seed_derivation_ok": true
+    },
+    {
+      "image_id": "7.1.03",
+      "seed_derivation_ok": true
+    },
+    {
+      "image_id": "boat.512",
+      "seed_derivation_ok": true
+    },
+    {
+      "image_id": "4.2.03_gray",
+      "seed_derivation_ok": true
+    },
+    {
+      "image_id": "4.2.07_gray",
+      "seed_derivation_ok": true
+    }
+  ],
+  "curated_gray_corpus_pass_count": 11,
+  "observed_failure_rate": 0.0161,
+  "observed_rate_wilson_95_ci": [
+    0.01381248597286477,
+    0.018759147650276035
+  ],
+  "expected_failure_probability_if_SHA256_groups_are_uniform": 0.015533685451373458,
+  "expected_failures_at_n": 155.33685451373458,
+  "elapsed_seconds": 3.49398420000216,
+  "first_failure": {
+    "seed_function_exception": "ValueError: Published Eq. 14 divides by XOR group value 0 for this input.",
+    "query": 43,
+    "pixel_index": 99846,
+    "row": 195,
+    "column": 6,
+    "old_value": 97,
+    "new_value": 19,
+    "sha256": "12ee343ba679d7fb2ccaf6f45f28864fb36abe23f55d30fdb26c5e6bec472165",
+    "xor_aggregates_e2_e4_e6_e8": [
+      0,
+      90,
+      33,
+      4
+    ],
+    "zero_denominator_groups_1_based": [
+      1
+    ]
+  },
+  "mechanism": "Eq. (14) contains e1/e2, e3/e4, e5/e6, and e7/e8; any zero XOR aggregate in groups 1-4 makes a denominator zero.",
+  "interpretation": "This establishes that the published seed formula is undefined for some valid chosen plaintexts under the stated SHA-256 grouping. It does not establish plaintext recovery, key recovery, or a break of the remaining cipher.",
+  "reproducibility": "The USC-SIPI source image, SHA-256, one-pixel query generator seed, query count, first failing input description, and output are recorded."
+}

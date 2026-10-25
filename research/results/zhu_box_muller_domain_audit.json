@@ -1,0 +1,27 @@
+{
+  "source": "Zhu & Zhu (2024), Scientific Reports 14, 15496, Eqs. (20)-(21)",
+  "source_doi": "10.1038/s41598-024-66320-6",
+  "scope": "Literal domain audit of printed equations; not a cipher reproduction or attack.",
+  "sample_size": 1000000,
+  "numpy_generator": "PCG64 default_rng",
+  "seed": 20251025,
+  "inputs": "Independent uniform U1,U2 in (0,1); U1 is sampled strictly above zero.",
+  "printed_equation": "Z1=sqrt((-2*ln(U1))*cos(2*pi*U2)); Z2=sqrt((-2*ln(U1))*sin(2*pi*U2))",
+  "negative_radicand_z1_count": 499928,
+  "negative_radicand_z1_rate": 0.499928,
+  "negative_radicand_z2_count": 499651,
+  "negative_radicand_z2_rate": 0.499651,
+  "at_least_one_negative_radicand_count": 750047,
+  "at_least_one_negative_radicand_rate": 0.750047,
+  "theoretical_rates_for_continuous_uniform_u2": {
+    "z1_negative": 0.5,
+    "z2_negative": 0.5,
+    "at_least_one_negative": 0.75
+  },
+  "standard_box_muller_comparator": {
+    "expression": "Z1=sqrt(-2*ln(U1))*cos(2*pi*U2); Z2=sqrt(-2*ln(U1))*sin(2*pi*U2)",
+    "all_values_finite": true,
+    "is_the_authors_intended_formula": "Unverified; this is only the standard comparator."
+  },
+  "interpretation": "As printed, the equations do not produce real-valued Z1 and Z2 for much of the stated input domain. The paper may contain a typographical error or rely on an unstated implementation convention. Do not correct it silently; request author clarification or report both interpretations."
+}

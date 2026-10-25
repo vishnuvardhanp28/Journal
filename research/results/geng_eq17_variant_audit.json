@@ -1,0 +1,38 @@
+{
+  "scope": "partial keystream reproduction only; not full cipher reproduction or security attack",
+  "source_image": "PIA00123.jpg",
+  "source_image_sha256": "70cb56ff846eb34bbc1b86032d6fd2820a7b93d9f1b84dfa3175a80e189cd1b2",
+  "grayscale_test_dimensions": [
+    64,
+    64
+  ],
+  "plaintext_pixel_sha256": "5c36d66ce07cacf0c19b3c72ced88a2d55d8741ab6084561768b7ed0a2ea3641",
+  "ode": {
+    "method": "fixed-step classical RK4",
+    "step_size": 0.001,
+    "transient_discard": 1000,
+    "parameters": {
+      "a": 28.0,
+      "b": 17.0,
+      "c": 13.0,
+      "d": 21.8,
+      "e": 5.0
+    },
+    "note": "step size and solver are not specified by the paper; parameters are an example in the paper, not verified encryption settings"
+  },
+  "eq17_variants": {
+    "literal_displayed_equation": "W1 = mod(floor(y(i)*10^4),256)+1",
+    "surrounding_prose": "W1 = mod(floor(w(i)*10^4),256)+1",
+    "sample_count": 4096,
+    "different_positions": 4080,
+    "different_fraction": 0.99609375,
+    "equation_variant_unique_values": 256,
+    "prose_variant_unique_values": 256
+  },
+  "reproducibility_caveats": [
+    "The article does not state an ODE solver or step size.",
+    "This test uses one grayscale NASA smoke-test image resized to 64x64, not the paper dataset.",
+    "Only SHA seed derivation and chaotic sequence generation were implemented; scrambling, DNA encoding/diffusion, inverse, and key exchange were not.",
+    "Results characterize the effect of two conflicting Eq. 17 interpretations under one explicit numerical setting; they are not claimed as the authors original output."
+  ]
+}

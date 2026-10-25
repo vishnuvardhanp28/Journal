@@ -1,0 +1,34 @@
+[
+  {
+    "image_id": "4.1.07",
+    "source_file": "4.1.07.tiff",
+    "source_sha256": "ee21b55963d29ed18effeef9a4dc3edc85208d9b79690bf2339c14649dcf41f6",
+    "grayscale_transform": "Pillow RGB-to-L conversion",
+    "mode": "L",
+    "width": 256,
+    "height": 256,
+    "algorithm": "AES-256-GCM",
+    "encrypted_binary": "encrypted\\4.1.07_AES-256-GCM.imgenc",
+    "ciphertext_display_png": "ciphertext_views\\4.1.07_AES-256-GCM_ciphertext_bytes.png",
+    "decrypted_png": "decrypted\\4.1.07_AES-256-GCM_decrypted.png",
+    "demo_key_sidecar": "demo_keys\\4.1.07_AES-256-GCM_DEMO_ONLY.key.txt",
+    "exact_pixel_match": true,
+    "warning": "Illustration only; demonstration key is exposed and must never be reused."
+  },
+  {
+    "image_id": "4.1.08",
+    "source_file": "4.1.08.tiff",
+    "source_sha256": "8fd360f5cf6d230eff7934599edf0024995b6da69146e9c85bbaaf327d4a2abc",
+    "grayscale_transform": "Pillow RGB-to-L conversion",
+    "mode": "L",
+    "width": 256,
+    "height": 256,
+    "algorithm": "AES-256-GCM",
+    "encrypted_binary": "encrypted\\4.1.08_AES-256-GCM.imgenc",
+    "ciphertext_display_png": "ciphertext_views\\4.1.08_AES-256-GCM_ciphertext_bytes.png",
+    "decrypted_png": "decrypted\\4.1.08_AES-256-GCM_decrypted.png",
+    "demo_key_sidecar": "demo_keys\\4.1.08_AES-256-GCM_DEMO_ONLY.key.txt",
+    "exact_pixel_match": true,
+    "warning": "Illustration only; demonstration key is exposed and must never be reused."
+  }
+]

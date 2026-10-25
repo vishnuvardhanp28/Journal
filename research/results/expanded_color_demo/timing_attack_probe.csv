@@ -1,0 +1,3 @@
+algorithm,samples_per_class,class_0,class_1,mean_us_class_0,mean_us_class_1,median_us_class_0,median_us_class_1,welch_t_statistic,welch_p_value,interpretation
+AES-256-GCM,1500,all-zero image bytes,fixed pseudorandom image bytes,97.09706666666666,99.39446666666667,88.4,89.0,-2.2487300890700475,0.0246067814901852,timing-leakage screening only; a nonsignificant result is not proof of constant-time behavior
+ChaCha20-Poly1305,1500,all-zero image bytes,fixed pseudorandom image bytes,154.95406666666668,154.79173333333333,149.14999999999998,147.95,0.13262074718972214,0.8945024192160533,timing-leakage screening only; a nonsignificant result is not proof of constant-time behavior
