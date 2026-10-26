@@ -36,6 +36,10 @@ To rerun the asset checks, obtain the grayscale TIFFs listed in `data/benchmarks
 
 The monochrome vector methodology diagram is stored at `manuscript/figures/methodology_overview.pdf` (with a PNG preview). It shows the separate paper-audit and reference-control tracks, distinguishes the 20-image montage from the 22-asset control corpus, and states that no end-to-end reproduction of the six custom ciphers is claimed. Regenerate the PDF and PNG with `python code/make_methodology_figure.py` from the supplement root.
 
+## Expanded image-level metrics and attack outcomes
+
+The manuscript's 22-row NPCR/UACI table is generated from `results/paper_test_image_statistics.csv`. It reports five independent fresh-nonce comparisons per image and algorithm for unchanged plaintext and one-byte-modified plaintext. Fresh-nonce differences are not intrinsic-diffusion measurements. The attack outcome table in the manuscript combines the 572 baseline integrity/key probes with the separate two-image CPA, cross-nonce KPA transfer, 100-trial wrong-key, and exploratory timing screens. The scopes, counts, outputs, and limitations are stated row by row. In-memory per-image timing is in `results/paper_test_timing.csv`; file-wrapper measurements remain separately recorded in `results/image_aead_prototype_timing.csv` because they include image decoding and PNG output.
+
 
 ## Numbered 20-image verification and attack samples
 

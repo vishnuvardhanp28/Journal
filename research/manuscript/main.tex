@@ -93,12 +93,12 @@ The study follows two parallel paths: a source-paper review with bounded equatio
 \subsection{Image Corpus and Reference Implementations}
 We used 22 TIFF images from the USC-SIPI Image Database: 10 original grayscale images, 10 original RGB images, and two grayscale transformations of RGB images for paired checks. The per-image manifest records source identifier, dimensions, transformation, and SHA-256 hash. Figure~\ref{fig:image-montage} displays the 10 original grayscale and 10 original color images used in the benchmark. The database is intended for research, but USC-SIPI notes that copyright is unknown for many images; reproduction permission for the displayed panels must be confirmed before journal submission \cite{uscSipi,uscSipiCopyright}.
 
-The baseline used AES-256-GCM and ChaCha20-Poly1305 with 32-byte keys and newly generated 96-bit nonces. The image mode and dimensions were encoded as authenticated associated data. Each of the 22 images was tested with both algorithms, for 44 image-algorithm cases. We checked exact pixel recovery, ciphertext/tag bit changes, a metadata edit, central occlusions at three areas, salt-and-pepper corruption at four densities, one-byte truncation, a random wrong key, and a one-bit wrong-key change. The 13 integrity/key probes per case produced 572 total probes. The example panels use color images 15 and 16 in the paper's numbering; their original source identifiers remain in the data manifest. The USC-SIPI copyright page identifies these two USC jelly-bean photographs as free to use \cite{uscSipiCopyright}.
+The baseline used AES-256-GCM and ChaCha20-Poly1305 with 32-byte keys, fresh cryptographic 96-bit nonces, and 128-bit authentication tags. A canonical JSON header containing the algorithm, image dimensions, pixel mode, data type, and format version was authenticated as associated data. Each of the 22 assets was tested with both algorithms, for 44 image--algorithm cases. The recorded run used Windows 11, Python 3.12.14, Pillow 13.0.0, NumPy 2.5.4, and cryptography 50.0.2 on an AMD64 system; exact image hashes and per-run outputs are included in the supplement. We checked exact pixel recovery, ciphertext/tag bit changes, a metadata edit, central occlusions at three areas, salt-and-pepper corruption at four densities, one-byte truncation, a random wrong key, and a one-bit wrong-key change. The 13 integrity/key probes per case produced 572 total probes. The example panels use color images 15 and 16 in the paper's numbering; their original source identifiers remain in the data manifest. The USC-SIPI copyright page identifies these two USC jelly-bean photographs as free to use \cite{uscSipiCopyright}.
 
 As a separate nonce-lifecycle control, we reanalyzed a six-image NASA pilot using both reference algorithms (12 image-algorithm cases). For each case, the harness compared ciphertext bodies for (i) identical plaintexts encrypted under independent fresh nonces, (ii) a one-byte-changed plaintext under a fresh nonce, and (iii) a one-byte-changed plaintext under the same key and nonce. The third condition is deliberately unsafe and was isolated from all normal benchmark runs. We also checked whether XOR of the two ciphertext bodies equals XOR of their plaintexts. This illustrates nonce misuse in the reference stream-encryption modes; it is not an attack on any of the six supplied image ciphers.
 
 \subsection{Image Diagnostics and Timing}
-For each ciphertext body, we measured byte entropy, channel entropy, adjacent-pixel correlation, local entropy, histogram chi-square, and Fourier-spectrum summaries. We also measured NPCR/UACI between ciphertexts generated with fresh nonces for the same image and for a one-byte-modified image. These statistics are interpreted as descriptions of output arrays, not security proofs.
+For each ciphertext body, we measured byte and channel entropy, adjacent-pixel correlation, local entropy, histogram chi-square, and Fourier-spectrum summaries. For a byte-valued array $X$, empirical entropy is $H(X)=-\sum_{v=0}^{255}p(v)\log_2p(v)$. For two aligned arrays $X,Y$ of $N$ bytes, we compute $\mathrm{NPCR}(X,Y)=100N^{-1}\sum_i\mathbf{1}[X_i\ne Y_i]$ and $\mathrm{UACI}(X,Y)=100(255N)^{-1}\sum_i|X_i-Y_i|$. The differential table reports five independent fresh-nonce pairs per image and algorithm for both unchanged plaintext and a one-byte plaintext change. Fresh nonces randomize the stream and therefore make these image-style scores unsuitable as intrinsic-diffusion measurements; both conditions are reported to demonstrate this confound. The earlier per-image table separately shows the direct aligned plaintext-versus-ciphertext-body byte comparison and labels it descriptive. None of these statistics is treated as a security proof.
 
 We measured in-memory encryption and decryption time using one warm-up and 30 repetitions per image-algorithm case. The reported average throughput is the arithmetic mean of the per-image throughput values in the original run. We also measured file-level sealing and opening with one warm-up and nine repetitions per case. File sealing includes image decoding and writing the authenticated container. File opening includes reading the container, authentication/decryption, and lossless PNG output at compression level 1. The measurements describe this specific Python/Windows/AMD64 environment and cannot be compared directly with the six papers' timings, which used different software, hardware, images, and timing boundaries.
 
@@ -238,6 +238,47 @@ Image & Mode & $H(P)$ & $H(C)$ & $H(D)$ & $NPCR(P,C)$ (\%) & $UACI(P,C)$ (\%) & 
 \end{table*}
 
 
+\begin{table*}[!t]
+\caption{Per-image fresh-nonce NPCR/UACI diagnostics for all 22 control assets. For each algorithm, the first pair compares two encryptions of the same plaintext; the second pair compares encryptions of the original and a one-byte-modified plaintext. Each entry is the mean of five comparisons. Since each encryption uses a fresh nonce, these measurements include nonce-induced differences and are not intrinsic-diffusion estimates. Images 1--20 are the displayed corpus; 21--22 are derived grayscale controls.}
+\label{tab:per-image-differential}
+\centering\scriptsize
+\setlength{\tabcolsep}{2.4pt}\renewcommand{\arraystretch}{1.08}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{rr*{8}{r}}
+\toprule
+& & \multicolumn{4}{c}{Same plaintext, independent fresh nonces} & \multicolumn{4}{c}{One-byte plaintext change, fresh nonces} \\
+\cmidrule(lr){3-6}\cmidrule(lr){7-10}
+Image & Mode & \multicolumn{2}{c}{AES-GCM} & \multicolumn{2}{c}{ChaCha20-Poly1305} & \multicolumn{2}{c}{AES-GCM} & \multicolumn{2}{c}{ChaCha20-Poly1305} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& & NPCR & UACI & NPCR & UACI & NPCR & UACI & NPCR & UACI \\
+\midrule
+1 & Gray & 99.61 & 33.49 & 99.62 & 33.46 & 99.61 & 33.47 & 99.60 & 33.45 \\
+2 & Gray & 99.60 & 33.41 & 99.61 & 33.43 & 99.61 & 33.47 & 99.60 & 33.46 \\
+3 & Gray & 99.59 & 33.41 & 99.59 & 33.39 & 99.60 & 33.49 & 99.61 & 33.48 \\
+4 & Gray & 99.61 & 33.49 & 99.59 & 33.48 & 99.60 & 33.43 & 99.61 & 33.43 \\
+5 & Gray & 99.62 & 33.47 & 99.61 & 33.44 & 99.61 & 33.43 & 99.60 & 33.47 \\
+6 & Gray & 99.62 & 33.49 & 99.61 & 33.45 & 99.62 & 33.49 & 99.62 & 33.49 \\
+7 & Gray & 99.62 & 33.46 & 99.61 & 33.47 & 99.61 & 33.45 & 99.60 & 33.43 \\
+8 & Gray & 99.61 & 33.45 & 99.61 & 33.45 & 99.59 & 33.42 & 99.61 & 33.45 \\
+9 & Gray & 99.61 & 33.49 & 99.62 & 33.48 & 99.60 & 33.45 & 99.61 & 33.46 \\
+10 & Gray & 99.60 & 33.43 & 99.60 & 33.47 & 99.61 & 33.48 & 99.61 & 33.48 \\
+11 & RGB & 99.61 & 33.46 & 99.61 & 33.44 & 99.60 & 33.45 & 99.61 & 33.44 \\
+12 & RGB & 99.61 & 33.49 & 99.61 & 33.47 & 99.61 & 33.49 & 99.59 & 33.43 \\
+13 & RGB & 99.60 & 33.48 & 99.61 & 33.48 & 99.61 & 33.42 & 99.60 & 33.47 \\
+14 & RGB & 99.60 & 33.44 & 99.60 & 33.46 & 99.61 & 33.44 & 99.61 & 33.48 \\
+15 & RGB & 99.62 & 33.43 & 99.61 & 33.42 & 99.61 & 33.43 & 99.61 & 33.49 \\
+16 & RGB & 99.61 & 33.47 & 99.62 & 33.48 & 99.61 & 33.46 & 99.61 & 33.46 \\
+17 & RGB & 99.60 & 33.46 & 99.61 & 33.47 & 99.61 & 33.45 & 99.61 & 33.45 \\
+18 & RGB & 99.61 & 33.47 & 99.61 & 33.48 & 99.61 & 33.48 & 99.60 & 33.47 \\
+19 & RGB & 99.61 & 33.45 & 99.61 & 33.46 & 99.61 & 33.45 & 99.60 & 33.46 \\
+20 & RGB & 99.61 & 33.46 & 99.61 & 33.46 & 99.61 & 33.47 & 99.61 & 33.46 \\
+21 & Gray & 99.61 & 33.48 & 99.61 & 33.46 & 99.61 & 33.45 & 99.62 & 33.46 \\
+22 & Gray & 99.61 & 33.48 & 99.61 & 33.46 & 99.61 & 33.47 & 99.62 & 33.47 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
 \begin{figure*}[!t]
 \centering
 \includegraphics[width=0.96\textwidth]{figures/color_original_ciphertext_decrypted_histograms.png}
@@ -254,9 +295,30 @@ Image & Mode & $H(P)$ & $H(C)$ & $H(D)$ & $NPCR(P,C)$ (\%) & $UACI(P,C)$ (\%) & 
 
 On the four file cases using color images 15 and 16 (two images by two algorithms; 30 file-operation repetitions each), mean per-case median seal time was 3.97 ms and mean open-plus-PNG time was 25.61 ms. These measurements include codec and file operations and apply only to 256$\times$256 RGB images on the recorded machine. They are not directly comparable to the prior 22-image timing suite or to the six papers.
 
-The image labels in Fig.~\ref{fig:image-montage} use simple serial numbers: 1--10 are grayscale and 11--20 are color. Table~\ref{tab:per-image-metrics} gives plaintext, ciphertext-body, and recovered byte entropy plus direct plaintext-to-ciphertext NPCR/UACI for every image. Because these compare different byte representations, those two columns are descriptive and must not be interpreted as conventional differential sensitivity scores.
+The image labels in Fig.~\ref{fig:image-montage} use simple serial numbers: 1--10 are grayscale and 11--20 are color. Table~\ref{tab:per-image-metrics} gives plaintext, ciphertext-body, and recovered byte entropy plus direct plaintext-to-ciphertext NPCR/UACI for every image. Because these compare different byte representations, those two columns are descriptive and must not be interpreted as conventional differential sensitivity scores. Table~\ref{tab:per-image-differential} reports separate, controlled five-pair fresh-nonce comparisons for all 22 assets and both AEAD algorithms, split between unchanged and one-byte-modified plaintext. It shows that near-ideal NPCR/UACI values occur in both conditions and therefore cannot isolate plaintext sensitivity in this setup.
 
 For a concrete integrity demonstration, we re-opened each of the 20 saved binary containers and performed four probes: one authentication-tag bit flip, 1\% ciphertext-body byte corruption, 1\% truncation, and a one-bit wrong key. All 80/80 probes returned an authentication failure and produced no image. Fig.~\ref{fig:attack-evidence} shows representative grayscale image 1 and color image 11. The disclosed demonstration keys are only for reproducibility and must not be reused.
+
+\begin{table*}[!t]
+\caption{Detailed outcomes of the additional AEAD-control attack diagnostics. The observations refer to the standard reference algorithms and the specified harness only; they are not attack results against the six source-paper ciphers.}
+\label{tab:attack-outcomes}
+\centering\small
+\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{p{0.16\textwidth}p{0.17\textwidth}p{0.23\textwidth}p{0.35\textwidth}}
+\toprule
+Probe & Work performed & Observed result & Interpretation \\
+\midrule
+Integrity/tamper & 572 mutation, metadata, truncation, and wrong-key probes across 44 image--algorithm cases & 572/572 rejected; no corrupted plaintext returned & Confirms fail-closed behavior for these tested inputs; not a general implementation proof. \\
+Noise and reordering & 13 probes per each of four color-image/algorithm cases, including salt-and-pepper and Gaussian noise at 0.1, 1, 5, and 10\%, byte changes, metadata, truncation, and block reordering & 52/52 rejected & AEAD detects modification; it does not provide graceful recovery from ciphertext damage. \\
+CPA distinguisher & 500 randomized challenges per image--algorithm case; two RGB images & 242--265 correct of 500 (48.4--53.0\%); every Wilson 95\% interval includes 50\% & No advantage was detected by this one simple classifier; this is not an IND-CPA proof. \\
+KPA transfer & One known pair, then 100 fresh-nonce target messages per case & 0/100 target prefixes recovered in each of four cases & A bounded cross-nonce transfer probe; not a general key-recovery result. \\
+Wrong-key sensitivity & 100 random wrong keys per case, plus one-bit key changes & 400/400 random-key attempts rejected; all one-bit changes rejected & Authentication failure is expected for AEAD and does not quantify key sensitivity of the six custom ciphers. \\
+Ciphertext-only diagnostics & Byte entropy, histograms, channel statistics, and spatial correlation & Ciphertext statistics were measured; no plaintext/key-recovery attempt was made & Statistical descriptions alone do not constitute a COA. \\
+Timing screen & 1,500 fixed-size samples per input class and algorithm; Welch test & AES-GCM: $p=0.361$; ChaCha20-Poly1305: $p=0.455$ & Exploratory and inconclusive; neither a nonsignificant result nor this sample establishes constant-time behavior. \\
+Brute force / scrambling-only & No exhaustive key search; no separate permutation layer exists in AEAD & No brute-force result; scrambling-only is not applicable & For an ideal 256-bit key, expected exhaustive search is $2^{255}$ trials; this is a theoretical estimate, not measured work. \\
+\bottomrule
+\end{tabular}
+\end{table*}
 
 \begin{figure*}[!t]
 \centering
@@ -265,7 +327,7 @@ For a concrete integrity demonstration, we re-opened each of the 20 saved binary
 \label{fig:attack-evidence}
 \end{figure*}
 
-The attack probes are summarized in Table~\ref{tab:attack-matrix}; “claim only” marks a claim in a source paper without a direct recovery experiment. For the controls, the measured CPA, KPA-transfer, ciphertext-only statistics, noise/tampering, wrong-key, and exploratory timing results are reported here and in Table~\ref{tab:controls}. Scrambling-only testing is not applicable because the AEAD container has no independent pixel-permutation stage. The two-image CPA classifier was correct on 242--265 of 500 challenges per case (48.4\%--53.0\%); each Wilson 95\% interval included 50\%. Across these color-image cases, byte entropy ranged from 7.9989 to 7.9991 bits, and mean absolute spatial correlation ranged from 0.0025 to 0.0038. Fresh-nonce NPCR/UACI was 99.608--99.610\%/33.457--33.474\% for unchanged plaintext and 99.605--99.609\%/33.456--33.468\% for one-byte-changed plaintext. The tested KPA transfer probe recovered 0 of 100 target prefixes in each case. All 13 mutation/noise/reordering probes, 100/100 wrong keys, and the one-bit key change were rejected per case. These outcomes describe these particular probes only. The exploratory timing screen found no statistically significant class difference in this rerun (AES-GCM $p=0.361$; ChaCha20-Poly1305 $p=0.455$). A previous exploratory run had yielded an AES-GCM $p=0.0246$, which did not reproduce. This variation shows that the current screen is too noisy for a side-channel conclusion; neither run establishes an exploitable leak or constant-time behavior. The nominal 256-bit key-space estimate is a mathematical assumption, not a measured brute-force result.
+The source-paper coverage matrix is in Table~\ref{tab:attack-matrix}; “claim only” marks a claim in a source paper without a direct recovery experiment. Table~\ref{tab:attack-outcomes} gives concrete counts and observed outcomes for the additional CPA, KPA-transfer, ciphertext-only diagnostic, noise/tampering, wrong-key, brute-force, scrambling-only, and timing probes on the reference controls. For the controls, the measured CPA, KPA-transfer, ciphertext-only statistics, noise/tampering, wrong-key, and exploratory timing results are reported here and in Table~\ref{tab:controls}. Scrambling-only testing is not applicable because the AEAD container has no independent pixel-permutation stage. The two-image CPA classifier was correct on 242--265 of 500 challenges per case (48.4\%--53.0\%); each Wilson 95\% interval included 50\%. Across these color-image cases, byte entropy ranged from 7.9989 to 7.9991 bits, and mean absolute spatial correlation ranged from 0.0025 to 0.0038. Fresh-nonce NPCR/UACI was 99.608--99.610\%/33.457--33.474\% for unchanged plaintext and 99.605--99.609\%/33.456--33.468\% for one-byte-changed plaintext. The tested KPA transfer probe recovered 0 of 100 target prefixes in each case. All 13 mutation/noise/reordering probes, 100/100 wrong keys, and the one-bit key change were rejected per case. These outcomes describe these particular probes only. The exploratory timing screen found no statistically significant class difference in this rerun (AES-GCM $p=0.361$; ChaCha20-Poly1305 $p=0.455$). A previous exploratory run had yielded an AES-GCM $p=0.0246$, which did not reproduce. This variation shows that the current screen is too noisy for a side-channel conclusion; neither run establishes an exploitable leak or constant-time behavior. The nominal 256-bit key-space estimate is a mathematical assumption, not a measured brute-force result.
 
 The following tables answer two different comparison questions: reported image-statistic results across the six source papers, and which attacks each paper actually tested. Published values are transcribed from the supplied PDFs. They are not a controlled ranking because image sets, channels, plaintext edits, key/nonce rules, and implementations differ. “NR” means not reported in the supplied paper; it does not mean a failed test.
 
@@ -346,7 +408,10 @@ Byte entropy (bits/byte) & 7.99894 & 7.99895 \\
 Mean absolute correlation & 0.00214 & 0.00240 \\
 Same-image NPCR/UACI (\%) & 99.609/33.461 & 99.609/33.457 \\
 Changed-image NPCR/UACI (\%) & 99.609/33.457 & 99.608/33.461 \\
-Encryption throughput (MiB/s) & 2,022.02 & 1,239.89 \\
+Mean per-image median encryption time (ms) & 0.161 & 0.252 \\
+Mean per-image median decryption time (ms) & 0.155 & 0.249 \\
+Mean encryption throughput (MiB/s) & 2,022.02 & 1,239.89 \\
+Mean decryption throughput (MiB/s) & 1,917.66 & 1,212.49 \\
 \bottomrule
 \end{tabular}%
 }
