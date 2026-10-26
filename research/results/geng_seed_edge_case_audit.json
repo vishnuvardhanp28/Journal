@@ -76,7 +76,7 @@
   ],
   "expected_failure_probability_if_SHA256_groups_are_uniform": 0.015533685451373458,
   "expected_failures_at_n": 155.33685451373458,
-  "elapsed_seconds": 3.49398420000216,
+  "elapsed_seconds": 3.6962277999846265,
   "first_failure": {
     "seed_function_exception": "ValueError: Published Eq. 14 divides by XOR group value 0 for this input.",
     "query": 43,

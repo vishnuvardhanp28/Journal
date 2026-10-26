@@ -11,8 +11,8 @@
   ],
   "file_api_round_trips": 4,
   "file_repetitions_per_case": 30,
-  "mean_file_seal_median_ms": 2.8442875,
-  "mean_file_open_plus_png_median_ms": 20.0342375,
+  "mean_file_seal_median_ms": 3.9714875,
+  "mean_file_open_plus_png_median_ms": 25.6094,
   "pixel_and_saved_png_match": "exact for all examples and timed repetitions",
   "test_counts": {
     "CPA_trials_per_algorithm": 500,
@@ -28,7 +28,7 @@
     {
       "image_id": "4.1.07",
       "algorithm": "AES-256-GCM",
-      "key_fingerprint_prefix": "28ec11e32ee07d5b",
+      "key_fingerprint_prefix": "3fee14b4d445a4c9",
       "pixels": {
         "width": 256,
         "height": 256,
@@ -36,45 +36,45 @@
         "raw_bytes": 196608
       },
       "ciphertext_metrics": {
-        "byte_entropy_bits": 7.999120200849847,
+        "byte_entropy_bits": 7.9989978825203405,
         "channel_entropy_bits": {
-          "R": 7.997248661490537,
-          "G": 7.997470241241141,
-          "B": 7.99744275541426
+          "R": 7.997191285899183,
+          "G": 7.997260275161216,
+          "B": 7.996930451072654
         },
         "channel_histogram_chi_square": {
           "R": {
-            "chi_square": 250.1171875,
-            "p_value": 0.5745761156097776
+            "chi_square": 256.25,
+            "p_value": 0.4662202281247534
           },
           "G": {
-            "chi_square": 228.9765625,
-            "p_value": 0.8778416420786331
+            "chi_square": 248.4375,
+            "p_value": 0.6039302970847225
           },
           "B": {
-            "chi_square": 230.96875,
-            "p_value": 0.8576345022819388
+            "chi_square": 279.890625,
+            "p_value": 0.13620703678118143
           }
         },
         "spatial_correlation": {
-          "R_horizontal": -0.008931724317141489,
-          "R_vertical": -0.0023508850542771384,
-          "R_diagonal": -0.00011385733044172187,
-          "G_horizontal": 0.00356954015999392,
-          "G_vertical": 0.0027502801269486594,
-          "G_diagonal": -0.00597134442663413,
-          "B_horizontal": 0.001590965946931551,
-          "B_vertical": 0.00113918318019435,
-          "B_diagonal": 0.000199947173615957
+          "R_horizontal": 0.0014664511897955845,
+          "R_vertical": -0.000645284824094555,
+          "R_diagonal": -0.005128109041548754,
+          "G_horizontal": 0.004900657959766906,
+          "G_vertical": -0.0027853535865443937,
+          "G_diagonal": 0.0001886279052195971,
+          "B_horizontal": 0.004974655056824634,
+          "B_vertical": 0.002107166673973345,
+          "B_diagonal": 0.0006723367963369909
         },
-        "mean_absolute_spatial_correlation": 0.0029575253017976575
+        "mean_absolute_spatial_correlation": 0.0025409603371227512
       },
       "differential_diagnostics": {
         "fresh_nonce_trials": 30,
-        "same_plain_npcr_mean_pct": 99.61181640625,
-        "same_plain_uaci_mean_pct": 33.464568426925894,
-        "one_byte_changed_npcr_mean_pct": 99.61117214626736,
-        "one_byte_changed_uaci_mean_pct": 33.4679349346618
+        "same_plain_npcr_mean_pct": 99.60849338107639,
+        "same_plain_uaci_mean_pct": 33.4681986889808,
+        "one_byte_changed_npcr_mean_pct": 99.60725572374132,
+        "one_byte_changed_uaci_mean_pct": 33.455628172764335
       },
       "chosen_plaintext_distinguisher": {
         "trials": 500,
@@ -87,8 +87,8 @@
           0.5733519481480536
         ],
         "class_mean_ciphertext_byte": {
-          "0": 127.49045398308729,
-          "1": 127.51205719926284
+          "0": 127.48189508930906,
+          "1": 127.51191599973802
         },
         "interpretation": "one simple distinguisher test only; this is not a complete IND-CPA proof"
       },
@@ -182,12 +182,12 @@
         "samples_per_class": 1500,
         "class_0": "all-zero image bytes",
         "class_1": "fixed pseudorandom image bytes",
-        "mean_us_class_0": 97.09706666666666,
-        "mean_us_class_1": 99.39446666666667,
-        "median_us_class_0": 88.4,
-        "median_us_class_1": 89.0,
-        "welch_t_statistic": -2.2487300890700475,
-        "welch_p_value": 0.0246067814901852,
+        "mean_us_class_0": 152.07306666666668,
+        "mean_us_class_1": 153.802,
+        "median_us_class_0": 136.5,
+        "median_us_class_1": 138.3,
+        "welch_t_statistic": -0.9132588047337471,
+        "welch_p_value": 0.36117991026775353,
         "interpretation": "timing-leakage screening only; a nonsignificant result is not proof of constant-time behavior"
       },
       "time_complexity": "O(n) time and O(n) memory in this whole-image Python wrapper; standard AEAD primitive is linear in message length."
@@ -195,7 +195,7 @@
     {
       "image_id": "4.1.07",
       "algorithm": "ChaCha20-Poly1305",
-      "key_fingerprint_prefix": "c0316e0ec80853b0",
+      "key_fingerprint_prefix": "6da5ea9d4ad2a73d",
       "pixels": {
         "width": 256,
         "height": 256,
@@ -203,59 +203,59 @@
         "raw_bytes": 196608
       },
       "ciphertext_metrics": {
-        "byte_entropy_bits": 7.999067863633602,
+        "byte_entropy_bits": 7.999016918979623,
         "channel_entropy_bits": {
-          "R": 7.997288418967106,
-          "G": 7.997375234202611,
-          "B": 7.997035613170562
+          "R": 7.997140530510485,
+          "G": 7.997053227355508,
+          "B": 7.99735897779464
         },
         "channel_histogram_chi_square": {
           "R": {
-            "chi_square": 245.4140625,
-            "p_value": 0.6555291181704552
+            "chi_square": 258.796875,
+            "p_value": 0.42199563185034394
           },
           "G": {
-            "chi_square": 237.9140625,
-            "p_value": 0.771705260622907
+            "chi_square": 265.5859375,
+            "p_value": 0.3114145830216753
           },
           "B": {
-            "chi_square": 268.1015625,
-            "p_value": 0.2742862774110642
+            "chi_square": 240.5,
+            "p_value": 0.7340120990392545
           }
         },
         "spatial_correlation": {
-          "R_horizontal": -0.006917969788456344,
-          "R_vertical": -0.0029577270445252444,
-          "R_diagonal": 0.0003624152479925621,
-          "G_horizontal": -0.0021376378331264775,
-          "G_vertical": 0.002813084167802237,
-          "G_diagonal": 0.006005107325795955,
-          "B_horizontal": 0.005037763792519067,
-          "B_vertical": -0.0012069949773433463,
-          "B_diagonal": -0.006171317747020162
+          "R_horizontal": 0.0018457311275756093,
+          "R_vertical": 0.0010844053442126294,
+          "R_diagonal": 0.0010769340974340613,
+          "G_horizontal": -0.001164575558604665,
+          "G_vertical": 0.002618530059020415,
+          "G_diagonal": 0.011954133916780105,
+          "B_horizontal": -0.00498744636671499,
+          "B_vertical": -0.004202752722929202,
+          "B_diagonal": -0.0033490347255041956
         },
-        "mean_absolute_spatial_correlation": 0.0037344464360645996
+        "mean_absolute_spatial_correlation": 0.0035870604354195416
       },
       "differential_diagnostics": {
         "fresh_nonce_trials": 30,
-        "same_plain_npcr_mean_pct": 99.60851033528645,
-        "same_plain_uaci_mean_pct": 33.4521719074457,
-        "one_byte_changed_npcr_mean_pct": 99.61183336046007,
-        "one_byte_changed_uaci_mean_pct": 33.45916861074942
+        "same_plain_npcr_mean_pct": 99.61239284939236,
+        "same_plain_uaci_mean_pct": 33.47186319189134,
+        "one_byte_changed_npcr_mean_pct": 99.61201985677083,
+        "one_byte_changed_uaci_mean_pct": 33.45545331169577
       },
       "chosen_plaintext_distinguisher": {
         "trials": 500,
         "chosen_messages": "all-zero RGB image vs all-255 RGB image, same length and metadata",
         "classifier": "ciphertext body mean byte > 127.5 predicts all-255 message",
-        "correct": 259,
-        "accuracy": 0.518,
+        "correct": 246,
+        "accuracy": 0.492,
         "wilson_95_ci": [
-          0.4742321113679192,
-          0.561493412375465
+          0.44840780608924286,
+          0.535714183358142
         ],
         "class_mean_ciphertext_byte": {
-          "0": 127.5029650246457,
-          "1": 127.50579809971974
+          "0": 127.50587413849753,
+          "1": 127.50170686691786
         },
         "interpretation": "one simple distinguisher test only; this is not a complete IND-CPA proof"
       },
@@ -349,12 +349,12 @@
         "samples_per_class": 1500,
         "class_0": "all-zero image bytes",
         "class_1": "fixed pseudorandom image bytes",
-        "mean_us_class_0": 154.95406666666668,
-        "mean_us_class_1": 154.79173333333333,
-        "median_us_class_0": 149.14999999999998,
-        "median_us_class_1": 147.95,
-        "welch_t_statistic": 0.13262074718972214,
-        "welch_p_value": 0.8945024192160533,
+        "mean_us_class_0": 212.3488,
+        "mean_us_class_1": 210.97093333333333,
+        "median_us_class_0": 207.95,
+        "median_us_class_1": 206.4,
+        "welch_t_statistic": 0.7477570841248324,
+        "welch_p_value": 0.4546653593975642,
         "interpretation": "timing-leakage screening only; a nonsignificant result is not proof of constant-time behavior"
       },
       "time_complexity": "O(n) time and O(n) memory in this whole-image Python wrapper; standard AEAD primitive is linear in message length."
@@ -362,7 +362,7 @@
     {
       "image_id": "4.1.08",
       "algorithm": "AES-256-GCM",
-      "key_fingerprint_prefix": "6349455fc243536b",
+      "key_fingerprint_prefix": "0138493c308769c2",
       "pixels": {
         "width": 256,
         "height": 256,
@@ -370,59 +370,59 @@
         "raw_bytes": 196608
       },
       "ciphertext_metrics": {
-        "byte_entropy_bits": 7.999095541218297,
+        "byte_entropy_bits": 7.999127848427919,
         "channel_entropy_bits": {
-          "R": 7.997015422437887,
-          "G": 7.997270886261003,
-          "B": 7.997172028273724
+          "R": 7.997449348328678,
+          "G": 7.996992108035677,
+          "B": 7.997128962401244
         },
         "channel_histogram_chi_square": {
           "R": {
-            "chi_square": 270.4609375,
-            "p_value": 0.24176549000746417
+            "chi_square": 232.1328125,
+            "p_value": 0.8448946848166417
           },
           "G": {
-            "chi_square": 247.796875,
-            "p_value": 0.6150162458105808
+            "chi_square": 273.2890625,
+            "p_value": 0.20593217008855244
           },
           "B": {
-            "chi_square": 257.3671875,
-            "p_value": 0.4467006886738167
+            "chi_square": 262.234375,
+            "p_value": 0.36436319711787407
           }
         },
         "spatial_correlation": {
-          "R_horizontal": -0.005068744146808857,
-          "R_vertical": -0.00025371504969290084,
-          "R_diagonal": 0.0060040008694305326,
-          "G_horizontal": -0.0030133439397730336,
-          "G_vertical": 0.0017436760964613534,
-          "G_diagonal": -0.001437590853498198,
-          "B_horizontal": -0.00016633482685401703,
-          "B_vertical": -0.0036259654145328448,
-          "B_diagonal": 0.0032937769722617164
+          "R_horizontal": 0.006097376427947856,
+          "R_vertical": -0.0008085616883119076,
+          "R_diagonal": 0.004873455428350772,
+          "G_horizontal": -0.000710480085460343,
+          "G_vertical": -0.0030520330842638247,
+          "G_diagonal": 0.0016142158048602214,
+          "B_horizontal": 0.0013368946536050812,
+          "B_vertical": 0.0018592696923110268,
+          "B_diagonal": -0.0031219382460497664
         },
-        "mean_absolute_spatial_correlation": 0.0027341275743681614
+        "mean_absolute_spatial_correlation": 0.002608247234573422
       },
       "differential_diagnostics": {
         "fresh_nonce_trials": 30,
-        "same_plain_npcr_mean_pct": 99.61107042100694,
-        "same_plain_uaci_mean_pct": 33.45488458105682,
-        "one_byte_changed_npcr_mean_pct": 99.6082051595052,
-        "one_byte_changed_uaci_mean_pct": 33.4545662408301
+        "same_plain_npcr_mean_pct": 99.60906982421875,
+        "same_plain_uaci_mean_pct": 33.45769552259923,
+        "one_byte_changed_npcr_mean_pct": 99.61052788628473,
+        "one_byte_changed_uaci_mean_pct": 33.480859893599366
       },
       "chosen_plaintext_distinguisher": {
         "trials": 500,
         "chosen_messages": "all-zero RGB image vs all-255 RGB image, same length and metadata",
         "classifier": "ciphertext body mean byte > 127.5 predicts all-255 message",
-        "correct": 251,
-        "accuracy": 0.502,
+        "correct": 242,
+        "accuracy": 0.484,
         "wilson_95_ci": [
-          0.45832636322986225,
-          0.5456431394082917
+          0.4404854432314528,
+          0.527758535663317
         ],
         "class_mean_ciphertext_byte": {
-          "0": 127.4913415053443,
-          "1": 127.50282034297705
+          "0": 127.50388833573226,
+          "1": 127.50273150561816
         },
         "interpretation": "one simple distinguisher test only; this is not a complete IND-CPA proof"
       },
@@ -516,12 +516,12 @@
         "samples_per_class": 1500,
         "class_0": "all-zero image bytes",
         "class_1": "fixed pseudorandom image bytes",
-        "mean_us_class_0": 97.09706666666666,
-        "mean_us_class_1": 99.39446666666667,
-        "median_us_class_0": 88.4,
-        "median_us_class_1": 89.0,
-        "welch_t_statistic": -2.2487300890700475,
-        "welch_p_value": 0.0246067814901852,
+        "mean_us_class_0": 152.07306666666668,
+        "mean_us_class_1": 153.802,
+        "median_us_class_0": 136.5,
+        "median_us_class_1": 138.3,
+        "welch_t_statistic": -0.9132588047337471,
+        "welch_p_value": 0.36117991026775353,
         "interpretation": "timing-leakage screening only; a nonsignificant result is not proof of constant-time behavior"
       },
       "time_complexity": "O(n) time and O(n) memory in this whole-image Python wrapper; standard AEAD primitive is linear in message length."
@@ -529,7 +529,7 @@
     {
       "image_id": "4.1.08",
       "algorithm": "ChaCha20-Poly1305",
-      "key_fingerprint_prefix": "a021189eb2def99e",
+      "key_fingerprint_prefix": "2c84924cb08601e1",
       "pixels": {
         "width": 256,
         "height": 256,
@@ -537,59 +537,59 @@
         "raw_bytes": 196608
       },
       "ciphertext_metrics": {
-        "byte_entropy_bits": 7.9990670187351185,
+        "byte_entropy_bits": 7.999091854191935,
         "channel_entropy_bits": {
-          "R": 7.997315962323635,
-          "G": 7.9971269985295965,
-          "B": 7.997095777607267
+          "R": 7.997744401755734,
+          "G": 7.9972813182027025,
+          "B": 7.9971321841328304
         },
         "channel_histogram_chi_square": {
           "R": {
-            "chi_square": 244.3359375,
-            "p_value": 0.6734033525899306
+            "chi_square": 205.21875,
+            "p_value": 0.9902726204649108
           },
           "G": {
-            "chi_square": 260.7265625,
-            "p_value": 0.3892884844396131
+            "chi_square": 246.78125,
+            "p_value": 0.6324357279883827
           },
           "B": {
-            "chi_square": 263.5234375,
-            "p_value": 0.34356833249565366
+            "chi_square": 260.453125,
+            "p_value": 0.3938716643687918
           }
         },
         "spatial_correlation": {
-          "R_horizontal": 0.0022183772687836517,
-          "R_vertical": 0.002953109495127367,
-          "R_diagonal": -0.002033688307442979,
-          "G_horizontal": -0.00468042902473936,
-          "G_vertical": 0.002384678702338823,
-          "G_diagonal": -0.004332222319273199,
-          "B_horizontal": 0.0045480677063796365,
-          "B_vertical": 0.005517038998623684,
-          "B_diagonal": 0.005158953648764954
+          "R_horizontal": 0.0035552160381253236,
+          "R_vertical": 0.00036045897403445425,
+          "R_diagonal": 0.004157874089169921,
+          "G_horizontal": -0.002662348651070177,
+          "G_vertical": 0.006545880906460677,
+          "G_diagonal": -0.0012169545804875718,
+          "B_horizontal": 0.002135346894062864,
+          "B_vertical": 0.0020083515870886965,
+          "B_diagonal": -0.0005301272371947621
         },
-        "mean_absolute_spatial_correlation": 0.0037585072746081838
+        "mean_absolute_spatial_correlation": 0.002574728773077161
       },
       "differential_diagnostics": {
         "fresh_nonce_trials": 30,
-        "same_plain_npcr_mean_pct": 99.61283365885416,
-        "same_plain_uaci_mean_pct": 33.4816423137723,
-        "one_byte_changed_npcr_mean_pct": 99.608154296875,
-        "one_byte_changed_uaci_mean_pct": 33.46378148563028
+        "same_plain_npcr_mean_pct": 99.60966322157118,
+        "same_plain_uaci_mean_pct": 33.474012653292654,
+        "one_byte_changed_npcr_mean_pct": 99.60583157009549,
+        "one_byte_changed_uaci_mean_pct": 33.45775556044901
       },
       "chosen_plaintext_distinguisher": {
         "trials": 500,
         "chosen_messages": "all-zero RGB image vs all-255 RGB image, same length and metadata",
         "classifier": "ciphertext body mean byte > 127.5 predicts all-255 message",
-        "correct": 237,
-        "accuracy": 0.474,
+        "correct": 257,
+        "accuracy": 0.514,
         "wilson_95_ci": [
-          0.43059811407349635,
-          0.5177983516305045
+          0.47025151158007206,
+          0.5575350068870044
         ],
         "class_mean_ciphertext_byte": {
-          "0": 127.51153229178858,
-          "1": 127.48457203266105
+          "0": 127.49791114607108,
+          "1": 127.50251946838117
         },
         "interpretation": "one simple distinguisher test only; this is not a complete IND-CPA proof"
       },
@@ -683,12 +683,12 @@
         "samples_per_class": 1500,
         "class_0": "all-zero image bytes",
         "class_1": "fixed pseudorandom image bytes",
-        "mean_us_class_0": 154.95406666666668,
-        "mean_us_class_1": 154.79173333333333,
-        "median_us_class_0": 149.14999999999998,
-        "median_us_class_1": 147.95,
-        "welch_t_statistic": 0.13262074718972214,
-        "welch_p_value": 0.8945024192160533,
+        "mean_us_class_0": 212.3488,
+        "mean_us_class_1": 210.97093333333333,
+        "median_us_class_0": 207.95,
+        "median_us_class_1": 206.4,
+        "welch_t_statistic": 0.7477570841248324,
+        "welch_p_value": 0.4546653593975642,
         "interpretation": "timing-leakage screening only; a nonsignificant result is not proof of constant-time behavior"
       },
       "time_complexity": "O(n) time and O(n) memory in this whole-image Python wrapper; standard AEAD primitive is linear in message length."
@@ -705,11 +705,11 @@
       "algorithm": "AES-256-GCM",
       "encrypted_binary": "encrypted\\4.1.07_AES-256-GCM.imgenc",
       "demo_key_sidecar": "demo_keys\\4.1.07_AES-256-GCM_DEMO_ONLY.key.txt",
-      "encrypted_binary_sha256": "21a1bc43d6291288658aa5e999e6beddf60100ef60f6e90740727d3b96769b7a",
+      "encrypted_binary_sha256": "e5cc25aa1f8d7ce95ee4276162ea66b4df300786ffb5b81e177ef9fad84b42a2",
       "ciphertext_display_png": "ciphertext_views\\4.1.07_aes_gcm_ciphertext_bytes.png",
       "decrypted_png": "decrypted\\4.1.07_AES-256-GCM_decrypted.png",
       "decryption_exact_pixel_match": true,
-      "key_fingerprint_sha256_prefix": "3ba9541e0c2e669c",
+      "key_fingerprint_sha256_prefix": "b05957908bd6e317",
       "key_included_in_demo_key_sidecar": true,
       "warning": "demo key is intentionally included for reproducibility; do not reuse or treat this sample as secure key management"
     },
@@ -723,11 +723,11 @@
       "algorithm": "AES-256-GCM",
       "encrypted_binary": "encrypted\\4.1.08_AES-256-GCM.imgenc",
       "demo_key_sidecar": "demo_keys\\4.1.08_AES-256-GCM_DEMO_ONLY.key.txt",
-      "encrypted_binary_sha256": "5c3b9ae72590291cfcc42a1e711b5bf9065b3fec054599cb770fdb057358a454",
+      "encrypted_binary_sha256": "e0749908baf1313b2828eed406e31093d6e1160e4ba7078cca4af55a878eaf6a",
       "ciphertext_display_png": "ciphertext_views\\4.1.08_aes_gcm_ciphertext_bytes.png",
       "decrypted_png": "decrypted\\4.1.08_AES-256-GCM_decrypted.png",
       "decryption_exact_pixel_match": true,
-      "key_fingerprint_sha256_prefix": "1ca06e020281f72a",
+      "key_fingerprint_sha256_prefix": "c7c690a7b2c8b289",
       "key_included_in_demo_key_sidecar": true,
       "warning": "demo key is intentionally included for reproducibility; do not reuse or treat this sample as secure key management"
     }
@@ -738,12 +738,12 @@
       "samples_per_class": 1500,
       "class_0": "all-zero image bytes",
       "class_1": "fixed pseudorandom image bytes",
-      "mean_us_class_0": 97.09706666666666,
-      "mean_us_class_1": 99.39446666666667,
-      "median_us_class_0": 88.4,
-      "median_us_class_1": 89.0,
-      "welch_t_statistic": -2.2487300890700475,
-      "welch_p_value": 0.0246067814901852,
+      "mean_us_class_0": 152.07306666666668,
+      "mean_us_class_1": 153.802,
+      "median_us_class_0": 136.5,
+      "median_us_class_1": 138.3,
+      "welch_t_statistic": -0.9132588047337471,
+      "welch_p_value": 0.36117991026775353,
       "interpretation": "timing-leakage screening only; a nonsignificant result is not proof of constant-time behavior"
     },
     {
@@ -751,12 +751,12 @@
       "samples_per_class": 1500,
       "class_0": "all-zero image bytes",
       "class_1": "fixed pseudorandom image bytes",
-      "mean_us_class_0": 154.95406666666668,
-      "mean_us_class_1": 154.79173333333333,
-      "median_us_class_0": 149.14999999999998,
-      "median_us_class_1": 147.95,
-      "welch_t_statistic": 0.13262074718972214,
-      "welch_p_value": 0.8945024192160533,
+      "mean_us_class_0": 212.3488,
+      "mean_us_class_1": 210.97093333333333,
+      "median_us_class_0": 207.95,
+      "median_us_class_1": 206.4,
+      "welch_t_statistic": 0.7477570841248324,
+      "welch_p_value": 0.4546653593975642,
       "interpretation": "timing-leakage screening only; a nonsignificant result is not proof of constant-time behavior"
     }
   ]

@@ -1,0 +1,7 @@
+Paper,Reported cipher entropy (bits),Reported NPCR (%) mean/examples,Reported UACI (%) mean/examples,Conditions/caveat,Source table/pages
+Niu et al. (2024),7.9970–7.9973,99.6082,33.4733,5 grayscale images; mean computed from reported table values,"s41598-024-57756-x, Tables 5–6"
+Zhang et al. (2024),7.9897–7.9915 (named originals); one entry 7.9617,NR (examples include Lena 99.6093; Baboon 99.8046),NR (examples include Lena 33.4635; Baboon 33.3984),Different images/modified variants; not pooled,"s41598-024-58612-8, Tables 2 and 4"
+Zhu and Zhu (2024),NR in extracted numeric table,NR,NR,Visual-security embedding; not directly comparable,s41598-024-66320-6
+Yan et al. (2025),7.9992–7.9993 per RGB channel,NR,NR,Three RGB images; table reports channel entropy/correlation,"s41598-025-93649-3, Tables 2–5"
+Geng et al. (2025),Approx. 7.9968–7.9994 local-entropy results,99.6184,33.4734,Mean computed from seven reported NPCR/UACI pairs,"s41598-025-95263-9, Table 13"
+Al-Dayel et al. (2025),Approx. 7.9977 mean,99.6143,33.4983,Mean computed from eight reported image pairs,"s41598-025-95511-y, Table 12"

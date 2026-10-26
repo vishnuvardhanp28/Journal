@@ -17,8 +17,8 @@
     6,
     1
   ],
-  "mean_file_encrypt_mib_s": 75.5169433408236,
-  "mean_file_decrypt_mib_s": 9.660928190433838,
+  "mean_file_encrypt_mib_s": 53.77540534951329,
+  "mean_file_decrypt_mib_s": 7.223106698267553,
   "mean_png_output_bytes_by_compression_level": {
     "6": 191071.27272727274,
     "1": 276159.36363636365

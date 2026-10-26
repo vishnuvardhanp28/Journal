@@ -19,7 +19,7 @@ from secure_image_bench import (CIPHERS, MAGIC, NONCE_SIZE, TAG_SIZE, canonical_
 ROOT=CODE.parent
 DATA=ROOT/'data'/'benchmarks'/'usc_sipi'
 OUT=ROOT/'results'
-REPEATS=9
+REPEATS=30
 DIFF_TRIALS=5
 ALPHA_CHI2_CRITICAL_255DF=293.2478
 

@@ -45,7 +45,9 @@ def main():
 
     # Verify the actual file API and measure full local file I/O plus encrypt/decrypt.
     file_roundtrips=0; timing_rows=[]; compression_levels=(6,1)
-    with tempfile.TemporaryDirectory(prefix='image-aead-',dir=ROOT/'work') as td:
+    scratch = ROOT / 'work'
+    scratch.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='image-aead-',dir=scratch) as td:
         tmp=Path(td)
         for entry in entries:
             source=ROOT/entry['relative_path']

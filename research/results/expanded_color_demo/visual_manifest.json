@@ -9,11 +9,11 @@
     "algorithm": "AES-256-GCM",
     "encrypted_binary": "encrypted\\4.1.07_AES-256-GCM.imgenc",
     "demo_key_sidecar": "demo_keys\\4.1.07_AES-256-GCM_DEMO_ONLY.key.txt",
-    "encrypted_binary_sha256": "21a1bc43d6291288658aa5e999e6beddf60100ef60f6e90740727d3b96769b7a",
+    "encrypted_binary_sha256": "e5cc25aa1f8d7ce95ee4276162ea66b4df300786ffb5b81e177ef9fad84b42a2",
     "ciphertext_display_png": "ciphertext_views\\4.1.07_aes_gcm_ciphertext_bytes.png",
     "decrypted_png": "decrypted\\4.1.07_AES-256-GCM_decrypted.png",
     "decryption_exact_pixel_match": true,
-    "key_fingerprint_sha256_prefix": "3ba9541e0c2e669c",
+    "key_fingerprint_sha256_prefix": "b05957908bd6e317",
     "key_included_in_demo_key_sidecar": true,
     "warning": "demo key is intentionally included for reproducibility; do not reuse or treat this sample as secure key management"
   },
@@ -27,11 +27,11 @@
     "algorithm": "AES-256-GCM",
     "encrypted_binary": "encrypted\\4.1.08_AES-256-GCM.imgenc",
     "demo_key_sidecar": "demo_keys\\4.1.08_AES-256-GCM_DEMO_ONLY.key.txt",
-    "encrypted_binary_sha256": "5c3b9ae72590291cfcc42a1e711b5bf9065b3fec054599cb770fdb057358a454",
+    "encrypted_binary_sha256": "e0749908baf1313b2828eed406e31093d6e1160e4ba7078cca4af55a878eaf6a",
     "ciphertext_display_png": "ciphertext_views\\4.1.08_aes_gcm_ciphertext_bytes.png",
     "decrypted_png": "decrypted\\4.1.08_AES-256-GCM_decrypted.png",
     "decryption_exact_pixel_match": true,
-    "key_fingerprint_sha256_prefix": "1ca06e020281f72a",
+    "key_fingerprint_sha256_prefix": "c7c690a7b2c8b289",
     "key_included_in_demo_key_sidecar": true,
     "warning": "demo key is intentionally included for reproducibility; do not reuse or treat this sample as secure key management"
   }

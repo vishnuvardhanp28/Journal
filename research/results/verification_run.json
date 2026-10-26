@@ -1,0 +1,23 @@
+{
+  "run_date": "2026-10-26",
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "machine": "AMD64",
+  "dataset_assets": 22,
+  "grayscale_assets": 12,
+  "rgb_assets": 10,
+  "image_algorithm_cases": 44,
+  "timed_in_memory_repetitions_per_case": 30,
+  "integrity_and_wrong_key_probes": 572,
+  "probes_rejected": 572,
+  "all_exact_roundtrips": true,
+  "ten_by_ten_images_exact": 20,
+  "ten_by_ten_panel_pngs": 60,
+  "chi_square_image_algorithm_cases_all_channels_below_cutoff": 42,
+  "expanded_timing_pvalues": {
+    "AES-256-GCM": 0.36117991026775353,
+    "ChaCha20-Poly1305": 0.4546653593975642
+  },
+  "custom_cipher_end_to_end_reproductions": 0,
+  "latex_pdf_compiled": false
+}

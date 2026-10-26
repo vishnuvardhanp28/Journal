@@ -2,7 +2,7 @@
 
 ## What was run
 
-The six supplied papers were checked for their reported evaluation procedures. We ran the tests that can be meaningfully applied to the current authenticated-encryption controls: AES-256-GCM and ChaCha20-Poly1305 over 12 grayscale and 10 RGB USC-SIPI assets. The 44 image/cipher cases each used nine timed encrypt/decrypt repetitions. Differential diagnostics used five fresh-nonce trials per case.
+The six supplied papers were checked for their reported evaluation procedures. We ran the tests that can be meaningfully applied to the current authenticated-encryption controls: AES-256-GCM and ChaCha20-Poly1305 over 12 grayscale and 10 RGB USC-SIPI assets. The 44 image/cipher cases each used 30 timed encrypt/decrypt repetitions. Differential diagnostics used five fresh-nonce trials per case.
 
 This is **not a run against a new proposed cipher or against the six papers' custom ciphers**. It is a verified control suite while the target implementation remains to be built.
 
@@ -12,15 +12,15 @@ This is **not a run against a new proposed cipher or against the six papers' cus
 |---|---:|---:|
 | Exact round-trips | 22/22 images | 22/22 images |
 | Ciphertext-integrity and wrong-key probes rejected | 286/286 | 286/286 |
-| Mean byte entropy | 7.99897 bits/byte | 7.99897 bits/byte |
-| Mean absolute adjacent-pixel correlation, over channels/directions | 0.00235 | 0.00246 |
-| Mean fresh-nonce NPCR/UACI, same plaintext | 99.611% / 33.460% | 99.609% / 33.470% |
-| Mean fresh-nonce NPCR/UACI, one-byte plaintext change | 99.611% / 33.461% | 99.610% / 33.458% |
-| Mean encryption throughput across the 22 images | 1,838.81 MiB/s | 1,152.49 MiB/s |
+| Mean byte entropy | 7.99894 bits/byte | 7.99895 bits/byte |
+| Mean absolute adjacent-pixel correlation, over channels/directions | 0.00214 | 0.00240 |
+| Mean fresh-nonce NPCR/UACI, same plaintext | 99.609% / 33.461% | 99.609% / 33.457% |
+| Mean fresh-nonce NPCR/UACI, one-byte plaintext change | 99.609% / 33.457% | 99.608% / 33.461% |
+| Mean in-memory encryption throughput across the 22 images | 2,022.02 MiB/s | 1,239.89 MiB/s |
 
 The integrity probes comprised 13 cases per image/cipher: ciphertext and tag bit flips, authenticated metadata change, three central white-fill occlusion areas (1/64, 1/16, and 1/4 of the raster), four salt-and-pepper corruption levels, one-byte container truncation, random wrong key, and one-bit key change. All 572 probes failed closed. A nominal 256-bit key was used for both reference algorithms; this is a key-size statement, not a complete effective-security bound.
 
-At the chi-square cutoff 293.2478 for 255 degrees of freedom and significance 0.05 (the cutoff used in one supplied paper), all channels were below the cutoff in 41 of 44 image/cipher cases. The remaining three cases are not proof of a weakness: multiple independent statistical tests have expected false positives. Mean normalized Fourier-spectrum entropy was 0.9857 for AES-GCM and 0.9857 for ChaCha20-Poly1305; this, like histogram, spatial correlation, local entropy, MSE and PSNR, is descriptive only.
+At the chi-square cutoff 293.2478 for 255 degrees of freedom and significance 0.05 (the cutoff used in one supplied paper), all channels were below the cutoff in 42 of 44 image/cipher cases. The remaining two cases are not proof of a weakness: multiple independent statistical tests have expected false positives. Mean normalized Fourier-spectrum entropy was 0.9857 for AES-GCM and 0.9857 for ChaCha20-Poly1305; this, like histogram, spatial correlation, local entropy, MSE and PSNR, is descriptive only.
 
 Fresh-nonce NPCR/UACI is nearly identical for same-plaintext and changed-plaintext comparisons. The nonce randomization dominates these scores, which is why the values cannot establish the intrinsic diffusion of an encryption algorithm. AEAD occlusion/noise experiments verify rejection after corruption; they do not claim partial image recovery.
 

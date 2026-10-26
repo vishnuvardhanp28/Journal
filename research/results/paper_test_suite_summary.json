@@ -13,27 +13,27 @@
   "all_integrity_and_wrong_key_attacks_rejected": true,
   "nominal_key_bits": 256,
   "fresh_nonce_differential_repeats_per_image_cipher": 5,
-  "runtime_repeats_per_image_cipher": 9,
+  "runtime_repeats_per_image_cipher": 30,
   "runtime_scaling_fits": [
     {
       "algorithm": "AES-256-GCM",
-      "intercept_ms": -0.05199377358490556,
-      "slope_ms_per_byte": 7.678107495577831e-07,
-      "r_squared": 0.9703949279111136,
+      "intercept_ms": -0.03647438679245275,
+      "slope_ms_per_byte": 6.495736080145685e-07,
+      "r_squared": 0.8309959825689337,
       "n_images": 22,
       "interpretation": "Descriptive linear fit over this corpus; not a formal algorithmic complexity proof."
     },
     {
       "algorithm": "ChaCha20-Poly1305",
-      "intercept_ms": -0.038648584905660324,
-      "slope_ms_per_byte": 1.035109705894998e-06,
-      "r_squared": 0.8875712404711532,
+      "intercept_ms": -0.03354075471698105,
+      "slope_ms_per_byte": 9.383776202891608e-07,
+      "r_squared": 0.9268908354740484,
       "n_images": 22,
       "interpretation": "Descriptive linear fit over this corpus; not a formal algorithmic complexity proof."
     }
   ],
   "environment": {
-    "python": "3.14.5",
+    "python": "3.12.14",
     "platform": "Windows-11-10.0.26300-SP0",
     "machine": "AMD64",
     "processor": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD"
