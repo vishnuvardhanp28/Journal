@@ -1,0 +1,56 @@
+{
+  "scope": "ODE trajectory illustration only; not a full image-cipher reproduction or security result",
+  "source": "Al-Dayel et al., Scientific Reports (2025), DOI 10.1038/s41598-025-95511-y",
+  "initial_state": [
+    19.0,
+    37.0,
+    113.0,
+    12.0
+  ],
+  "parameters": {
+    "p": -7.0,
+    "q": 3.0,
+    "r": -1.2,
+    "s": -2.0,
+    "c1": 2.0,
+    "c2": -1.0,
+    "c3": 1.0,
+    "c4": 1.0
+  },
+  "solver": "DOP853",
+  "relative_tolerance": 1e-06,
+  "absolute_tolerance": 1e-08,
+  "integration_interval": [
+    0.0,
+    100.0
+  ],
+  "plotted_interval": [
+    10.0,
+    100.0
+  ],
+  "plotted_samples": 45001,
+  "python": "3.14.5",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "numpy": "2.4.6",
+  "scipy": "1.17.1",
+  "matplotlib": "3.10.9",
+  "min_state_values": [
+    -128.06893507181482,
+    -94.85833227212622,
+    0.1398802071857606,
+    0.02570019187003772
+  ],
+  "max_state_values": [
+    132.51928933303023,
+    94.73232306735365,
+    117.87137254578232,
+    110.12176609250616
+  ],
+  "final_state": [
+    0.10614097203750372,
+    -0.5107163670156032,
+    3.2395937361993545,
+    1.2338067997620235
+  ],
+  "finite_solution": true
+}

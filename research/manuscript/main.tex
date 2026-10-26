@@ -32,7 +32,7 @@
 \maketitle
 
 \begin{abstract}
-Recent image-encryption papers often treat entropy, histograms, correlation, and NPCR/UACI as security evidence, although these statistics do not test whether an attacker can recover information or alter a message undetected. We review six recent chaos-based image-encryption papers and evaluate AES-256-GCM and ChaCha20-Poly1305 controls on 22 USC-SIPI images. All 44 image cases round-tripped exactly, and all 572 corruption or wrong-key probes were rejected. With fresh nonces, NPCR/UACI were nearly identical for unchanged and one-byte-changed plaintexts. An equation-level audit of Zhang et al.'s bit-plane diffusion found a chosen-input collision: complementing the first bit sequence leaves the published cyclic-XOR diffusion output unchanged. The collision held in all 65,536 exhaustive assignments at sequence length four, in 500/500 seeded synthetic probes, and for 12/12 grayscale benchmark images under the paper's example bit-plane grouping. Further audits found a zero denominator in 161/10,000 Geng input variants, a negative radicand in at least one printed Zhu equation for 75.00\% of one million sampled inputs, and plaintext-dependent Niu initial states under an explicit byte-serialization assumption. These are bounded equation findings; no full target cipher or quantum circuit has been reproduced.\end{abstract}
+Recent image-encryption papers often treat entropy, histograms, correlation, and NPCR/UACI as security evidence, although these statistics do not test whether an attacker can recover information or alter a message undetected. We review six recent chaos-based image-encryption papers and evaluate AES-256-GCM and ChaCha20-Poly1305 controls on 22 USC-SIPI images. All 44 image cases round-tripped exactly, and all 572 corruption or wrong-key probes were rejected. With fresh nonces, NPCR/UACI were nearly identical for unchanged and one-byte-changed plaintexts. An equation-level audit of Zhang et al.'s bit-plane diffusion found a chosen-input collision: complementing the first bit sequence leaves the published cyclic-XOR diffusion output unchanged. The collision held in all 65,536 exhaustive assignments at sequence length four, in 500/500 seeded synthetic probes, and for 12/12 grayscale benchmark images under the paper's example bit-plane grouping. Further audits found a zero denominator in 161/10,000 Geng input variants, a negative radicand in at least one printed Zhu equation for 75.00\% of one million sampled inputs, and plaintext-dependent Niu initial states under an explicit byte-serialization assumption. We also provide an ODE-only phase-space re-integration with its solver choices disclosed. These are bounded equation and control findings; no full target cipher or quantum circuit has been reproduced.\end{abstract}
 
 \begin{IEEEkeywords}
 image encryption, chaos-based cryptography, authenticated encryption, reproducibility, security evaluation, chosen-plaintext input, NPCR, UACI
@@ -43,13 +43,14 @@ image encryption, chaos-based cryptography, authenticated encryption, reproducib
 
 The papers report a wide range of experiments, including entropy, histograms, adjacent-pixel correlation, key sensitivity, NPCR/UACI, noise tests, and chaotic-system analyses. These are useful diagnostics. However, a high ciphertext entropy or a large NPCR does not establish resistance to a chosen-plaintext attack, and a successful image round trip does not establish ciphertext integrity. The security question depends on the attacker, the key and nonce rules, and the exact encryption/decryption implementation.
 
-This work has three limited aims. First, it maps the evaluation procedures reported in the six supplied papers to reproducible control tests using established authenticated-encryption algorithms. Second, it audits published equations from Niu et al., Geng et al., and Zhu and Zhu for input dependence, undefined values, and non-real outputs. Third, it records which missing implementation details prevent end-to-end cipher reproduction. The control tests do not reproduce the six ciphers.
+This work has four limited aims. First, it maps the evaluation procedures reported in the six supplied papers to reproducible control tests using established authenticated-encryption algorithms. Second, it audits published equations from Niu et al., Geng et al., and Zhu and Zhu for input dependence, undefined values, and non-real outputs. Third, it numerically re-integrates one reported four-state ODE using disclosed settings while marking the solver details that the source article omits. Fourth, it records which missing implementation details prevent end-to-end cipher reproduction. The control tests do not reproduce the six ciphers.
 
 The contributions of this draft are:
 \begin{itemize}
   \item a paper-by-paper inventory of reported tests and the additional implementation details needed for independent reproduction;
   \item a mode-preserving control evaluation of AES-256-GCM and ChaCha20-Poly1305 on 22 grayscale and RGB research images, including integrity, wrong-key, image-statistic, and timing measurements; and
-  \item a chosen-input collision and decryption-correctness failure in Zhang et al.'s published cyclic-XOR diffusion, alongside reproducible equation audits of Niu, Geng, Zhu, and Yan, with each result scoped to the equations actually analyzed.
+  \item a chosen-input collision and decryption-correctness failure in Zhang et al.'s published cyclic-XOR diffusion, alongside reproducible equation audits of Niu, Geng, Zhu, and Yan, with each result scoped to the equations actually analyzed; and
+  \item a disclosed ODE-only phase-space re-integration for one reviewed four-state system, plus plain-language definitions and operational procedures for the attack terms used in the paper.
 \end{itemize}
 
 This draft does not propose a new cipher or claim key recovery or plaintext recovery against any of the six schemes. The Zhang equation audit does establish a non-injective mapping and a correctness failure under the stated deterministic equations, but is not a full cipher reproduction. These limits matter for the intended venue. IEEE Transactions on Information Forensics and Security (TIFS) covers information security and encourages reproducibility, but the current evidence is not yet a complete cipher-specific security contribution \cite{tifsScope}. The target venue must be reassessed after the remaining experiments.
@@ -95,6 +96,28 @@ We used 22 TIFF images from the USC-SIPI Image Database: 10 original grayscale i
 
 The baseline used AES-256-GCM and ChaCha20-Poly1305 with 32-byte keys, fresh cryptographic 96-bit nonces, and 128-bit authentication tags. A canonical JSON header containing the algorithm, image dimensions, pixel mode, data type, and format version was authenticated as associated data. Each of the 22 assets was tested with both algorithms, for 44 image--algorithm cases. The recorded run used Windows 11, Python 3.12.14, Pillow 13.0.0, NumPy 2.5.4, and cryptography 50.0.2 on an AMD64 system; exact image hashes and per-run outputs are included in the supplement. We checked exact pixel recovery, ciphertext/tag bit changes, a metadata edit, central occlusions at three areas, salt-and-pepper corruption at four densities, one-byte truncation, a random wrong key, and a one-bit wrong-key change. The 13 integrity/key probes per case produced 572 total probes. The example panels use color images 15 and 16 in the paper's numbering; their original source identifiers remain in the data manifest. The USC-SIPI copyright page identifies these two USC jelly-bean photographs as free to use \cite{uscSipiCopyright}.
 
+\paragraph{Plain-language control method.} The original image is converted to a sequence of 8-bit pixel bytes. The caller supplies a 32-byte key. The program generates a fresh 12-byte nonce, builds a header describing the image shape and mode, and authenticates that header while the standard AEAD algorithm encrypts the bytes. The binary output contains a format marker, header, nonce, ciphertext, and 16-byte tag. Decryption first checks the tag and metadata; only a successful check returns pixel bytes and creates an image. The key is not stored in the container. These standard algorithms are reference controls, not a new chaos-based cipher proposed by this paper.
+
+\begin{table}[!t]
+\caption{Parameters required to reproduce the study's AEAD image-control code.}
+\label{tab:control-parameters}
+\centering\small
+\begin{tabular}{p{0.38\columnwidth}p{0.53\columnwidth}}
+\toprule
+Setting & Value used \\
+\midrule
+Cipher & AES-256-GCM or ChaCha20-Poly1305 \\
+Key & 32 bytes (256 bits); supplied by caller \\
+Nonce & Fresh 12 bytes (96 bits) per encryption \\
+Authentication tag & 16 bytes (128 bits) \\
+Authenticated header & Version, algorithm, width, height, pixel mode, uint8 type \\
+Pixel serialization & Row-major 8-bit grayscale or RGB bytes \\
+Container fields & Format marker, header length, header, nonce, ciphertext, tag \\
+Open rule & Authenticate before reshaping or writing an image \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 As a separate nonce-lifecycle control, we reanalyzed a six-image NASA pilot using both reference algorithms (12 image-algorithm cases). For each case, the harness compared ciphertext bodies for (i) identical plaintexts encrypted under independent fresh nonces, (ii) a one-byte-changed plaintext under a fresh nonce, and (iii) a one-byte-changed plaintext under the same key and nonce. The third condition is deliberately unsafe and was isolated from all normal benchmark runs. We also checked whether XOR of the two ciphertext bodies equals XOR of their plaintexts. This illustrates nonce misuse in the reference stream-encryption modes; it is not an attack on any of the six supplied image ciphers.
 
 \subsection{Image Diagnostics and Timing}
@@ -103,6 +126,30 @@ For each ciphertext body, we measured byte and channel entropy, adjacent-pixel c
 We measured in-memory encryption and decryption time using one warm-up and 30 repetitions per image-algorithm case. The reported average throughput is the arithmetic mean of the per-image throughput values in the original run. We also measured file-level sealing and opening with one warm-up and nine repetitions per case. File sealing includes image decoding and writing the authenticated container. File opening includes reading the container, authentication/decryption, and lossless PNG output at compression level 1. The measurements describe this specific Python/Windows/AMD64 environment and cannot be compared directly with the six papers' timings, which used different software, hardware, images, and timing boundaries.
 
 For two additional color examples, we performed fresh-nonce NPCR/UACI diagnostics (30 pairs per input condition), a simple fixed-length CPA distinguisher (500 randomized challenges per algorithm), a known-plaintext cross-nonce keystream-transfer probe (100 target messages), and 100 random wrong-key trials per image-algorithm case. We also tested salt-and-pepper and Gaussian byte noise at 0.1\%, 1\%, 5\%, and 10\%, ciphertext and tag bit changes, authenticated metadata changes, truncation, and 16-byte ciphertext-block reordering. Scrambling-only attacks do not apply to this AEAD construction because it has no separate permutation layer. These are small diagnostics, not formal CPA/KPA/COA security proofs or attacks on the six custom ciphers. A timing screen compared 1,500 same-size all-zero and fixed pseudorandom messages per class and algorithm using Welch's t-test; significant and nonsignificant outcomes are both exploratory and cannot establish or rule out an exploitable timing channel. The whole-image wrapper has $O(n)$ time and $O(n)$ working memory for $n$ pixel bytes. Exhaustive search was not performed; for a 256-bit uniformly random key, the idealized average search is $2^{255}$ trials, whose wall time depends entirely on an assumed trial rate.
+
+The terms below identify attacker abilities and measured objectives. A histogram, entropy, or correlation calculation is a diagnostic, not by itself an attack. Likewise, AEAD rejection of a modified container is an integrity outcome for the reference algorithms; it does not show that any of the six custom ciphers withstands that probe.
+
+\begin{table*}[!t]
+\caption{Plain-language definitions of attack and diagnostic terms and the operational procedures used in this study.}
+\label{tab:attack-definitions}
+\centering\small
+\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{p{0.14\textwidth}p{0.25\textwidth}p{0.37\textwidth}p{0.17\textwidth}}
+\toprule
+Term & Attacker capability or diagnostic & Test performed here & Measured outcome \\
+\midrule
+CPA & The attacker chooses plaintexts and observes the resulting ciphertexts. & A fixed-length distinguisher chooses all-zero or all-255 RGB arrays and classifies each challenge using ciphertext-body mean; 500 challenges per image/algorithm case. & Accuracy above 50\% beyond sampling uncertainty for this classifier. \\
+KPA & The attacker knows plaintext--ciphertext pairs and uses them to infer another message. & A cross-nonce transfer probe uses one known pair and attempts to recover the first 32 bytes of 100 target messages per case. & Number of target prefixes recovered. \\
+COA & The attacker observes ciphertexts but has no chosen or known plaintext. & We compute ciphertext entropy, histograms, and adjacent-pixel correlation; we do not attempt key or plaintext recovery. & Descriptive statistics only; no COA success claim. \\
+Differential NPCR/UACI & Compare encryptions of a baseline plaintext and a controlled plaintext change. & Main suite: five fresh-nonce pairs per image/algorithm, unchanged and one-byte-changed plaintext; separate color demo: 30 pairs per condition. & Changed-byte rate and normalized byte difference; fresh nonces confound intrinsic diffusion. \\
+Histogram, entropy, correlation & Descriptive checks of pixel or ciphertext-byte distributions. & Per-image byte/channel entropy, histogram chi-square, local entropy, and spatial correlations. & Distribution summaries; none is a security proof. \\
+Noise/tampering & The adversary changes, removes, or reorders ciphertext or metadata. & Flip ciphertext/tag bits; edit authenticated metadata; truncate; add noise or occlude bytes; reorder a ciphertext block. & Rejection and whether any plaintext image is returned. \\
+Timing & The observer checks whether runtime changes across input classes. & Compare equal-size all-zero and fixed pseudorandom inputs; 1,500 samples per class and algorithm with Welch's $t$-test. & Exploratory timing difference; not a side-channel proof. \\
+Brute force/key sensitivity & The attacker searches possible keys or submits perturbed keys. & No exhaustive search; test random wrong keys and one-bit key changes. & Authentication rejection; $2^{255}$ is only the idealized average search for 256-bit keys. \\
+Scrambling-only & The attacker removes a standalone pixel permutation while leaving diffusion intact. & Not applicable to the AEAD controls, which have no separate image-permutation layer. & No scrambling-only result is claimed. \\
+\bottomrule
+\end{tabular}
+\end{table*}
 
 \begin{algorithm}[t]
 \caption{Control evaluation for one image and AEAD algorithm}
@@ -171,7 +218,40 @@ The paper divides four sums of SHA-256 byte groups by XOR aggregates formed from
 \subsubsection{Zhu and Zhu Box--Muller Equations}
 The supplied Zhu and Zhu PDF prints Eqs. (20)--(21) with cosine and sine inside the square roots. The paper states that $D_1,D_2$ lie in $(0,1)$. Since $-2\ln D_1>0$, the first radicand is negative whenever $\cos(2\pi D_2)<0$ and the second is negative whenever $\sin(2\pi D_2)<0$. For uniform $D_2$, each occurs over one half of the domain, and at least one occurs over three quarters. We sampled one million independent uniform pairs with NumPy PCG64 seed 20251025. We separately evaluated the conventional Box--Muller form from Box and Muller \cite{boxmuller1958}, but treat it only as a comparator because the authors' intended equation is unknown.
 
+\subsubsection{Al-Dayel et al. Four-State Phase-Space Re-integration}
+To make the dynamical component of one reviewed paper visible and reproducible, we transcribed its four-state ordinary differential equations and reported simulation initial conditions and coefficients \cite{aldayel2025}. The article gives $(x_0,y_0,z_0,w_0)=(19,37,113,12)$, $(p,q,r,s)=(-7,3,-1.2,-2)$, and $(c_1,c_2,c_3,c_4)=(2,-1,1,1)$. It does not specify its numerical integration method or exact step size, and different sections name MATLAB R2020a and R2023a. We therefore independently integrated the printed equations using SciPy's DOP853 adaptive solver, relative tolerance $10^{-6}$, absolute tolerance $10^{-8}$, over $t\in[0,100]$, and plotted 45,001 equally spaced samples from $t=10$ through $t=100$. This re-integrates the ODE only; it does not reproduce the complete image cipher, and a phase portrait alone does not establish chaos or cryptographic security.
+
+\begin{table}[!t]
+\caption{Source-reported settings and disclosed choices for the Al-Dayel phase-space illustration.}
+\label{tab:aldayel-ode-settings}
+\centering\small
+\begin{tabular}{p{0.38\columnwidth}p{0.53\columnwidth}}
+\toprule
+Setting & Value and provenance \\
+\midrule
+Initial state & $(19,37,113,12)$; source article \\
+Linear coefficients & $(p,q,r,s)=(-7,3,-1.2,-2)$; source article \\
+Coupling coefficients & $(c_1,c_2,c_3,c_4)=(2,-1,1,1)$; source article \\
+ODE solver & DOP853; our explicit re-integration choice \\
+Integration interval & $[0,100]$; our disclosed choice \\
+Transient omitted & $[0,10)$; our plotting choice \\
+Tolerances & Relative $10^{-6}$; absolute $10^{-8}$; our disclosed choices \\
+Source limitation & Exact solver and step size are not reported; software versions differ between sections \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Results}
+\subsection{Numerical Phase-Space Illustration}
+Figure~\ref{fig:aldayel-phase} plots four two-dimensional and two three-dimensional projections of the Al-Dayel four-state ODE under the published initial state and coefficients, using the explicitly disclosed solver settings in Table~\ref{tab:aldayel-ode-settings}. The trajectory is an independent numerical illustration of the printed equations. It is not the source paper's image-encryption output, a full cipher reproduction, a Lyapunov-exponent analysis, or evidence that the cipher is secure.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.98\textwidth]{figures/aldayel_4d_phase_portrait.pdf}
+\caption{Independent phase-space projections of the four-state system reported by Al-Dayel et al. \cite{aldayel2025}. Initial state and coefficients are transcribed from the article; DOP853, tolerances, integration interval, and transient removal are stated in Table~\ref{tab:aldayel-ode-settings} because the article does not report its exact solver step. This ODE-only illustration does not reproduce the full cipher or prove chaoticity or security.}
+\label{fig:aldayel-phase}
+\end{figure*}
+
 \subsection{Niu et al. Schedule-Level Audit}
 For 7 of 12 grayscale corpus images, the derived initial values differed between the nearest-rounding transcription and the non-authoritative floor variant. In 1,000 unique one-pixel edits of image 4.2.03, the SHA-256 output and all four derived initial values changed in every query under both implementations. This confirms that the transcribed schedule is strongly input-dependent in this probe set. It does not show plaintext recovery or a break. The paper describes the decryption only as the inverse of encryption and omits the inverse steps; it also does not state the ODE solver or integration step size for the image cipher. A decryptor therefore needs a reproducible way to regenerate the plaintext-dependent state, but the paper does not explain how it does so without the plaintext or transmitted auxiliary state.
 
