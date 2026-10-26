@@ -34,7 +34,7 @@ To rerun the asset checks, obtain the grayscale TIFFs listed in `data/benchmarks
 
 `code/make_grayscale_demo.py` creates a grayscale preview, AES-GCM container, exact decrypted PNG, and original/ciphertext/decrypted histograms for grayscale examples 1 and 2, derived from color images 15 and 16. The metadata retains original source IDs. Install the dependencies in `code/requirements.txt`, obtain the source TIFFs from USC-SIPI, then run `python code/make_grayscale_demo.py` from the supplement root. The script writes to `results/grayscale_demo/` by default. `code/make_demo_histogram_figures.py` can rebuild both labeled figures from saved result images without rerunning the encryption experiments. Demo keys are intentionally disclosed; never reuse them.
 
-The methodology diagram is stored at `manuscript/figures/methodology_overview.png`; regenerate it with `python code/make_methodology_figure.py` from the supplement root.
+The monochrome vector methodology diagram is stored at `manuscript/figures/methodology_overview.pdf` (with a PNG preview). It shows the separate paper-audit and reference-control tracks, distinguishes the 20-image montage from the 22-asset control corpus, and states that no end-to-end reproduction of the six custom ciphers is claimed. Regenerate the PDF and PNG with `python code/make_methodology_figure.py` from the supplement root.
 
 
 ## Numbered 20-image verification and attack samples

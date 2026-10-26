@@ -8,7 +8,7 @@ This package follows the IEEE Transactions template you supplied. The sample dec
 2. Set `main.tex` as the main document.
 3. Compile with pdfLaTeX and BibTeX (Overleaf's standard IEEE setup).
 
-The malformed math delimiters in the old workflow diagram are fixed. The methods overview is a parallel-path flow diagram (`fig:workflow`). The study-methodology figure is placed in Methods. The image montage (`fig:image-montage`) follows the image-results discussion and mirrors your reference layout: original, display-only ciphertext preview, and decryption columns. Separate RGB and grayscale figures (`fig:color-demo`, `fig:gray-demo`) show their histograms beside those examples. The literature comparison chart and attack/metric tables are placed in Results near the related text; figures and tables are placed near the paragraphs that discuss them, with flexible float placement to avoid unnecessary float-only pages.
+The Methods figure (`fig:workflow`) is a monochrome, vector, two-track diagram. It distinguishes the six-paper review and bounded equation audits from the 22-image AEAD control experiments, and states that the control algorithms do not implement or attack the six source ciphers. The 20-image montage (`fig:image-montage`) displays 10 grayscale and 10 color inputs; the two additional grayscale transforms used by the 22-asset controls are identified in the methodology figure and manifest. Separate color and grayscale figures (`fig:color-demo`, `fig:gray-demo`) show histograms with simple image/example numbers. The literature comparison chart and attack/metric tables are placed in Results near the related text.
 
 ## Figures and scope
 

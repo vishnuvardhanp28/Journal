@@ -1,49 +1,46 @@
-"""Render the study workflow. It explicitly keeps target-paper audits separate
-from AES-GCM/ChaCha control experiments."""
+"""Build a compact, monochrome IEEE-style study-method diagram."""
 from pathlib import Path
-import argparse
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
+from matplotlib.patches import Rectangle, FancyArrowPatch
 
-root=Path(__file__).resolve().parents[1]
-parser=argparse.ArgumentParser()
-parser.add_argument('--output',type=Path,default=root/'manuscript'/'figures'/'methodology_overview.png')
-out=parser.parse_args().output
-fig,ax=plt.subplots(figsize=(15.5,6.0))
-ax.set_xlim(0,15.5);ax.set_ylim(0,6);ax.axis('off')
-navy='#173f68'; blue='#edf4fb'; teal='#eaf6f4'; pale='#f7f9fc'; line='#42688d'; ink='#213547'
+ROOT=Path(__file__).resolve().parents[1]
+OUT=ROOT/'manuscript'/'figures'/'methodology_overview'
+fig,ax=plt.subplots(figsize=(7.16,3.4))
+ax.set_xlim(0,100); ax.set_ylim(0,46); ax.axis('off')
+ink='#111111'; border='#292929'; light='#f2f2f2'; white='#ffffff'; mid='#e7e7e7'
 
-def box(x,y,w,h,title,body,fill=blue,fs=11):
-    patch=FancyBboxPatch((x,y),w,h,boxstyle='round,pad=0.12,rounding_size=0.12',linewidth=1.6,edgecolor=navy,facecolor=fill)
-    ax.add_patch(patch)
-    ax.text(x+w/2,y+h*0.72,title,ha='center',va='center',fontsize=14,fontweight='bold',color=navy)
-    ax.text(x+w/2,y+h*0.38,body,ha='center',va='center',fontsize=fs,color=ink,linespacing=1.35)
+def box(x,y,w,h,title,body,fill=white):
+    ax.add_patch(Rectangle((x,y),w,h,linewidth=.85,edgecolor=border,facecolor=fill,zorder=1))
+    ax.text(x+w/2,y+h-.85,title,ha='center',va='top',fontsize=7.4,fontweight='bold',color=ink,linespacing=1.05,zorder=2)
+    ax.text(x+w/2,y+h-2.75,body,ha='center',va='top',fontsize=6.2,color=ink,linespacing=1.18,zorder=2)
 
-def arrow(a,b,rad=0):
-    ax.add_patch(FancyArrowPatch(a,b,arrowstyle='-|>',mutation_scale=18,linewidth=1.6,color=line,connectionstyle=f'arc3,rad={rad}'))
+def arrow(start,end):
+    ax.add_patch(FancyArrowPatch(start,end,arrowstyle='-|>',mutation_scale=8.5,
+        linewidth=.8,color=ink,shrinkA=2,shrinkB=2,zorder=0))
 
-ax.text(7.75,5.68,'Study workflow and separation of evidence',ha='center',va='center',fontsize=19,fontweight='bold',color=navy)
-# Three first-stage evidence sources
-box(.35,3.75,3.0,1.25,'Six source papers','Reported algorithms, equations,\nmetrics, and implementation details',fill=blue)
-box(.35,2.05,3.0,1.25,'Twenty numbered images','10 grayscale (1–10) and\n10 color (11–20)',fill=teal)
-box(.35,.35,3.0,1.25,'Threat probes','Ciphertext edits, noise, truncation,\nwrong keys, CPA/KPA diagnostics',fill=pale)
-# Independent analysis lanes
-box(4.45,3.75,3.25,1.25,'Paper / equation audits','Transcribe equations; test bounded\ninput, domain, and collision claims',fill=blue)
-box(4.45,1.2,3.25,1.45,'AEAD control experiments','AES-256-GCM and ChaCha20-Poly1305;\nexact round trips, per-image metrics,\nauthenticated tamper rejection',fill=teal,fs=10.5)
-# Explicit separate diagnostics then synthesis
-box(8.75,1.2,2.8,1.45,'Measured outputs','Per-image CSV; timing; NPCR/UACI;\nentropy; attack outcomes',fill=teal,fs=10.5)
-box(12.1,2.45,3.05,1.6,'Evidence synthesis','Compare reported claims with\nreproduced controls and audits;\nstate assumptions and limits',fill=pale)
-arrow((3.45,4.36),(4.35,4.36))
-arrow((3.45,2.68),(4.35,2.1))
-arrow((3.45,.96),(4.35,1.65))
-arrow((7.8,1.93),(8.65,1.93))
-arrow((7.8,4.36),(11.85,3.3),rad=-.12)
-arrow((11.65,1.94),(12.0,2.75),rad=.12)
-ax.text(7.75,.38,'The AEAD results are reference controls, not implementations or attacks against the six custom ciphers.',ha='center',va='center',fontsize=11,color='#4a5965')
-fig.tight_layout(pad=.35)
-out.parent.mkdir(parents=True,exist_ok=True)
-fig.savefig(out,dpi=300,bbox_inches='tight',facecolor='white')
+ax.text(1,43.5,'PAPER-AUDIT TRACK',ha='left',va='center',fontsize=7.2,fontweight='bold',color=ink)
+ax.text(1,27.5,'REFERENCE-CONTROL TRACK',ha='left',va='center',fontsize=7.2,fontweight='bold',color=ink)
+
+box(1,30,22,11,'Source papers','Six supplied papers; reported\nalgorithms, metrics, and tests',light)
+box(26,30,23,11,'Protocol / equation audit','Compare reported tests; inspect\nselected equations and domain\nassumptions')
+box(52,30,22,11,'Paper-audit outputs','Test-coverage matrix; bounded\nequation findings; reproduction\ngaps',light)
+arrow((23,35.5),(26,35.5)); arrow((49,35.5),(52,35.5))
+
+box(1,14,22,11,'Evaluation images','20 in the montage (10 grayscale,\n10 RGB); 2 additional grayscale\ntransforms in the control set',light)
+box(26,14,23,11,'AEAD reference controls','AES-256-GCM and\nChaCha20-Poly1305;\n22 images per algorithm\n(44 image-algorithm cases)')
+box(52,14,22,11,'Control measurements','Exact recovery; tamper and wrong-key\nchecks; image statistics and timing;\nselected CPA/KPA probes',light)
+arrow((23,19.5),(26,19.5)); arrow((49,19.5),(52,19.5))
+
+box(78,21,21,15,'Evidence synthesis','Compare source-paper\nclaims with equation\naudits and AEAD controls.\nState assumptions and\nlimits; no full target-\ncipher reproduction.',mid)
+arrow((74,35.5),(78,32.5)); arrow((74,19.5),(78,24.5))
+
+ax.text(50,4.7,'AEAD measurements are reference controls, not implementations or attacks against the six source ciphers.',
+        ha='center',va='center',fontsize=7.1,color=ink)
+fig.subplots_adjust(left=.01,right=.99,top=.99,bottom=.03)
+OUT.parent.mkdir(parents=True,exist_ok=True)
+fig.savefig(OUT.with_suffix('.pdf'),bbox_inches='tight',facecolor='white')
+fig.savefig(OUT.with_suffix('.png'),dpi=400,bbox_inches='tight',facecolor='white')
 plt.close(fig)
-print(out.resolve())
+print(OUT.with_suffix('.pdf').resolve())
