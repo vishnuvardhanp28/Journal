@@ -35,3 +35,10 @@ To rerun the asset checks, obtain the grayscale TIFFs listed in `data/benchmarks
 `code/make_grayscale_demo.py` creates a grayscale preview, AES-GCM container, exact decrypted PNG, and original/ciphertext/decrypted histograms from USC-SIPI images 4.1.07 and 4.1.08. The grayscale samples are luminance conversions of those two photographs. Install the dependencies in `code/requirements.txt`, obtain the source TIFFs from USC-SIPI, then run `python code/make_grayscale_demo.py` from the supplement root. The script writes to `results/grayscale_demo/` by default. Demo keys are intentionally disclosed; never reuse them.
 
 The methodology diagram is stored at `manuscript/figures/methodology_overview.png`; regenerate it with `python code/make_methodology_figure.py` from the supplement root.
+
+
+## Numbered 20-image verification and attack samples
+
+`results/per_image_metrics_20.csv` and `results/ten_by_ten_montage_verification.csv` contain the 10 grayscale images numbered 1--10 and 10 color images numbered 11--20. For each, they record plaintext, ciphertext-body, and exact-recovery entropy, plus NPCR/UACI from a direct aligned byte comparison between plaintext and encrypted body. That P-versus-C comparison is descriptive; it is not the conventional differential sensitivity test comparing encryptions of a plaintext and its modified version.
+
+The `results/ten_by_ten_montage/` directory contains the display outputs and the binary AES-GCM `.imgenc` containers used by the attack checks. The associated `DEMO_ONLY` key files are disclosed to permit reproducing the examples and therefore provide no secrecy. Never reuse them. The actual attack outcomes are row-by-row in `results/attack_evidence_samples.csv`: four tamper/wrong-key probes for each of the 20 image containers, with all 80 rejected before any image was returned. The paper figure shows representative grayscale image 1 and color image 11. These are integrity-control demonstrations, not attacks on the six source-paper algorithms.

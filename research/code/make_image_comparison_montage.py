@@ -1,9 +1,9 @@
 """Rebuild the all-20-image original/ciphertext-preview/decryption figure.
 
-The ciphertext panels are visual-only reshapes of authenticated ciphertext
-bytes. Actual ciphertext is a binary .imgenc envelope created in memory. A
-fresh temporary key and nonce are generated per image, then discarded after
-pixel-exact decryption is checked. This is an illustration, not key storage.
+Ciphertext panels are display-only reshapes of authenticated ciphertext bytes.
+The binary .imgenc containers and DEMO_ONLY keys are retained for this public
+benchmark illustration, allowing the exact per-image outputs and attack probes
+to be checked. These disclosed keys are insecure and must never be reused.
 """
 from __future__ import annotations
 
@@ -11,9 +11,10 @@ import csv
 import hashlib
 from pathlib import Path
 import secrets
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-from secure_image_bench import canonical_header, decrypt, encrypt, parse_envelope, TAG_SIZE
+from secure_image_bench import canonical_header, decrypt, encrypt, parse_envelope, TAG_SIZE, entropy_u8, npcr_uaci
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "benchmarks" / "usc_sipi"
@@ -59,23 +60,39 @@ def render_case(entry: dict[str, str]) -> dict[str, object]:
 
     body = body_and_tag[:-TAG_SIZE]
     cipher_preview = Image.frombytes(image.mode, image.size, body)
-    out_name = f"{entry['subset']}_{entry['dataset_id']}"
+    paper_id = int(entry["paper_id"])
+    out_name = f"image_{paper_id:02d}"
     original_path = RESULTS / f"{out_name}_original.png"
     cipher_path = RESULTS / f"{out_name}_cipher_preview.png"
     decrypted_path = RESULTS / f"{out_name}_decrypted.png"
     RESULTS.mkdir(parents=True, exist_ok=True)
+    encrypted_dir = RESULTS / "encrypted"
+    key_dir = RESULTS / "demo_keys"
+    encrypted_dir.mkdir(parents=True, exist_ok=True)
+    key_dir.mkdir(parents=True, exist_ok=True)
+    container_path = encrypted_dir / f"{out_name}.imgenc"
+    key_path = key_dir / f"{out_name}_DEMO_ONLY.key.txt"
+    container_path.write_bytes(envelope)
+    key_path.write_text(key.hex() + "\n", encoding="ascii")
     image.save(original_path, format="PNG")
     cipher_preview.save(cipher_path, format="PNG")
     Image.frombytes(image.mode, image.size, recovered).save(decrypted_path, format="PNG")
 
     return {
-        "mode": entry["subset"], "image_id": entry["dataset_id"],
+        "paper_image_no": paper_id, "mode": entry["subset"], "source_asset_id": entry["dataset_id"],
         "source_file": source.name, "width": image.width, "height": image.height,
         "algorithm": ALGORITHM, "nonce_bytes": len(nonce),
+        "plaintext_entropy_bits_per_byte": entropy_u8(np.frombuffer(raw, dtype=np.uint8)),
+        "ciphertext_body_entropy_bits_per_byte": entropy_u8(np.frombuffer(body, dtype=np.uint8)),
+        "decrypted_entropy_bits_per_byte": entropy_u8(np.frombuffer(recovered, dtype=np.uint8)),
+        "plaintext_vs_ciphertext_NPCR_bytes_pct": npcr_uaci(raw, body)[0],
+        "plaintext_vs_ciphertext_UACI_bytes_pct": npcr_uaci(raw, body)[1],
         "exact_pixel_match": exact, "source_sha256": sha(source.read_bytes()),
         "plaintext_pixel_sha256": sha(raw), "container_sha256": sha(envelope),
+        "container_file": container_path.relative_to(ROOT).as_posix(),
+        "demo_only_key_file": key_path.relative_to(ROOT).as_posix(),
         "preview_file": cipher_path.relative_to(ROOT).as_posix(),
-        "binary_container_saved": False, "key_saved": False,
+        "binary_container_saved": True, "key_saved_demo_only": True,
     }
 
 
@@ -96,12 +113,13 @@ def draw_panel(draw: ImageDraw.ImageDraw, panel_x: int, panel_y: int,
     top = column_top + 34
     for index, entry in enumerate(entries):
         y = top + index * row_h
-        ident = str(entry["dataset_id"])
+        ident = str(int(entry["paper_id"]))
+        file_ident = f"{int(entry['paper_id']):02d}"
         draw.text((panel_x, y + 8), ident, fill="#253746", font=id_font)
         paths = [
-            RESULTS / f"{entry['subset']}_{ident}_original.png",
-            RESULTS / f"{entry['subset']}_{ident}_cipher_preview.png",
-            RESULTS / f"{entry['subset']}_{ident}_decrypted.png",
+            RESULTS / f"image_{file_ident}_original.png",
+            RESULTS / f"image_{file_ident}_cipher_preview.png",
+            RESULTS / f"image_{file_ident}_decrypted.png",
         ]
         for col, image_path in enumerate(paths):
             x = panel_x + label_w + col * (col_w + gap)
@@ -127,7 +145,12 @@ def main() -> None:
     color = [r for r in manifest if r["subset"] == "color" and not r["derived_from"]]
     if len(grayscale) != 10 or len(color) != 10:
         raise ValueError(f"Expected 10 native grayscale and 10 native RGB inputs; got {len(grayscale)} and {len(color)}")
-    records = [render_case(entry) for entry in grayscale + color]
+    indexed = []
+    for serial, entry in enumerate(grayscale + color, start=1):
+        indexed.append({**entry, "paper_id": str(serial)})
+    grayscale = indexed[:10]
+    color = indexed[10:]
+    records = [render_case(entry) for entry in indexed]
     fieldnames = list(records[0])
     with CSV_OUT.open("w", newline="", encoding="utf-8") as stream:
         writer = csv.DictWriter(stream, fieldnames=fieldnames)
@@ -140,15 +163,16 @@ def main() -> None:
     height = header_h + 10 * row_h + bottom_h
     figure = Image.new("RGB", (width, height), "white")
     draw = ImageDraw.Draw(figure)
-    draw_panel(draw, margin, 12, panel_w, row_h, "10 grayscale images", grayscale, figure)
-    draw_panel(draw, margin + panel_w + gutter, 12, panel_w, row_h, "10 color images", color, figure)
+    draw_panel(draw, margin, 12, panel_w, row_h, "Grayscale images 1 to 10", grayscale, figure)
+    draw_panel(draw, margin + panel_w + gutter, 12, panel_w, row_h, "Color images 11 to 20", color, figure)
     foot = font(20)
     draw.text((margin, height - bottom_h + 3),
-              "Ciphertext panels reshape authenticated ciphertext-body bytes for display only; encrypted files are binary .imgenc containers.",
+              "NPCR/UACI compare each plaintext byte array with its encrypted body reshaped to image mode; these are descriptive cross-array differences, not differential-plaintext security tests. Keys are DEMO ONLY.",
               fill="#4a5965", font=foot)
     FIGURE.parent.mkdir(parents=True, exist_ok=True)
     figure.save(FIGURE, format="PNG", optimize=True)
     print(f"verified {len(records)} image cases; exact pixel matches={sum(bool(x['exact_pixel_match']) for x in records)}")
+    print(f"image numbering 1--10 grayscale; 11--20 color; container files and demo-only keys saved")
     print(f"figure={FIGURE.resolve()}")
     print(f"verification={CSV_OUT.resolve()}")
 

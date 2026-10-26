@@ -20,3 +20,11 @@ AES-256-GCM and ChaCha20-Poly1305 are reference controls, not implementations of
 ## Reproduction caveats
 
 The USC-SIPI image TIFFs are omitted from the public supplement because reuse rights are uncertain for much of the corpus. The scripts expect the assets listed in the manifest. The manuscript source passed static structure/reference/image-path checks; this environment did not provide a TeX compiler, so final compilation and visual pagination must be checked in Overleaf.
+
+
+## Numbered per-image diagnostics and attack evidence
+
+- The manuscript labels the selected display images 1--10 (grayscale) and 11--20 (color). Their original USC-SIPI identifiers remain in the CSV manifest for traceability.
+- `ten_by_ten_montage_verification.csv` contains 20/20 exact decryptions, byte entropies of original/ciphertext-body/recovered bytes, direct original-versus-ciphertext-body NPCR/UACI, file hashes, and the demo container/key paths. The paper labels the P-versus-C values as descriptive byte comparisons, not standard differential NPCR/UACI.
+- Four integrity probes were run for each of the 20 saved binary examples (tag bit flip, 1% ciphertext-body byte corruption, 1% truncation, and one-bit wrong key): 80/80 rejected and no output images were produced. `attack_evidence_samples.csv` gives each outcome; `attack_evidence.png` shows representative image 1 and image 11.
+- The disclosed demonstration keys make these samples insecure and must never be reused. They are included only to let a reader reproduce the visual and fail-closed checks.

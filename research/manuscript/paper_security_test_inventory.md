@@ -25,10 +25,10 @@ This inventory was compiled from the six supplied PDFs. The completed 22-image r
 ## Headline results
 
 - Exact decryption passed in 44/44 image/cipher cases; all 572 integrity/key probes rejected the damaged message or wrong key.
-- Mean ciphertext byte entropy across the run was approximately 7.99897 bits/byte. Mean absolute adjacent-pixel spatial correlation was approximately 0.00235 for AES-GCM and 0.00246 for ChaCha20-Poly1305.
+- Mean ciphertext byte entropy across the run was approximately 7.99894 bits/byte (AES-GCM) and 7.99895 bits/byte (ChaCha20-Poly1305). Mean absolute adjacent-pixel spatial correlation was approximately 0.00214 for AES-GCM and 0.00240 for ChaCha20-Poly1305.
 - With fresh nonces, mean NPCR/UACI were about 99.61%/33.46% for both same-plaintext and one-byte-changed comparisons. This demonstrates that nonce randomness alone can produce the usual “ideal” image metric values.
 - Under the chi-square threshold 293.2478 (255 degrees of freedom), all channels were below threshold in 39/44 image/cipher cases. These are repeated hypothesis tests on random byte samples; occasional threshold exceedance is expected and is not by itself evidence of a cipher weakness.
-- Mean encryption throughput, averaged equally across the 22 images, was 1,838.81 MiB/s for AES-GCM and 1,152.49 MiB/s for ChaCha20-Poly1305 in this Python/Windows environment. These are reference baselines only. They cannot establish a speed improvement over the six papers because their code, hardware, image sizes, and timing boundaries are not matched.
+- Mean encryption throughput, averaged equally across the 22 images, was 2,022.02 MiB/s for AES-GCM and 1,239.89 MiB/s for ChaCha20-Poly1305 in this Python/Windows environment. These are reference baselines only. They cannot establish a speed improvement over the six papers because their code, hardware, image sizes, and timing boundaries are not matched.
 
 ## Tests that remain necessary before claiming superiority
 

@@ -57,6 +57,12 @@ This draft does not propose a new cipher or claim key recovery or plaintext reco
 \section{Related Work and Evaluation Scope}
 The six papers cover several different designs. Niu et al. combine an improved four-dimensional chaotic system with evolutionary operators \cite{niu2024}. Zhang et al. present non-equal-length image encryption using bit-plane chaotic mapping \cite{zhang2024}. Zhu and Zhu combine visual-security embedding, multi-key selection, compressed sensing, and a four-dimensional map \cite{zhu2024}. Yan et al. use a conservative chaotic system and DNA operations for color images \cite{yan2025}. Geng et al. combine a Thorp shuffle, pseudo-dequeue operations, and bit-plane diffusion \cite{geng2025}. Al-Dayel et al. combine a four-dimensional chaotic system and a cellular automaton \cite{aldayel2025}. Recent related work by coauthors of this manuscript studies lightweight 2D chaos for UAV image communication and a hybrid chaos-based image-sharing design \cite{bhargav2025lightweight,molika2026sharing}. These application-oriented studies motivate reporting both computational measurements and integrity behavior; they are cited here as related work, not treated as members of the six-paper audit set.
 
+Foundational chaos-based cryptography papers explain why a visual appearance of randomness is not a cryptographic argument: early designs used low-dimensional maps and iterative permutation/substitution \\cite{fridrich1998,kocarev2001}, while later work documented finite-precision degradation and requirements for key management, implementation, and attack analysis \\cite{lidynamics2005,alvarezli2006,jakimoski2001}. Chosen- and known-plaintext analyses have repeatedly demonstrated weaknesses in particular chaos-based image schemes \\cite{chaoticcryptanalysis2002,cokalsolak2009,liimage2009,liFridrich2017,lientropy2018,zhuzhu2021bitplane,deng2025}. These precedents motivate a paper-specific coverage matrix; they do not establish that any of the six current targets is broken. Surveys summarize the range of chaos-based designs and evaluation choices \\cite{li2019review,zia2022survey,fang2023survey,zhangliu2023review,comprehensivesurvey2024}.
+
+Image entropy and differential-image statistics are useful descriptive measurements, and prior work proposed image-oriented randomness measures \\cite{shannon1949,wu2011entropy}. They must be interpreted within an attacker model: differential cryptanalysis is defined by controlled input differences and output observations \\cite{bihamshamir1991}, not by a single plaintext-to-ciphertext comparison. NIST explicitly cautions that statistical tests cannot certify cryptographic suitability or replace cryptanalysis; NIST later announced that SP 800-22 would be revised to clarify that it should not assess cryptographic random number generators \\cite{nistSP80022,nistSP80022decision}.
+
+For the control algorithms, AES is standardized in FIPS 197, while GCM and other block modes are specified by NIST recommendations; AEAD interfaces and their confidentiality/integrity intent are also standardized in RFC 5116 \\cite{nistFIPS197,nistSP80038A,rfc5116,bellarenamprempre2008}.
+
 Their evaluation procedures are not interchangeable. Some focus on chaotic dynamics or NIST sequence tests; others emphasize image statistics, key sensitivity, noise/cropping recovery, or simulation. A test can only be reproduced fairly when the equations, numerical precision, image preprocessing, test parameters, and timing boundary are known. Our inventory records the published procedures and labels tests of standard AEAD controls separately from tests that require each paper's own cipher.
 
 This manuscript is a reproducibility audit, not a newly proposed chaos-based cipher. The phase portraits, bifurcation plots, and Lyapunov-exponent plots in the source papers characterize each paper's particular dynamical system. We do not add one as a result here because we do not independently reproduce a complete chaotic generator with its numerical solver, precision, and parameter settings. Our diagram therefore shows the study workflow, not a new encryption pipeline.
@@ -198,6 +204,40 @@ Figure~\ref{fig:image-montage} shows all 10 grayscale and all 10 color benchmark
 \label{fig:image-montage}
 \end{figure*}
 
+\begin{table*}[!t]
+\caption{Per-image byte diagnostics for the 20 displayed AES-256-GCM control examples. $H(P)$, $H(C)$, and $H(D)$ are byte entropies of original pixels, ciphertext-body bytes, and recovered pixels. $NPCR(P,C)$ and $UACI(P,C)$ directly compare aligned original and ciphertext-body bytes; these are descriptive byte-array differences, not conventional differential tests comparing encryptions of $P$ and modified $P'$.}
+\label{tab:per-image-metrics}
+\centering\small
+\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{rlrrrrrc}
+\toprule
+Image & Mode & $H(P)$ & $H(C)$ & $H(D)$ & $NPCR(P,C)$ (\%) & $UACI(P,C)$ (\%) & Exact \\
+\midrule
+1 & Gray & 6.709 & 7.997 & 6.709 & 99.585 & 26.201 & Yes \\
+2 & Gray & 7.312 & 7.997 & 7.312 & 99.579 & 28.474 & Yes \\
+3 & Gray & 6.452 & 7.997 & 6.452 & 99.596 & 33.453 & Yes \\
+4 & Gray & 6.706 & 7.997 & 6.706 & 99.606 & 35.569 & Yes \\
+5 & Gray & 7.201 & 7.999 & 7.201 & 99.625 & 27.588 & Yes \\
+6 & Gray & 6.994 & 7.999 & 6.994 & 99.590 & 31.744 & Yes \\
+7 & Gray & 5.706 & 7.999 & 5.706 & 99.621 & 29.949 & Yes \\
+8 & Gray & 6.027 & 7.999 & 6.027 & 99.599 & 26.824 & Yes \\
+9 & Gray & 5.496 & 7.999 & 5.496 & 99.643 & 26.207 & Yes \\
+10 & Gray & 7.191 & 7.999 & 7.191 & 99.625 & 28.514 & Yes \\
+11 & Color & 5.971 & 7.999 & 5.971 & 99.631 & 26.881 & Yes \\
+12 & Color & 7.427 & 7.999 & 7.427 & 99.602 & 29.676 & Yes \\
+13 & Color & 7.069 & 7.999 & 7.069 & 99.629 & 29.530 & Yes \\
+14 & Color & 7.537 & 7.999 & 7.537 & 99.619 & 31.885 & Yes \\
+15 & Color & 6.583 & 7.999 & 6.583 & 99.596 & 30.643 & Yes \\
+16 & Color & 6.853 & 7.999 & 6.853 & 99.613 & 30.284 & Yes \\
+17 & Color & 7.243 & 8.000 & 7.243 & 99.615 & 33.961 & Yes \\
+18 & Color & 7.762 & 8.000 & 7.762 & 99.603 & 29.947 & Yes \\
+19 & Color & 6.664 & 8.000 & 6.664 & 99.595 & 32.609 & Yes \\
+20 & Color & 7.670 & 8.000 & 7.670 & 99.615 & 32.264 & Yes \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+
 \begin{figure*}[!t]
 \centering
 \includegraphics[width=0.96\textwidth]{figures/color_original_ciphertext_decrypted_histograms.png}
@@ -213,6 +253,17 @@ Figure~\ref{fig:image-montage} shows all 10 grayscale and all 10 color benchmark
 \end{figure*}
 
 On the four file cases using images 4.1.07 and 4.1.08 (two images by two algorithms; 30 file-operation repetitions each), mean per-case median seal time was 3.97 ms and mean open-plus-PNG time was 25.61 ms. These measurements include codec and file operations and apply only to 256$\times$256 RGB images on the recorded machine. They are not directly comparable to the prior 22-image timing suite or to the six papers.
+
+The image labels in Fig.~\ref{fig:image-montage} use simple serial numbers: 1--10 are grayscale and 11--20 are color. Table~\ref{tab:per-image-metrics} gives plaintext, ciphertext-body, and recovered byte entropy plus direct plaintext-to-ciphertext NPCR/UACI for every image. Because these compare different byte representations, those two columns are descriptive and must not be interpreted as conventional differential sensitivity scores.
+
+For a concrete integrity demonstration, we re-opened each of the 20 saved binary containers and performed four probes: one authentication-tag bit flip, 1\% ciphertext-body byte corruption, 1\% truncation, and a one-bit wrong key. All 80/80 probes returned an authentication failure and produced no image. Fig.~\ref{fig:attack-evidence} shows representative grayscale image 1 and color image 11. The disclosed demonstration keys are only for reproducibility and must not be reused.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.98\textwidth]{figures/attack_evidence.png}
+\caption{Representative fail-closed attack probes for grayscale image 1 and color image 11. Valid containers decrypt exactly; tag changes, ciphertext-byte noise, truncation, and a one-bit wrong key are rejected, so no output image is emitted. The tested binary containers use disclosed demonstration keys and are not secure keys.}
+\label{fig:attack-evidence}
+\end{figure*}
 
 The attack probes are summarized in Table~\ref{tab:attack-matrix}; “claim only” marks a claim in a source paper without a direct recovery experiment. For the controls, the measured CPA, KPA-transfer, ciphertext-only statistics, noise/tampering, wrong-key, and exploratory timing results are reported here and in Table~\ref{tab:controls}. Scrambling-only testing is not applicable because the AEAD container has no independent pixel-permutation stage. The two-image CPA classifier was correct on 242--265 of 500 challenges per case (48.4\%--53.0\%); each Wilson 95\% interval included 50\%. Across these color-image cases, byte entropy ranged from 7.9989 to 7.9991 bits, and mean absolute spatial correlation ranged from 0.0025 to 0.0038. Fresh-nonce NPCR/UACI was 99.608--99.610\%/33.457--33.474\% for unchanged plaintext and 99.605--99.609\%/33.456--33.468\% for one-byte-changed plaintext. The tested KPA transfer probe recovered 0 of 100 target prefixes in each case. All 13 mutation/noise/reordering probes, 100/100 wrong keys, and the one-bit key change were rejected per case. These outcomes describe these particular probes only. The exploratory timing screen found no statistically significant class difference in this rerun (AES-GCM $p=0.361$; ChaCha20-Poly1305 $p=0.455$). A previous exploratory run had yielded an AES-GCM $p=0.0246$, which did not reproduce. This variation shows that the current screen is too noisy for a side-channel conclusion; neither run establishes an exploitable leak or constant-time behavior. The nominal 256-bit key-space estimate is a mathematical assumption, not a measured brute-force result.
 
@@ -241,7 +292,7 @@ Table~\ref{tab:literature-metrics} makes the requested entropy and NPCR/UACI com
 
 \begin{figure*}[!t]
 \centering
-\includegraphics[width=0.76\textwidth]{figures/reported_npcr_uaci_comparison.png}
+\includegraphics[width=0.95\textwidth]{figures/reported_npcr_uaci_comparison.png}
 \caption{Mean NPCR/UACI recalculated from the image-level tables reported by Niu et al., Geng et al., and Al-Dayel et al. \cite{niu2024,geng2025,aldayel2025}. The underlying image sets, perturbations, and protocols differ; this descriptive plot is not a controlled ranking.}
 \label{fig:literature-npcr-uaci}
 \end{figure*}
@@ -250,31 +301,32 @@ Table~\ref{tab:literature-metrics} makes the requested entropy and NPCR/UACI com
 
 
 \begin{table*}[!t]
-\caption{Paper-by-paper coverage matrix for the requested tests.}
+\caption{Coverage of reported tests in the six supplied papers and tests run on our separate AEAD controls.}
 \label{tab:attack-matrix}
 \centering
-\scriptsize
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lccccccc}
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.22}
+\begin{tabular}{p{1.14in}*{6}{>{\centering\arraybackslash}p{0.48in}}p{2.12in}}
 \toprule
-Test & Niu & Zhang & Zhu & Yan & Geng & Al-Dayel & This study \\
+Test & Niu & Zhang & Zhu & Yan & Geng & Al-Dayel & Our AEAD controls \\
 \midrule
-NPCR/UACI & M & M & NR & NR & M & M & M$^1$ \\
-Histogram analysis & S & S & S & S & S & S & S \\
-Entropy & S & S & S & S & S & S & S \\
-Correlation & S & S & S & S & S & S & S \\
-Noise/cropping recovery & R & R & R & R & R & R$^7$ & Authenticated rejection$^2$ \\
-CPA & NR & NR & C & NR & NR & C & Bounded probe$^3$ \\
-KPA & NR & NR & NR & NR & NR & C & Bounded transfer probe$^5$ \\
-COA & NR & NR & NR & NR & NR & NR & Ciphertext-only statistics$^5$ \\
-Timing / runtime & NR & T & T & NR & O only & O only & T$^6$ \\
-Brute force / key sensitivity & K & K & K & K & K & K & Theoretical key size; limited wrong-key tests \\
-Scrambling-only attack & NR & NR & NR & NR & NR & NR & Not applicable to AEAD \\
+NPCR/UACI & M & M & NR & NR & M & M & P--C diagnostics; fresh-nonce pairs \\
+Histogram & S & S & S & S & S & S & Per-image histogram and $\chi^2$ \\
+Entropy & S & S & S & S & S & S & Plaintext, ciphertext, and recovered images \\
+Correlation & S & S & S & S & S & S & Horizontal/vertical pixel correlation \\
+Noise/cropping recovery & R & R & R & R & R & R$^7$ & Corruption rejected; no recovery claimed \\
+CPA & NR & NR & C & NR & NR & C & 500-challenge diagnostic \\
+KPA & NR & NR & NR & NR & NR & C & 100-target transfer diagnostic \\
+COA & NR & NR & NR & NR & NR & NR & Ciphertext-only statistics only \\
+Timing/runtime & NR & T & T & NR & O & O & In-memory and file-wrapper timing \\
+Brute force/key sensitivity & K & K & K & K & K & K & 256-bit keys; wrong-key probes \\
+Scrambling-only & NR & NR & NR & NR & NR & NR & Not applicable to AEAD \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular}
 \vspace{1mm}
-\parbox{0.98\textwidth}{\scriptsize M: numerical differential metric; S: statistical analysis; R: ciphertext-corruption recovery; C: claim only; T: measured timing; O: asymptotic complexity only; K: key-space/sensitivity analysis; E: equation-level audit; P: bounded probe; A: authenticated rejection; NR: not reported. AEAD controls are separate from the six target schemes. NPCR/UACI were near-identical for same and changed plaintext with fresh nonces; 572 tamper/wrong-key probes were rejected. CPA/KPA probes are limited diagnostics, not proofs. The Al-Dayel noise/occlusion experiment applies corruption before encryption.}\end{table*}
+\parbox{\textwidth}{\scriptsize M: image-difference metric; S: statistical analysis; R: corruption/noise recovery; C: security claim without direct key/content recovery; T: measured runtime; O: asymptotic complexity only; K: key-space or key-sensitivity discussion; NR: not reported. Our AEAD column describes separate controls, not tests of the six custom ciphers. Al-Dayel et al. corrupt the image before encryption.}
+\end{table*}
 
 The matrix reports each paper's tests separately from this study's AEAD controls and equation-level audits. Noise/cropping recovery and cryptographic attack resistance answer different questions: recovering a visually recognizable image after partial damage does not show resistance to CPA/KPA/COA, while AEAD rejection of changed bytes provides integrity but intentionally does not reconstruct damaged plaintext. For that reason, we do not label image-statistic tests as successful attacks or claim that the AEAD controls break the six custom schemes.
 
