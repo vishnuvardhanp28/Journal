@@ -28,6 +28,7 @@ MANIFEST = ROOT / "data" / "benchmarks" / "usc_sipi" / "manifest.csv"
 OUT = ROOT / "results" / "expanded_color_demo"
 FIG = OUT / "figures"
 IMAGE_IDS = ["4.1.07", "4.1.08"]  # USC-SIPI states these USC jelly-bean photographs are free to use.
+FIGURE_SERIALS = {"4.1.07": 15, "4.1.08": 16}  # matches the 1--10 grayscale, 11--20 color montage
 ALGORITHMS = ["AES-256-GCM", "ChaCha20-Poly1305"]
 SEED = 20261025
 FILE_REPEATS = 30
@@ -146,18 +147,19 @@ def build_composite(cases: list[dict]) -> None:
     for idx, case in enumerate(cases):
         image_row = idx * 2
         hist_row = image_row + 1
+        serial = FIGURE_SERIALS[case["image_id"]]
         imgs = [case["original"], case["cipher_view"], case["decrypted"]]
         captions = [
-            f"{case['image_id']} — original",
+            f"Color image {serial} — original",
             f"{case['algorithm']} ciphertext bytes\nreshaped as RGB (display only)",
-            f"{case['image_id']} — exact decryption",
+            f"Color image {serial} — exact decryption",
         ]
         for col, (ax, img, caption) in enumerate(zip(axes[image_row], imgs, captions)):
             ax.imshow(img)
             ax.set_title(caption, fontsize=9)
             ax.set_axis_off()
             calculate_histograms(axes[hist_row, col], img)
-            axes[hist_row, col].set_title(f"Histogram: {caption.splitlines()[0]}", fontsize=8)
+            axes[hist_row, col].set_title(f"Histogram: color image {serial} ({('original', 'ciphertext preview', 'decrypted')[col]})", fontsize=8)
     fig.suptitle("Authenticated image encryption: two color examples and channel histograms", fontsize=15, weight="bold")
     fig.text(0.5, 0.018,
              "Ciphertext preview = encrypted pixel-body bytes reshaped as RGB for display; the .imgenc file is binary. Decrypted pixels match exactly.",

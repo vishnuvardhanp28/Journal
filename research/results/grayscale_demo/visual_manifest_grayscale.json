@@ -13,7 +13,9 @@
     "decrypted_png": "decrypted\\4.1.07_AES-256-GCM_decrypted.png",
     "demo_key_sidecar": "demo_keys\\4.1.07_AES-256-GCM_DEMO_ONLY.key.txt",
     "exact_pixel_match": true,
-    "warning": "Illustration only; demonstration key is exposed and must never be reused."
+    "warning": "Illustration only; demonstration key is exposed and must never be reused.",
+    "figure_example_no": 1,
+    "derived_from_color_image_no": 15
   },
   {
     "image_id": "4.1.08",
@@ -29,6 +31,8 @@
     "decrypted_png": "decrypted\\4.1.08_AES-256-GCM_decrypted.png",
     "demo_key_sidecar": "demo_keys\\4.1.08_AES-256-GCM_DEMO_ONLY.key.txt",
     "exact_pixel_match": true,
-    "warning": "Illustration only; demonstration key is exposed and must never be reused."
+    "warning": "Illustration only; demonstration key is exposed and must never be reused.",
+    "figure_example_no": 2,
+    "derived_from_color_image_no": 16
   }
 ]

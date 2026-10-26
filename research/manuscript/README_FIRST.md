@@ -12,7 +12,7 @@ The malformed math delimiters in the old workflow diagram are fixed. The methods
 
 ## Figures and scope
 
-The ciphertext panels are visual previews made by reshaping encrypted pixel-body bytes. They are not ciphertext files and cannot be decrypted. The actual authenticated encrypted files use the binary `.imgenc` format and are in the separate image-demo package. The grayscale visual examples are luminance conversions of the two USC-SIPI photographs 4.1.07 and 4.1.08; decryption was verified pixel-for-pixel.
+The ciphertext panels are visual previews made by reshaping encrypted pixel-body bytes. They are not ciphertext files and cannot be decrypted. The actual authenticated encrypted files use the binary `.imgenc` format and are in the separate image-demo package. Figures use simple labels: color images 15 and 16, and grayscale examples 1 and 2 (derived from color images 15 and 16). Original catalog identifiers are kept in the data manifest for source traceability; they are not used as figure labels. All decryption examples were checked pixel-for-pixel.
 
 The paper reports control tests using AES-256-GCM and ChaCha20-Poly1305, plus bounded equation-level audits. It does not claim complete implementations or attacks on all six custom schemes. The added citations to P. Vishnu Vardhan's coauthored work are relevant context and do not change the six-paper audit set.
 

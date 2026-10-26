@@ -10,7 +10,7 @@ Install the pinned packages with `python -m pip install -r code/requirements.txt
 
 ## Color and grayscale image demonstrations
 
-The `results/expanded_color_demo/` folder contains the color figure, AES-GCM encrypted binary examples, demo-only key sidecars, decrypted PNGs, and JSON/CSV results. `results/grayscale_demo/` contains two luminance-converted examples with corresponding encrypted `.imgenc` files, display-only ciphertext bytes, exact decrypted PNGs, demo-only keys, and grayscale histogram figure. The source images 4.1.07 and 4.1.08 are USC-SIPI USC jelly-bean images listed as free to use. The demo keys are included solely to permit decryption of examples; they are disclosed, make those samples insecure, and must never be reused.
+The `results/expanded_color_demo/` folder contains the color figure, AES-GCM encrypted binary examples, demo-only key sidecars, decrypted PNGs, and JSON/CSV results. Its figure labels the examples as color images 15 and 16, matching the 1--10 grayscale / 11--20 color numbering in the paper. `results/grayscale_demo/` contains two luminance-converted examples labeled grayscale examples 1 and 2, derived from color images 15 and 16. Original USC-SIPI identifiers remain in the data manifest and filenames for traceability, not as figure labels. Those two source photos are listed as free to use by USC-SIPI. The demo keys are included solely to permit decryption of examples; they are disclosed, make those samples insecure, and must never be reused.
 
 The color ciphertext display images reshape ciphertext-body bytes as RGB; the grayscale previews reshape them as grayscale bytes. They are visualizations, not the `.imgenc` files. Exact decryption was checked pixel-for-pixel for the color and grayscale illustrations. Diagnostics include fresh-nonce NPCR/UACI, entropy, histograms, correlation, limited CPA/KPA probes, noise and integrity checks, wrong-key probes, timing screens, and per-file timing. Their limits are stated in the report and manuscript.
 
@@ -32,7 +32,7 @@ To rerun the asset checks, obtain the grayscale TIFFs listed in `data/benchmarks
 
 ## Rebuild grayscale figure
 
-`code/make_grayscale_demo.py` creates a grayscale preview, AES-GCM container, exact decrypted PNG, and original/ciphertext/decrypted histograms from USC-SIPI images 4.1.07 and 4.1.08. The grayscale samples are luminance conversions of those two photographs. Install the dependencies in `code/requirements.txt`, obtain the source TIFFs from USC-SIPI, then run `python code/make_grayscale_demo.py` from the supplement root. The script writes to `results/grayscale_demo/` by default. Demo keys are intentionally disclosed; never reuse them.
+`code/make_grayscale_demo.py` creates a grayscale preview, AES-GCM container, exact decrypted PNG, and original/ciphertext/decrypted histograms for grayscale examples 1 and 2, derived from color images 15 and 16. The metadata retains original source IDs. Install the dependencies in `code/requirements.txt`, obtain the source TIFFs from USC-SIPI, then run `python code/make_grayscale_demo.py` from the supplement root. The script writes to `results/grayscale_demo/` by default. `code/make_demo_histogram_figures.py` can rebuild both labeled figures from saved result images without rerunning the encryption experiments. Demo keys are intentionally disclosed; never reuse them.
 
 The methodology diagram is stored at `manuscript/figures/methodology_overview.png`; regenerate it with `python code/make_methodology_figure.py` from the supplement root.
 

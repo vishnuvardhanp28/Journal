@@ -28,7 +28,7 @@ from secure_image_bench import canonical_header, encrypt, decrypt, parse_envelop
 
 cases=[]
 records=[]
-for image_id in ['4.1.07','4.1.08']:
+for example_no,(image_id,color_serial) in enumerate([('4.1.07',15),('4.1.08',16)],start=1):
     src=src_dir/f'{image_id}.tiff'
     with Image.open(src) as im:
         rgb=im.convert('RGB')
@@ -54,21 +54,21 @@ for image_id in ['4.1.07','4.1.08']:
     decpath=out/'decrypted'/f'{image_id}_AES-256-GCM_decrypted.png'
     Image.fromarray(decarr,'L').save(decpath)
     assert np.array_equal(arr,decarr)
-    cases.append((image_id,arr,np.asarray(cipher),decarr))
-    records.append({'image_id':image_id,'source_file':src.name,'source_sha256':hashlib.sha256(src.read_bytes()).hexdigest(),'grayscale_transform':'Pillow RGB-to-L conversion','mode':'L','width':w,'height':h,'algorithm':'AES-256-GCM','encrypted_binary':str(encpath.relative_to(out)),'ciphertext_display_png':str(cipherpath.relative_to(out)),'decrypted_png':str(decpath.relative_to(out)),'demo_key_sidecar':str(keypath.relative_to(out)),'exact_pixel_match':True,'warning':'Illustration only; demonstration key is exposed and must never be reused.'})
+    cases.append((example_no,color_serial,arr,np.asarray(cipher),decarr))
+    records.append({'figure_example_no':example_no,'derived_from_color_image_no':color_serial,'source_asset_id':image_id,'source_file':src.name,'source_sha256':hashlib.sha256(src.read_bytes()).hexdigest(),'grayscale_transform':'Pillow RGB-to-L conversion','mode':'L','width':w,'height':h,'algorithm':'AES-256-GCM','encrypted_binary':str(encpath.relative_to(out)),'ciphertext_display_png':str(cipherpath.relative_to(out)),'decrypted_png':str(decpath.relative_to(out)),'demo_key_sidecar':str(keypath.relative_to(out)),'exact_pixel_match':True,'warning':'Illustration only; demonstration key is exposed and must never be reused.'})
 
 fig,axes=plt.subplots(4,3,figsize=(10.3,10.8),gridspec_kw={'height_ratios':[1.05,.65,1.05,.65]})
 coltitles=('Original grayscale image','Ciphertext-byte visualization','Decrypted grayscale image')
 for j,t in enumerate(coltitles): axes[0,j].set_title(t,fontsize=11,weight='bold')
-for i,(image_id,orig,cipher,dec) in enumerate(cases):
+for i,(example_no,color_serial,orig,cipher,dec) in enumerate(cases):
     row=2*i
-    for j,(im,title) in enumerate([(orig,f'{image_id} — original'),(cipher,'AES-256-GCM ciphertext bytes\nreshaped as grayscale (display only)'),(dec,f'{image_id} — exact decryption')]):
+    for j,(im,title) in enumerate([(orig,f'Grayscale example {example_no} — original'),(cipher,'AES-256-GCM ciphertext bytes\nreshaped as grayscale (display only)'),(dec,f'Grayscale example {example_no} — exact decryption')]):
         ax=axes[row,j]; ax.imshow(im,cmap='gray',vmin=0,vmax=255); ax.set_title(title,fontsize=8.5); ax.axis('off')
         hist=axes[row+1,j]; hist.hist(np.asarray(im).ravel(),bins=np.arange(257),color='#4d5ddd',linewidth=0)
         hist.set_xlim(0,255); hist.set_xlabel('Gray value',fontsize=8); hist.set_ylabel('Count',fontsize=8); hist.grid(alpha=.18); hist.tick_params(labelsize=7)
-        hist.set_title(('Original','Ciphertext-byte preview','Decrypted')[j]+' histogram',fontsize=8)
+        hist.set_title(f'Histogram: grayscale example {example_no} ({("original", "ciphertext preview", "decrypted")[j]})',fontsize=8)
 fig.suptitle('Authenticated image encryption: grayscale examples and histograms',fontsize=14,weight='bold',y=.995)
-fig.text(.5,.005,'Ciphertext preview reshapes encrypted pixel bytes for display; the real .imgenc file is binary. Both decryptions match the grayscale pixels exactly.',ha='center',fontsize=8)
+fig.text(.5,.005,'Examples 1 and 2 are grayscale conversions of color images 15 and 16. Ciphertext preview is display-only; both decryptions match exactly.',ha='center',fontsize=8)
 fig.tight_layout(rect=(0,.025,1,.97),h_pad=1.5,w_pad=.65)
 fig_out.parent.mkdir(parents=True,exist_ok=True)
 fig.savefig(fig_out,dpi=260,bbox_inches='tight')

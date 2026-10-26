@@ -93,7 +93,7 @@ The study follows two parallel paths: a source-paper review with bounded equatio
 \subsection{Image Corpus and Reference Implementations}
 We used 22 TIFF images from the USC-SIPI Image Database: 10 original grayscale images, 10 original RGB images, and two grayscale transformations of RGB images for paired checks. The per-image manifest records source identifier, dimensions, transformation, and SHA-256 hash. Figure~\ref{fig:image-montage} displays the 10 original grayscale and 10 original color images used in the benchmark. The database is intended for research, but USC-SIPI notes that copyright is unknown for many images; reproduction permission for the displayed panels must be confirmed before journal submission \cite{uscSipi,uscSipiCopyright}.
 
-The baseline used AES-256-GCM and ChaCha20-Poly1305 with 32-byte keys and newly generated 96-bit nonces. The image mode and dimensions were encoded as authenticated associated data. Each of the 22 images was tested with both algorithms, for 44 image-algorithm cases. We checked exact pixel recovery, ciphertext/tag bit changes, a metadata edit, central occlusions at three areas, salt-and-pepper corruption at four densities, one-byte truncation, a random wrong key, and a one-bit wrong-key change. The 13 integrity/key probes per case produced 572 total probes. For the example panel, we used USC-SIPI images 4.1.07 and 4.1.08; the database copyright page identifies these two USC jelly-bean photographs as free to use \cite{uscSipiCopyright}.
+The baseline used AES-256-GCM and ChaCha20-Poly1305 with 32-byte keys and newly generated 96-bit nonces. The image mode and dimensions were encoded as authenticated associated data. Each of the 22 images was tested with both algorithms, for 44 image-algorithm cases. We checked exact pixel recovery, ciphertext/tag bit changes, a metadata edit, central occlusions at three areas, salt-and-pepper corruption at four densities, one-byte truncation, a random wrong key, and a one-bit wrong-key change. The 13 integrity/key probes per case produced 572 total probes. The example panels use color images 15 and 16 in the paper's numbering; their original source identifiers remain in the data manifest. The USC-SIPI copyright page identifies these two USC jelly-bean photographs as free to use \cite{uscSipiCopyright}.
 
 As a separate nonce-lifecycle control, we reanalyzed a six-image NASA pilot using both reference algorithms (12 image-algorithm cases). For each case, the harness compared ciphertext bodies for (i) identical plaintexts encrypted under independent fresh nonces, (ii) a one-byte-changed plaintext under a fresh nonce, and (iii) a one-byte-changed plaintext under the same key and nonce. The third condition is deliberately unsafe and was isolated from all normal benchmark runs. We also checked whether XOR of the two ciphertext bodies equals XOR of their plaintexts. This illustrates nonce misuse in the reference stream-encryption modes; it is not an attack on any of the six supplied image ciphers.
 
@@ -241,18 +241,18 @@ Image & Mode & $H(P)$ & $H(C)$ & $H(D)$ & $NPCR(P,C)$ (\%) & $UACI(P,C)$ (\%) & 
 \begin{figure*}[!t]
 \centering
 \includegraphics[width=0.96\textwidth]{figures/color_original_ciphertext_decrypted_histograms.png}
-\caption{Color examples 4.1.07 and 4.1.08. Each image row shows original, ciphertext-byte display, and exact decryption; the following row shows the corresponding RGB-channel histograms. Ciphertext previews are not decryptable image files: the encrypted artifact is a binary authenticated container.}
+\caption{Color images 15 and 16. Each image row shows the original, ciphertext-byte display, and exact decryption; the following row shows the corresponding RGB-channel histograms. The source identifiers are retained in the image manifest. Ciphertext previews are not decryptable image files: the encrypted artifact is a binary authenticated container.}
 \label{fig:color-demo}
 \end{figure*}
 
 \begin{figure*}[!t]
 \centering
 \includegraphics[width=0.96\textwidth]{figures/grayscale_original_ciphertext_decrypted_histograms.png}
-\caption{Grayscale conversions of USC-SIPI color images 4.1.07 and 4.1.08. Each image row shows original, ciphertext-byte display, and exact decryption; the following row shows the corresponding grayscale histograms. The middle panel is a visualization of encrypted pixel bytes, not a normal image ciphertext file.}
+\caption{Grayscale examples 1 and 2, derived from color images 15 and 16, respectively. Each row shows the original, ciphertext-byte display, and exact decryption, followed by the corresponding grayscale histograms. The middle panel is a visualization of encrypted pixel bytes, not a normal image ciphertext file.}
 \label{fig:gray-demo}
 \end{figure*}
 
-On the four file cases using images 4.1.07 and 4.1.08 (two images by two algorithms; 30 file-operation repetitions each), mean per-case median seal time was 3.97 ms and mean open-plus-PNG time was 25.61 ms. These measurements include codec and file operations and apply only to 256$\times$256 RGB images on the recorded machine. They are not directly comparable to the prior 22-image timing suite or to the six papers.
+On the four file cases using color images 15 and 16 (two images by two algorithms; 30 file-operation repetitions each), mean per-case median seal time was 3.97 ms and mean open-plus-PNG time was 25.61 ms. These measurements include codec and file operations and apply only to 256$\times$256 RGB images on the recorded machine. They are not directly comparable to the prior 22-image timing suite or to the six papers.
 
 The image labels in Fig.~\ref{fig:image-montage} use simple serial numbers: 1--10 are grayscale and 11--20 are color. Table~\ref{tab:per-image-metrics} gives plaintext, ciphertext-body, and recovered byte entropy plus direct plaintext-to-ciphertext NPCR/UACI for every image. Because these compare different byte representations, those two columns are descriptive and must not be interpreted as conventional differential sensitivity scores.
 
